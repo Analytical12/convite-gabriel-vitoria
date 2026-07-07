@@ -1,5 +1,7 @@
 # QA Checklist
 
+**Nota de contexto**: o projeto Supabase real já está conectado e migrado, mas **nenhum household/guest de exemplo foi inserido nele** (por decisão do usuário, para não colocar dados fictícios em produção). Por isso, os itens que dependem de um código de convite válido contra o backend real (RSVP ponta a ponta, `/c/[code]`, edição manual de RSVP) ainda não puderam ser executados nesta rodada — ficam marcados como pendentes até que a lista real de convidados (ou ao menos um household de teste) seja cadastrada no projeto real. `npm run lint`, `npm run typecheck` e `npm run build` já foram validados e passam limpos.
+
 ## Mobile
 
 - [ ] Envelope fechado cabe na tela sem scroll em telas de 360px de largura
@@ -72,6 +74,7 @@
 ## Deploy
 
 - [ ] Todas as variáveis de `.env.example` configuradas na Vercel
-- [ ] Build de produção (`npm run build`) passa sem erros
+- [x] Build de produção (`npm run build`) passa sem erros (validado localmente com o Supabase real conectado)
 - [ ] Redirect URLs do Supabase Auth incluem o domínio de produção
 - [ ] Webhook do Mercado Pago aponta para a URL de produção
+- [ ] Repositório Git tem um remote configurado e a branch `main` foi enviada (nesta rodada, o repositório só existe localmente)

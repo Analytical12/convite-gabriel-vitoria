@@ -2,7 +2,15 @@
 
 ## Status atual
 
-Base funcional completa do convite digital: acesso por código, carta animada, seções públicas, RSVP (com edição manual pelo admin), presentes (Mercado Pago isolado/documentado), recados privados e painel admin com exportação Excel. `npm install`, `npm run lint`, `npm run typecheck` e `npm run build` passam limpos. **Nenhum projeto Supabase real e nenhuma credencial Mercado Pago foram configurados** — isso foi uma decisão explícita durante o planejamento (ver `docs/IMPLEMENTATION_PLAN.md`), não uma limitação técnica.
+Base funcional completa do convite digital: acesso por código, carta animada, seções públicas, RSVP (com edição manual pelo admin), presentes (Mercado Pago isolado/documentado), recados privados e painel admin com exportação Excel. `npm install`, `npm run lint`, `npm run typecheck` e `npm run build` passam limpos.
+
+**Supabase**: conectado a um projeto real (`https://qvmolrbfwfrtgwlrftwb.supabase.co`). Migrations `001`–`003` aplicadas, RLS ativo em todas as tabelas, `admin_users` com o e-mail do admin, catálogo de 8 presentes populado. **Nenhum household/convidado de exemplo foi inserido no projeto real** (decisão do usuário — households fictícios do `seed.sql` continuam só para dev local). Chaves reais só em `.env.local` (não commitado).
+
+**Git**: repositório inicializado localmente, um commit (`chore: prepare wedding app for Supabase and Vercel integration`, 106 arquivos). **Sem remote configurado, nada foi enviado a lugar nenhum** — isso foi uma escolha explícita, não uma pendência técnica.
+
+**Vercel**: não configurada (CLI não instalada, nenhum projeto vinculado, nenhum deploy) — decisão explícita de deixar só preparado/documentado nesta rodada.
+
+**Mercado Pago**: nenhuma credencial fornecida nesta rodada — segue isolado e documentado como antes.
 
 ## O que foi implementado
 
@@ -20,11 +28,11 @@ Base funcional completa do convite digital: acesso por código, carta animada, s
 
 ## O que está pendente (precisa de credenciais/dados reais)
 
-- **Projeto Supabase real**: nada foi provisionado. Siga `docs/SUPABASE_SETUP.md`.
-- **Credenciais Mercado Pago**: fluxo implementado mas nunca testado ponta a ponta (sem `MERCADOPAGO_ACCESS_TOKEN` disponível). Siga `docs/PAYMENTS.md`.
-- **Monogram/logo definitivo**: o casal já colocou `public/Logo nova.png` (PNG 1254×1254) durante o planejamento. Foi processado (remoção de fundo branco → transparência real, recorte, compressão) para `public/assets/monogram-gv.{png,webp}` e uma versão pequena `public/assets/monogram-gv-seal.{png,webp}` para o selo do envelope. **Não existe versão vetorial (SVG)** — só havia o PNG final, sem fonte vetorial; se o casal tiver o arquivo original em vetor, vale substituir depois. As cores do site (`lib/design-tokens.ts`, `styles/tokens.css`) foram amostradas diretamente desse arquivo.
-- **Lista real de convidados**: `households`/`guests` só têm dados de exemplo (`GV-FAMILIA`, `GV-SOLO`) no seed. Precisa ser populada com a lista real antes do envio dos convites.
+- **Lista real de convidados**: nenhum household/guest foi inserido no projeto Supabase real (por escolha do usuário, para não colocar dados fictícios em produção). É o próximo passo antes de qualquer teste ponta a ponta de RSVP contra o backend real, e antes de enviar convites de verdade. `households`/`guests` de exemplo (`GV-FAMILIA`, `GV-SOLO`) continuam só em `supabase/seed.sql`, para uso em dev local.
+- **Credenciais Mercado Pago**: fluxo implementado mas nunca testado ponta a ponta (nenhuma credencial foi fornecida ainda). Siga `docs/PAYMENTS.md`.
+- **Monogram/logo definitivo**: o casal já colocou `public/Logo nova.png` (PNG 1254×1254). Foi processado (remoção de fundo branco → transparência real, recorte, compressão) para `public/assets/monogram-gv.{png,webp}` e uma versão pequena `public/assets/monogram-gv-seal.{png,webp}` para o selo do envelope. **Não existe versão vetorial (SVG)** — só havia o PNG final, sem fonte vetorial; se o casal tiver o arquivo original em vetor, vale substituir depois. As cores do site (`lib/design-tokens.ts`, `styles/tokens.css`) foram amostradas diretamente desse arquivo.
 - **Deploy/domínio**: nada foi publicado na Vercel nem `casamentogv.com.br` configurado — só preparado (ver `README.md`).
+- **Git remote/push**: nenhum remote foi adicionado, nada foi enviado a lugar nenhum. Quando o usuário quiser, criar o repositório remoto (GitHub, etc.) e rodar `git remote add origin <url> && git push -u origin main`.
 
 ## Decisões técnicas
 
@@ -73,6 +81,27 @@ Ver `docs/PAYMENTS.md` para o fluxo completo, variáveis e plano de teste.
 
 Login sem senha (magic link), allowlist dupla, dashboard com 10 métricas, 4 tabelas de gestão (convidados, RSVP, presentes, recados) e exportação Excel com 7 abas. RSVP agora tem edição manual completa via UI (ver "Fluxo RSVP" acima). Não há CRUD completo de convidados/households pelo admin nesta V1 (cadastro inicial é via SQL/seed) — outro candidato a próxima iteração.
 
+## Git, Supabase e Vercel — estado desta rodada
+
+**Git**
+- `git init` rodado nesta pasta; 1 commit (`ace0e7a`, "chore: prepare wedding app for Supabase and Vercel integration").
+- Arquivos rastreados: todo o código-fonte, docs, migrations, `.gitignore`, `.env.example`, `public/Logo nova.png` e os assets processados. **Não rastreados** (confirmado via `git status`/`git ls-files`): `node_modules`, `.next`, `.env.local`, `.claude`.
+- **Sem remote.** Nada foi enviado a nenhum lugar. Adicionar um remote e dar push é uma ação do usuário quando ele decidir onde hospedar (GitHub, etc.).
+
+**Supabase**
+- Projeto real: `https://qvmolrbfwfrtgwlrftwb.supabase.co` (URL pública, não é segredo).
+- Migrations `001_initial_schema.sql`, `002_rls_policies.sql`, `003_rsvp_rpc.sql` aplicadas via Management API (a CLI local não tinha a senha do Postgres para `db push` direto; a rota alternativa documentada em `docs/SUPABASE_SETUP.md` foi usada).
+- Seed aplicado **parcialmente e de propósito**: só os inserts de `admin_users` (e-mail do admin) e `gifts` (8 presentes simbólicos). Os households/guests de exemplo do `seed.sql` **não** foram para o projeto real.
+- Confirmado: as 9 tabelas existem (`households`, `guests`, `rsvp_submissions`, `rsvp_guest_status`, `gifts`, `gift_contributions`, `private_messages`, `admin_audit_log`, `admin_users`), RLS ativo em todas, funções `submit_rsvp()` e `admin_override_rsvp()` existem.
+- `.env.local` (não commitado) tem as chaves reais do projeto (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) e um `ACCESS_COOKIE_SECRET` gerado com `openssl rand -base64 32`.
+- **Nota de segurança**: o token de acesso pessoal do Supabase (`sbp_...`) usado para aplicar as migrations foi colado diretamente na conversa pelo usuário — ele foi usado só de forma pontual (nunca escrito em arquivo do repositório) e não é necessário para o funcionamento do app (não é uma das variáveis de ambiente da aplicação). Como já apareceu no histórico da conversa, recomenda-se rotacioná-lo no dashboard do Supabase (Account → Access Tokens) por precaução, a critério do usuário.
+
+**Vercel**
+- Não configurada nesta rodada: CLI não instalada, nenhum projeto vinculado, nenhum deploy feito. Ver `README.md` (seção "Deploy (Vercel)") para a lista de variáveis por ambiente (Production vs. Preview/Development) e os passos quando o usuário decidir prosseguir.
+
+**Mercado Pago**
+- Nenhuma credencial fornecida nesta rodada. Nada mudou no código; `docs/PAYMENTS.md` e `.env.example` continuam descrevendo o fluxo isolado (erro claro em vez de sucesso falso quando não configurado).
+
 ## Limitações conhecidas
 
 - Cadastro/edição de convidados e households ainda é via SQL/migrations, sem UI de admin (edição de RSVP em si já tem UI — ver "Fluxo RSVP").
@@ -84,10 +113,12 @@ Login sem senha (magic link), allowlist dupla, dashboard com 10 métricas, 4 tab
 
 ## Checklist antes de produção
 
-- [ ] Criar projeto Supabase real, rodar migrations + popular convidados reais (`docs/SUPABASE_SETUP.md`)
+- [x] Criar projeto Supabase real, rodar migrations (`docs/SUPABASE_SETUP.md`)
+- [x] Confirmar e-mail de admin em `ADMIN_EMAIL_ALLOWLIST` e na tabela `admin_users`
+- [ ] Popular `households`/`guests` com a lista real de convidados no projeto real
 - [ ] Configurar credenciais Mercado Pago de produção e testar o fluxo completo (`docs/PAYMENTS.md`)
-- [ ] Substituir households/guests de exemplo pela lista real
-- [ ] Confirmar e-mail(s) de admin em `ADMIN_EMAIL_ALLOWLIST` e na tabela `admin_users`
+- [ ] Criar repositório remoto (GitHub ou outro) e dar push da branch `main`
+- [ ] Instalar/autenticar a Vercel CLI (ou usar o painel web), vincular o projeto, configurar as env vars e fazer o deploy
 - [ ] Configurar domínio `casamentogv.com.br` + `NEXT_PUBLIC_SITE_URL` + Redirect URLs do Supabase Auth
-- [ ] Rodar o `docs/QA_CHECKLIST.md` completo em dispositivo real
-- [ ] Deploy na Vercel com todas as variáveis de ambiente configuradas
+- [ ] Rodar o `docs/QA_CHECKLIST.md` completo em dispositivo real (incluindo os testes que dependem de um household real cadastrado)
+- [ ] Considerar rotacionar o Supabase personal access token usado para aplicar as migrations (apareceu no histórico da conversa)
