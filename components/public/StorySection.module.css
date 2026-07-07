@@ -1,0 +1,17 @@
+.wrap {
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+.paragraph {
+  color: var(--color-ink-soft);
+  margin-top: var(--space-4);
+}
+
+.signature {
+  margin-top: var(--space-6);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  white-space: pre-line;
+}

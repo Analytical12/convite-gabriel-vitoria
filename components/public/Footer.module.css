@@ -1,0 +1,29 @@
+.footer {
+  padding-block: var(--space-8) var(--space-7);
+  text-align: center;
+  border-top: 1px solid var(--color-gold-line-soft);
+}
+
+.names {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+}
+
+.date {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: var(--fs-sm);
+}
+
+.closing {
+  margin-top: var(--space-4);
+  color: var(--color-ink-soft);
+}
+
+.monogram {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin: var(--space-6) auto 0;
+  opacity: 0.7;
+}

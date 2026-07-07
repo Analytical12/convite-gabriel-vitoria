@@ -1,0 +1,27 @@
+.hero {
+  padding-block: var(--space-6) var(--space-8);
+  text-align: center;
+}
+
+.names {
+  font-size: clamp(2.5rem, 8vw, var(--fs-4xl));
+  font-weight: 500;
+}
+
+.date {
+  margin-top: var(--space-3);
+  font-size: var(--fs-md);
+  color: var(--color-ink-soft);
+}
+
+.location {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.intro {
+  margin: var(--space-5) auto 0;
+  max-width: 46ch;
+  color: var(--color-ink-soft);
+}

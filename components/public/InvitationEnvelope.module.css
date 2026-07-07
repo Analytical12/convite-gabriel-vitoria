@@ -1,0 +1,161 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: var(--color-champagne);
+  background-image: radial-gradient(circle at 50% 20%, var(--color-lavender-100) 0%, transparent 55%),
+    radial-gradient(circle at 20% 85%, var(--color-blush-100) 0%, transparent 50%);
+}
+
+.scene {
+  width: min(320px, 84vw);
+  perspective: 1600px;
+}
+
+.envelopeWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.body {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--color-off-white);
+  border: 1px solid var(--color-gold-line-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.bodyShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(58, 52, 46, 0.05) 100%);
+}
+
+.flap {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  background: linear-gradient(155deg, var(--color-paper) 0%, var(--color-lavender-100) 100%);
+  border-bottom: 1px solid var(--color-gold-line-soft);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.seal {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: var(--color-off-white);
+  border: 1px solid var(--color-gold-line);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.sealImage {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.sealFallback {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--color-lavender-700);
+}
+
+.openButton {
+  min-width: 200px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-6);
+  background: var(--color-off-white);
+  border: 1px solid var(--color-gold-line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.cardMonogram {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  margin-bottom: var(--space-2);
+}
+
+.cardNames {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+}
+
+.cardDate {
+  font-size: var(--fs-md);
+  color: var(--color-ink-soft);
+}
+
+.cardLocation {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.cardVerse {
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  color: var(--color-ink);
+  max-width: 22ch;
+}
+
+.cardVerseRef {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-lavender-700);
+}
+
+.continueHint {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chevron {
+  width: 14px;
+  height: 14px;
+  border-right: 1.5px solid var(--color-gold-line);
+  border-bottom: 1.5px solid var(--color-gold-line);
+  transform: rotate(45deg);
+}

@@ -1,0 +1,44 @@
+.grid {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.detailCard {
+  padding: var(--space-6);
+}
+
+.venue {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+}
+
+.address {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: var(--fs-sm);
+}
+
+.mapLink {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  text-decoration: underline;
+  color: var(--color-lavender-700);
+}
+
+.arrivalNote {
+  margin-top: var(--space-5);
+  color: var(--color-ink-soft);
+}
+
+.countdownWrap {
+  margin-top: var(--space-7);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
