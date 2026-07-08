@@ -4,7 +4,11 @@
 
 Base funcional completa do convite digital: acesso por código, carta animada, seções públicas, RSVP (com edição manual pelo admin), presentes (Mercado Pago isolado/documentado), recados privados e painel admin com exportação Excel. `npm install`, `npm run lint`, `npm run typecheck` e `npm run build` passam limpos.
 
-**Supabase**: conectado a um projeto real (`https://qvmolrbfwfrtgwlrftwb.supabase.co`). Migrations `001`–`003` aplicadas, RLS ativo em todas as tabelas, `admin_users` com o e-mail do admin, catálogo de 8 presentes populado. **Nenhum household/convidado de exemplo foi inserido no projeto real** (decisão do usuário — households fictícios do `seed.sql` continuam só para dev local). Chaves reais só em `.env.local` (não commitado).
+**Supabase**: conectado a um projeto real (`https://qvmolrbfwfrtgwlrftwb.supabase.co`). Migrations `001`–`003` aplicadas, RLS ativo em todas as tabelas, `admin_users` com o e-mail do admin, catálogo de 8 presentes populado. Chaves reais só em `.env.local` (não commitado).
+
+Um household de teste (`GV-TESTE`, "Família Teste (QA)", 2 convidados fictícios) foi inserido no projeto real só para validar o fluxo ponta a ponta — **não é dado de convidado real**, mesmo padrão do `GV-FAMILIA`/`GV-SOLO` do `seed.sql`. Fica registrado aqui para não ser confundido com um convidado de verdade; pode ser removido antes do envio dos convites (`delete from households where code = 'GV-TESTE';`, o `on delete cascade` limpa guests/rsvp junto).
+
+**RSVP validado ponta a ponta contra o backend real** usando esse household: código → cookie → `/convite` renderiza os convidados corretos → RSVP enviado (`status` calculado como `confirmed`, restrição alimentar e mensagem gravadas) → reenvio bloqueado com 409 → `guestId` de outro household rejeitado com 400 → recado privado salvo → tudo conferido direto no banco. Ver "Bug encontrado e corrigido" abaixo.
 
 **Git**: repositório inicializado localmente, um commit (`chore: prepare wedding app for Supabase and Vercel integration`, 106 arquivos). **Sem remote configurado, nada foi enviado a lugar nenhum** — isso foi uma escolha explícita, não uma pendência técnica.
 
@@ -96,6 +100,11 @@ Login sem senha (magic link), allowlist dupla, dashboard com 10 métricas, 4 tab
 - `.env.local` (não commitado) tem as chaves reais do projeto (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) e um `ACCESS_COOKIE_SECRET` gerado com `openssl rand -base64 32`.
 - **Nota de segurança**: o token de acesso pessoal do Supabase (`sbp_...`) usado para aplicar as migrations foi colado diretamente na conversa pelo usuário — ele foi usado só de forma pontual (nunca escrito em arquivo do repositório) e não é necessário para o funcionamento do app (não é uma das variáveis de ambiente da aplicação). Como já apareceu no histórico da conversa, recomenda-se rotacioná-lo no dashboard do Supabase (Account → Access Tokens) por precaução, a critério do usuário.
 
+**Bug encontrado e corrigido (durante o teste ponta a ponta)**
+- `GET /convite` retornava **500** para todo mundo com cookie válido. Causa: `components/public/Footer.tsx` (Server Component) passava um handler `onError` para o `next/image` — funções não podem ser passadas de um Server Component para um Client Component (`next/image` é client-side por baixo dos panos), e o React lança erro em runtime ("Event handlers cannot be passed to Client Component props"). Isso não aparecia no `next build` (é erro de runtime, não de tipo/lint) nem nos smoke tests anteriores (que só bateram em `/` e `/login`, nunca em `/convite` com um cookie válido) — só apareceu agora que testamos o fluxo de verdade contra o Supabase real.
+- Corrigido extraindo um `components/public/MonogramImage.tsx` (Client Component) que encapsula o `next/image` + `onError`, usado pelo `Footer`. Único lugar afetado — os outros dois usos de `onError` em imagem (`InvitationEnvelope.tsx`, `AccessGate.tsx`) já eram Client Components. Commit `58e6edd`.
+- **Lição**: `npm run build` passar não significa que as páginas realmente renderizam sem erro em runtime — vale sempre bater nas rotas de verdade (com dados reais) antes de considerar algo pronto.
+
 **Vercel**
 - Não configurada nesta rodada: CLI não instalada, nenhum projeto vinculado, nenhum deploy feito. Ver `README.md` (seção "Deploy (Vercel)") para a lista de variáveis por ambiente (Production vs. Preview/Development) e os passos quando o usuário decidir prosseguir.
 
@@ -105,20 +114,24 @@ Login sem senha (magic link), allowlist dupla, dashboard com 10 métricas, 4 tab
 ## Limitações conhecidas
 
 - Cadastro/edição de convidados e households ainda é via SQL/migrations, sem UI de admin (edição de RSVP em si já tem UI — ver "Fluxo RSVP").
-- A edição de RSVP pelo admin não foi testada contra um projeto Supabase real (nenhum está provisionado nesta entrega) — o build/lint/typecheck passam, mas o fluxo ponta a ponta (login real → editar → exportar) só pode ser validado depois que `docs/SUPABASE_SETUP.md` for seguido.
+- O fluxo público de RSVP **já foi validado ponta a ponta** contra o Supabase real (ver "Bug encontrado e corrigido" acima). A **edição de RSVP pelo admin** (`/admin/rsvp`) e a **exportação Excel** ainda não foram clicadas manualmente com uma sessão admin real — dependem de login por magic link (precisa de acesso à caixa de e-mail, não automatizável por aqui). Login, dashboard e as demais telas do admin também só foram confirmadas via as guardas de acesso (401/redirect), não visualmente.
 - Fluxo de pagamento não testado com credenciais reais (sandbox ou produção).
 - Sem galeria, música, vídeo, padrinhos/pais — fora do escopo da V1 por decisão do brief.
 - Duas vulnerabilidades moderadas do `npm audit` são transitivas (via `next`→`postcss` e `exceljs`→`uuid`), sem exploit prático neste app (não processamos CSS nem UUIDs de fontes não confiáveis) — **não foi rodado `npm audit fix --force`** porque isso rebaixaria `next` e `exceljs` para versões muito antigas. Reavaliar quando as dependências publicarem patches.
 - **Ambiente de desenvolvimento (iCloud) — problema recorrente**: esta pasta fica dentro do Desktop sincronizado pelo iCloud, e o `node_modules` (500MB+, milhares de arquivos) já foi automaticamente evacuado para a nuvem pelo macOS **duas vezes** durante o desenvolvimento (a segunda vez, poucos dias depois da primeira), deixando `tsc`/`next build` extremamente lentos e, na segunda ocorrência, **travando de vez** (um `find | xargs cat` para forçar o download ficou parado por minutos sem progredir, e `brctl download` não resolveu). Nas duas vezes, a correção que funcionou de forma confiável foi `rm -rf node_modules && npm install` (reinstala local, fresco, ainda não elegível para eviction). Uma correção via symlink (`node_modules` apontando para fora do iCloud) foi tentada e descartada: o **Turbopack do Next.js 16 recusa explicitamente um `node_modules` symlinkado para fora da raiz do projeto** ("Symlink [project]/node_modules is invalid, it points out of the filesystem root"). Como isso já aconteceu duas vezes em poucos dias, é bem provável que aconteça de novo. Recomendação prática: se `npm run dev`/`build`/`typecheck` ficarem muito lentos ou travarem, rode `rm -rf node_modules && npm install` antes de investigar qualquer outra coisa. A correção definitiva é excluir esta pasta (ou pelo menos `node_modules`) da sincronização do iCloud Desktop & Documents, ou mover o projeto para fora de `~/Desktop` (ex.: `~/Projects`) — vale considerar isso antes da próxima rodada de desenvolvimento.
+- **Múltiplas sessões do Claude Code simultâneas nesta pasta**: em determinado momento havia 3-4 processos `claude` rodando ao mesmo tempo neste mesmo projeto (janelas/abas diferentes do VS Code), o que contribuiu para a lentidão do iCloud (todas competindo por I/O) e causou pelo menos um `.git/index.lock` travado (removido com segurança depois de confirmar que nenhum processo o segurava) e um servidor `next dev` sendo derrubado no meio de um teste sem explicação aparente — quase certamente outra sessão rodando `pkill`/reiniciando o próprio servidor na mesma porta. Recomendação: manter só uma sessão do Claude Code ativa por vez neste projeto para evitar esse tipo de interferência.
 
 ## Checklist antes de produção
 
 - [x] Criar projeto Supabase real, rodar migrations (`docs/SUPABASE_SETUP.md`)
 - [x] Confirmar e-mail de admin em `ADMIN_EMAIL_ALLOWLIST` e na tabela `admin_users`
+- [x] Validar RSVP ponta a ponta contra o backend real (household de teste `GV-TESTE` — remover antes de produção)
+- [ ] Remover o household `GV-TESTE` do projeto real antes do envio dos convites de verdade
 - [ ] Popular `households`/`guests` com a lista real de convidados no projeto real
+- [ ] Testar login admin (magic link) e edição de RSVP/exportação Excel manualmente, com sessão real
 - [ ] Configurar credenciais Mercado Pago de produção e testar o fluxo completo (`docs/PAYMENTS.md`)
 - [ ] Criar repositório remoto (GitHub ou outro) e dar push da branch `main`
 - [ ] Instalar/autenticar a Vercel CLI (ou usar o painel web), vincular o projeto, configurar as env vars e fazer o deploy
 - [ ] Configurar domínio `casamentogv.com.br` + `NEXT_PUBLIC_SITE_URL` + Redirect URLs do Supabase Auth
-- [ ] Rodar o `docs/QA_CHECKLIST.md` completo em dispositivo real (incluindo os testes que dependem de um household real cadastrado)
+- [ ] Rodar o `docs/QA_CHECKLIST.md` completo em dispositivo real
 - [ ] Considerar rotacionar o Supabase personal access token usado para aplicar as migrations (apareceu no histórico da conversa)

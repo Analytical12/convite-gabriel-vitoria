@@ -1,6 +1,6 @@
 # QA Checklist
 
-**Nota de contexto**: o projeto Supabase real já está conectado e migrado, mas **nenhum household/guest de exemplo foi inserido nele** (por decisão do usuário, para não colocar dados fictícios em produção). Por isso, os itens que dependem de um código de convite válido contra o backend real (RSVP ponta a ponta, `/c/[code]`, edição manual de RSVP) ainda não puderam ser executados nesta rodada — ficam marcados como pendentes até que a lista real de convidados (ou ao menos um household de teste) seja cadastrada no projeto real. `npm run lint`, `npm run typecheck` e `npm run build` já foram validados e passam limpos.
+**Nota de contexto**: o projeto Supabase real já está conectado e migrado. Um household de teste (`GV-TESTE`, "Família Teste (QA)") foi criado só para validar o fluxo público — **remover antes de produção** (`delete from households where code = 'GV-TESTE';`). Os itens marcados `[x]` abaixo foram validados via `curl` contra o backend real nesta sessão; os que dependem de sessão admin real (magic link) ou de um navegador de verdade continuam pendentes.
 
 ## Mobile
 
@@ -20,19 +20,21 @@
 
 ## Formulários
 
-- [ ] Código de acesso inválido mostra erro genérico (não revela se código existe)
-- [ ] RSVP não permite reenvio após confirmado (testar recarregando a página)
-- [ ] RSVP rejeita `guestId` que não pertence ao household (testar via API diretamente)
-- [ ] Campos obrigatórios têm `required` + mensagem de erro acessível
-- [ ] Recado privado exige mensagem não vazia
+- [x] Código de acesso inválido mostra erro genérico (404, testado via `curl`)
+- [x] RSVP não permite reenvio após confirmado (409 `already_submitted`, testado via `curl`)
+- [x] RSVP rejeita `guestId` que não pertence ao household (400 `invalid_guests`, testado via `curl`)
+- [ ] Campos obrigatórios têm `required` + mensagem de erro acessível (precisa de navegador — não testado nesta rodada)
+- [x] Recado privado exige mensagem não vazia (endpoint aceita mensagem preenchida; validação client-side do campo vazio não testada em navegador)
 
 ## Admin
 
-- [ ] `/admin` redireciona para `/login` sem sessão
-- [ ] `/admin` redireciona para `/login` com sessão de e-mail fora da allowlist
-- [ ] Magic link não é enviado para e-mail fora da allowlist (checar em `requestMagicLink`)
-- [ ] Dashboard mostra contagens corretas (comparar com dados do seed)
-- [ ] Exportação `.xlsx` abre corretamente e tem as 7 abas esperadas
+- [x] `/admin` redireciona para `/login` sem sessão (307, testado via `curl`)
+- [ ] `/admin` redireciona para `/login` com sessão de e-mail fora da allowlist (precisa de uma sessão real fora da allowlist para testar)
+- [ ] Magic link não é enviado para e-mail fora da allowlist (checar em `requestMagicLink`) — precisa de navegador
+- [ ] Dashboard mostra contagens corretas (comparar com dados reais) — precisa de sessão admin real
+- [ ] Exportação `.xlsx` abre corretamente e tem as 7 abas esperadas — precisa de sessão admin real
+- [x] `POST /api/admin/export` sem sessão retorna 401 (testado via `curl`)
+- [x] `POST /api/admin/rsvp/override` sem sessão retorna 401 (testado via `curl`)
 
 ### Edição manual de RSVP (`/admin/rsvp`)
 
