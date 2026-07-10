@@ -35,7 +35,7 @@ Um household de teste (`GV-TESTE`, "Família Teste (QA)", 2 convidados fictício
 - **Lista real de convidados**: nenhum household/guest foi inserido no projeto Supabase real (por escolha do usuário, para não colocar dados fictícios em produção). É o próximo passo antes de qualquer teste ponta a ponta de RSVP contra o backend real, e antes de enviar convites de verdade. `households`/`guests` de exemplo (`GV-FAMILIA`, `GV-SOLO`) continuam só em `supabase/seed.sql`, para uso em dev local.
 - **Credenciais Mercado Pago**: fluxo implementado mas nunca testado ponta a ponta (nenhuma credencial foi fornecida ainda). Siga `docs/PAYMENTS.md`.
 - **Monogram/logo definitivo**: o casal já colocou `public/Logo nova.png` (PNG 1254×1254). Foi processado (remoção de fundo branco → transparência real, recorte, compressão) para `public/assets/monogram-gv.{png,webp}` e uma versão pequena `public/assets/monogram-gv-seal.{png,webp}` para o selo do envelope. **Não existe versão vetorial (SVG)** — só havia o PNG final, sem fonte vetorial; se o casal tiver o arquivo original em vetor, vale substituir depois. As cores do site (`lib/design-tokens.ts`, `styles/tokens.css`) foram amostradas diretamente desse arquivo.
-- **Deploy/domínio**: nada foi publicado na Vercel nem `casamentogv.com.br` configurado — só preparado (ver `README.md`).
+- **Deploy/domínio**: nada foi publicado na Vercel nem `weddinggv.com` configurado — só preparado (ver `README.md`).
 - **Git remote/push**: nenhum remote foi adicionado, nada foi enviado a lugar nenhum. Quando o usuário quiser, criar o repositório remoto (GitHub, etc.) e rodar `git remote add origin <url> && git push -u origin main`.
 
 ## Decisões técnicas
@@ -132,6 +132,6 @@ Login sem senha (magic link), allowlist dupla, dashboard com 10 métricas, 4 tab
 - [ ] Configurar credenciais Mercado Pago de produção e testar o fluxo completo (`docs/PAYMENTS.md`)
 - [ ] Criar repositório remoto (GitHub ou outro) e dar push da branch `main`
 - [ ] Instalar/autenticar a Vercel CLI (ou usar o painel web), vincular o projeto, configurar as env vars e fazer o deploy
-- [ ] Configurar domínio `casamentogv.com.br` + `NEXT_PUBLIC_SITE_URL` + Redirect URLs do Supabase Auth
+- [ ] Configurar domínio `weddinggv.com` + `NEXT_PUBLIC_SITE_URL` + Redirect URLs do Supabase Auth
 - [ ] Rodar o `docs/QA_CHECKLIST.md` completo em dispositivo real
 - [ ] Considerar rotacionar o Supabase personal access token usado para aplicar as migrations (apareceu no histórico da conversa)

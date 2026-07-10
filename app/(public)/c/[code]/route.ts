@@ -3,7 +3,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { signAccessCookie, accessCookieOptions } from "@/lib/auth/access-cookie";
 
 /**
- * Link-embedded access, e.g. https://casamentogv.com.br/c/GV-FAMILIA sent
+ * Link-embedded access, e.g. https://weddinggv.com/c/GV-FAMILIA sent
  * over WhatsApp. Validates the code, sets the same signed cookie the manual
  * gate on "/" sets, then redirects into the invitation.
  */

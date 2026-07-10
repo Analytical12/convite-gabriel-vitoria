@@ -65,10 +65,10 @@ Passo a passo completo em [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Sem `MERCADOPA
 1. Importe o repositório na Vercel (depois que o Git estiver com um remote — ver `HANDOFF.md`).
 2. Configure as variáveis de ambiente em Project Settings → Environment Variables, separadas por ambiente:
 
-   **Production** (`https://casamentogv.com.br`):
+   **Production** (`https://weddinggv.com`):
    | Variável | Valor |
    |---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://casamentogv.com.br` |
+   | `NEXT_PUBLIC_SITE_URL` | `https://weddinggv.com` |
    | `NEXT_PUBLIC_SUPABASE_URL` | o mesmo valor real já usado em `.env.local` |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | idem |
    | `SUPABASE_SERVICE_ROLE_KEY` | idem (nunca marcar como pública) |
@@ -78,9 +78,9 @@ Passo a passo completo em [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Sem `MERCADOPA
    | `PIX_KEY_FALLBACK` | `49988148811` |
 
    **Preview/Development**: mesmas variáveis, exceto `NEXT_PUBLIC_SITE_URL`, que deve apontar para a URL de preview gerada pela Vercel (ou `http://localhost:3000` em dev). Reavaliar as Redirect URLs do Supabase Auth para incluir a URL de preview quando ela existir.
-3. Atualize as Redirect URLs no Supabase Auth (Authentication → URL Configuration) para incluir `https://casamentogv.com.br/auth/callback` além de `http://localhost:3000/auth/callback`.
+3. Atualize as Redirect URLs no Supabase Auth (Authentication → URL Configuration) para incluir `https://weddinggv.com/auth/callback` além de `http://localhost:3000/auth/callback`.
 4. Deploy. Nenhum passo de build especial é necessário além de `npm run build`.
-5. Depois que o domínio estiver ativo, cadastre a URL do webhook do Mercado Pago (`https://casamentogv.com.br/api/mercadopago/webhook`) no painel de integrações do Mercado Pago.
+5. Depois que o domínio estiver ativo, cadastre a URL do webhook do Mercado Pago (`https://weddinggv.com/api/mercadopago/webhook`) no painel de integrações do Mercado Pago.
 
 ## Comandos úteis
 

@@ -10,7 +10,7 @@ export const WEDDING = {
   rsvpDeadlineDisplay: "10 de setembro de 2026",
   whatsapp: "49 98814-8811",
   whatsappHref: "https://wa.me/5549988148811",
-  domain: "casamentogv.com.br",
+  domain: "weddinggv.com",
   verse: "Nós amamos porque Ele nos amou primeiro.",
   verseReference: "1 João 4:19",
 } as const;

@@ -14,7 +14,7 @@
 | Encerramento previsto | ~12h00 |
 | RSVP até | 10/09/2026 |
 | Contato WhatsApp | 49 98814-8811 |
-| Domínio previsto | casamentogv.com.br |
+| Domínio previsto | weddinggv.com |
 | Versículo | 1 João 4:19 |
 
 Fora do escopo por dado ainda não disponível: música, galeria de fotos, padrinhos/pais (entregues no convite físico, não digital).
