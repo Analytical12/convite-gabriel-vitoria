@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { motionDurations, motionEasing } from "@/lib/design-tokens";
 import { heroCopy, verseCopy } from "@/lib/copy";
+import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import styles from "./InvitationEnvelope.module.css";
 
 type Props = {
@@ -28,6 +29,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
   return (
     <motion.div
       className={styles.overlay}
+      style={{ backgroundImage: `linear-gradient(180deg, rgba(38,35,34,.34), rgba(38,35,34,.62)), url(${PUBLIC_EXPERIENCE.images.hero})` }}
       exit={{ opacity: 0 }}
       transition={{ duration: motionDurations.slow, ease: motionEasing.standard }}
     >
@@ -38,6 +40,10 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
             className={styles.scene}
             exit={{ opacity: 0, transition: { duration: motionDurations.fast } }}
           >
+            <div className={styles.introCopy}>
+              <p>{heroCopy.eyebrow}</p>
+              <h1>{heroCopy.names}</h1>
+            </div>
             <div className={styles.envelopeWrap}>
               <div className={styles.body}>
                 <div className={styles.bodyShade} aria-hidden="true" />
@@ -66,12 +72,13 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
               </div>
               <button
                 type="button"
-                className={`btn btn--primary ${styles.openButton}`}
+                className={styles.openButton}
                 onClick={handleOpenClick}
                 disabled={flapOpen}
                 aria-label={heroCopy.openAriaLabel}
               >
-                {heroCopy.openLabel}
+                <span>{heroCopy.openLabel}</span>
+                <span className={styles.openLine} aria-hidden="true" />
               </button>
             </div>
           </motion.div>
@@ -93,6 +100,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
                 event.currentTarget.style.display = "none";
               }}
             />
+            <p className={styles.cardPrelude}>Convidamos você para celebrar conosco</p>
             <p className={styles.cardNames}>{heroCopy.names}</p>
             <p className={styles.cardDate}>{heroCopy.date}</p>
             <p className={styles.cardLocation}>{heroCopy.location}</p>

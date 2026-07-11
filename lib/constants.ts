@@ -15,6 +15,26 @@ export const WEDDING = {
   verseReference: "1 João 4:19",
 } as const;
 
+/**
+ * V2 visual content switches and replaceable image paths.
+ * Replace only these files/paths when the final photo selection is ready.
+ */
+export const PUBLIC_EXPERIENCE = {
+  showLodging: false,
+  images: {
+    hero: "/assets/placeholders/couple-hero-v2.webp",
+    portrait: "/assets/placeholders/couple-portrait-v2.webp",
+    venue: "/assets/placeholders/venue-v2.webp",
+    gallery: [
+      "/assets/placeholders/couple-portrait-v2.webp",
+      "/assets/placeholders/couple-hero-v2.webp",
+      "/assets/placeholders/venue-v2.webp",
+      "/assets/placeholders/couple-portrait-v2.webp",
+    ],
+    rsvp: "/assets/placeholders/couple-hero-v2.webp",
+  },
+} as const;
+
 export const ACCESS_COOKIE_NAME = "gv_access";
 export const ADMIN_ROUTE_PREFIX = "/admin";
 export const PUBLIC_GATED_PREFIXES = ["/convite"];

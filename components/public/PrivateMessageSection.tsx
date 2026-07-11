@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Reveal from "./Reveal";
+import styles from "./PrivateMessageSection.module.css";
 
 export default function PrivateMessageSection() {
   const [authorName, setAuthorName] = useState("");
@@ -33,20 +34,19 @@ export default function PrivateMessageSection() {
   }
 
   return (
-    <section className="section container section--centered">
+    <section className={`section container section--centered ${styles.section}`}>
       <Reveal>
         <p className="eyebrow">Recado</p>
         <h2>Deixe um recado</h2>
         <p className="prose" style={{ marginTop: "var(--space-4)" }}>
-          Se quiser deixar uma mensagem especial para nós, este espaço é reservado só para o casal — ninguém
-          mais vai ler.
+          Se quiser deixar uma mensagem especial para nós, este espaço é reservado somente para o casal.
         </p>
       </Reveal>
 
       <Reveal delay={0.05}>
-        <div className="card" style={{ maxWidth: 480, margin: "var(--space-6) auto 0", textAlign: "left" }}>
+        <div className={styles.card}>
           {status === "success" ? (
-            <p>Recado enviado. Obrigado por compartilhar isso com a gente.</p>
+            <p className={styles.success}>Recado enviado. Obrigado por compartilhar este carinho com a gente.</p>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <div className="field">

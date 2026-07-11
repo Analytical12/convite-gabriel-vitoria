@@ -15,6 +15,8 @@ import RSVPForm, { type ExistingRsvp, type RSVPGuest } from "@/components/public
 import GiftsSection, { type Gift } from "@/components/public/GiftsSection";
 import PrivateMessageSection from "@/components/public/PrivateMessageSection";
 import Footer from "@/components/public/Footer";
+import GallerySection from "@/components/public/GallerySection";
+import LodgingSection from "@/components/public/LodgingSection";
 
 export const dynamic = "force-dynamic";
 
@@ -89,13 +91,15 @@ export default async function ConvitePage() {
       <StorySection />
       <ScheduleSection />
       <UsefulInfo />
+      <LodgingSection />
+      <GiftsSection gifts={gifts} />
+      <GallerySection />
       <RSVPForm
         householdName={householdResult.data.display_name}
         guests={guests}
         existingSubmission={existingSubmission}
         deadlinePassed={deadlinePassed}
       />
-      <GiftsSection gifts={gifts} />
       <PrivateMessageSection />
       <Footer />
     </InvitationExperience>

@@ -1,8 +1,8 @@
 .wrap {
   position: relative;
-  height: 46vh;
-  min-height: 260px;
-  max-height: 420px;
+  height: 18vh;
+  min-height: 110px;
+  max-height: 180px;
   overflow: hidden;
   pointer-events: none;
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { rsvpCopy } from "@/lib/copy";
-import { AGE_GROUP_LABELS, RSVP_STATUS_LABELS, WEDDING } from "@/lib/constants";
+import { AGE_GROUP_LABELS, PUBLIC_EXPERIENCE, RSVP_STATUS_LABELS, WEDDING } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./RSVPForm.module.css";
 
@@ -66,8 +67,12 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
   }
 
   return (
-    <section id="rsvp" className="section container section--centered">
+    <section id="rsvp" className={`section ${styles.section}`}>
+      <div className="container section--centered">
       <Reveal>
+        <div className={styles.photoHeader}>
+          <Image src={PUBLIC_EXPERIENCE.images.rsvp} alt="Fotografia demonstrativa do casal" fill sizes="(max-width: 700px) 88vw, 620px" className={styles.photo} />
+        </div>
         <p className="eyebrow">{rsvpCopy.eyebrow}</p>
         <h2>{rsvpCopy.title}</h2>
         <p className="prose" style={{ marginTop: "var(--space-4)" }}>
@@ -155,6 +160,7 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
       <p className={styles.deadlineFootnote}>
         Prazo de confirmação: {WEDDING.rsvpDeadlineDisplay}
       </p>
+      </div>
     </section>
   );
 }

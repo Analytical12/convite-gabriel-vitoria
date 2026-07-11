@@ -6,12 +6,12 @@
  */
 
 export const accessGateCopy = {
-  eyebrow: "Convite",
+  eyebrow: "Você recebeu um convite de",
   title: "Gabriel & Vitória",
   intro: "Este convite é pessoal. Insira o código que você recebeu para abri-lo.",
   codeLabel: "Código do convite",
   codePlaceholder: "Ex.: GV-FAMILIA",
-  submitLabel: "Acessar convite",
+  submitLabel: "Abrir convite",
   submitLoadingLabel: "Verificando...",
   errorInvalid: "Não encontramos esse código. Confira com atenção e tente novamente.",
   errorGeneric: "Algo não funcionou como esperado. Tente novamente em instantes.",
@@ -19,12 +19,13 @@ export const accessGateCopy = {
 } as const;
 
 export const heroCopy = {
-  names: "Gabriel e Vitória",
+  eyebrow: "Você recebeu um convite de",
+  names: "Gabriel & Vitória",
   date: "06 de dezembro de 2026",
   location: "Bonjour Pâtisserie · Chapecó - SC",
   intro:
     "Preparamos este espaço para reunir, com carinho, as informações do nosso casamento.",
-  openLabel: "Abrir convite",
+  openLabel: "Toque no envelope para abrir",
   openAriaLabel: "Abrir o convite de casamento",
 } as const;
 
@@ -34,14 +35,23 @@ export const verseCopy = {
 } as const;
 
 export const welcomeCopy = {
-  eyebrow: "Boas-vindas",
-  title: "Seja bem-vindo(a)",
-  body: "Preparamos este espaço para reunir, com cuidado, tudo o que você precisa saber para o nosso dia. Aqui você encontra data, local, confirmação de presença e algumas orientações para celebrar conosco com tranquilidade.",
+  eyebrow: "Uma carta para você",
+  title: "Com alegria",
+  paragraphs: [
+    "Com alegria, preparamos este espaço para reunir os detalhes do nosso casamento e compartilhar um pouco deste momento com pessoas especiais.",
+    "Será uma grande alegria ter você conosco nesta manhã de celebração, gratidão e amor.",
+  ],
+  signature: "Com carinho,\nGabriel & Vitória",
 } as const;
 
 export const bigDayCopy = {
   eyebrow: "O grande dia",
-  title: "06 de dezembro de 2026",
+  title: "Data & local",
+  date: "06 de dezembro de 2026",
+  arrivalLabel: "Chegada dos convidados",
+  arrivalTime: "08h00",
+  ceremonyLabel: "Cerimônia",
+  ceremonyTime: "08h30",
   venueName: "Bonjour Pâtisserie",
   address: "R. Nicácio Portela Diniz, 43 - Jardim Itália, Chapecó - SC, 89814-010",
   arrivalNote:
@@ -49,8 +59,8 @@ export const bigDayCopy = {
 } as const;
 
 export const countdownCopy = {
-  eyebrow: "Contagem regressiva",
-  title: "Faltam",
+  eyebrow: "Até o nosso sim",
+  title: "A contagem começou",
   days: "dias",
   hours: "horas",
   minutes: "minutos",
@@ -60,33 +70,38 @@ export const countdownCopy = {
 
 export const storyCopy = {
   eyebrow: "Nossa história",
-  title: "Um novo começo",
+  title: "Escrita nos detalhes",
   paragraphs: [
     "A nossa história foi sendo construída nos detalhes: em encontros simples, conversas que amadureceram com o tempo e uma amizade que, pouco a pouco, ganhou novo significado.",
     "Antes de qualquer grande passo, houve cuidado, espera e oração. Em meio à distância, aos planos e às confirmações que Deus colocou no caminho, entendemos que essa história não estava sendo conduzida apenas por nós.",
     "Hoje, ao olhar para tudo o que vivemos, reconhecemos a bondade de Deus em cada etapa. E é com alegria que queremos celebrar esse novo começo ao lado das pessoas que fazem parte da nossa vida.",
   ],
-  signature: "Com carinho,\nGabriel e Vitória",
+  signature: "Gabriel & Vitória",
 } as const;
 
 export const scheduleCopy = {
-  eyebrow: "Programação",
-  title: "Como será o nosso dia",
+  eyebrow: "Uma manhã para recordar",
+  title: "Nossa programação",
+  intro: "Preparamos uma manhã leve e especial para celebrar este dia com tranquilidade.",
   items: [
-    { time: "08h00", label: "Chegada dos convidados" },
-    { time: "08h30", label: "Cerimônia" },
-    { time: "—", label: "Brunch francês, após a cerimônia" },
-    { time: "12h00", label: "Encerramento (previsão)" },
+    { time: "08h00", label: "Chegada dos convidados", icon: "arrival" },
+    { time: "08h30", label: "Cerimônia", icon: "rings" },
+    { time: "Após a cerimônia", label: "Brunch francês", icon: "glasses" },
+    { time: "Por volta de 12h00", label: "Encerramento", icon: "farewell" },
   ],
 } as const;
 
 export const usefulInfoCopy = {
-  eyebrow: "Informações úteis",
-  title: "Para você se organizar",
+  eyebrow: "Para celebrar conosco",
+  title: "Detalhes importantes",
   dressCode: {
     label: "Traje",
     value: "Esporte fino leve",
-    note: "Como será uma celebração pela manhã, sugerimos traje esporte fino leve, com tecidos confortáveis e elegantes.",
+    note: "Sugerimos traje esporte fino leve, com tecidos confortáveis e elegantes para uma celebração pela manhã.",
+  },
+  invitation: {
+    label: "Convite",
+    note: "O convite é pessoal e considera apenas os nomes descritos para cada família.",
   },
   parking: {
     label: "Estacionamento",
@@ -102,7 +117,7 @@ export const rsvpCopy = {
   eyebrow: "Confirmação de presença",
   title: "RSVP",
   intro:
-    "Sua presença é muito importante para nós. Para nos ajudar na organização deste dia, confirme sua presença até 10 de setembro de 2026.",
+    "Ficaremos muito felizes em ter você conosco. Para nos ajudar na organização, pedimos que confirme sua presença até 10 de setembro de 2026.",
   guestListLabel: "Convidados deste convite",
   dietaryLabel: "Restrição alimentar (opcional)",
   dietaryPlaceholder: "Ex.: vegetariano, alergia a frutos do mar...",
@@ -120,10 +135,12 @@ export const rsvpCopy = {
 } as const;
 
 export const giftsCopy = {
-  eyebrow: "Presentes",
-  title: "Uma lembrança para o nosso início",
+  eyebrow: "Se desejar nos presentear",
+  title: "Sua presença é o nosso maior presente",
   intro:
-    "Se desejar nos presentear, preparamos algumas sugestões simbólicas para esse novo começo. Cada contribuição, de qualquer valor, é recebida com gratidão.",
+    "Ter você conosco neste dia já será uma grande alegria para nós. Se ainda assim desejar nos presentear com algo a mais, preparamos algumas sugestões simbólicas com carinho para este novo capítulo da nossa vida.",
+  revealLabel: "Ver sugestões de presente",
+  hideLabel: "Fechar sugestões",
   chooseAmountLabel: "Valor da contribuição",
   customAmountLabel: "Outro valor",
   giverNameLabel: "Seu nome (opcional)",
@@ -136,7 +153,8 @@ export const giftsCopy = {
 } as const;
 
 export const footerCopy = {
-  names: "Gabriel e Vitória",
+  prelude: "Com carinho,",
+  names: "Gabriel & Vitória",
   date: "06 de dezembro de 2026",
   closing: "Com carinho, esperamos você para celebrar conosco.",
 } as const;

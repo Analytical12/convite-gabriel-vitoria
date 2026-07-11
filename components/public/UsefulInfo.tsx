@@ -13,7 +13,8 @@ export default function UsefulInfo() {
 
       <div className={styles.grid}>
         <Reveal delay={0.05}>
-          <div className={`card ${styles.item}`}>
+          <div className={styles.item}>
+            <span className={styles.number}>01</span>
             <p className={styles.label}>{usefulInfoCopy.dressCode.label}</p>
             <p className={styles.value}>{usefulInfoCopy.dressCode.value}</p>
             <p className={styles.note}>{usefulInfoCopy.dressCode.note}</p>
@@ -21,7 +22,16 @@ export default function UsefulInfo() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className={`card ${styles.item}`}>
+          <div className={styles.item}>
+            <span className={styles.number}>02</span>
+            <p className={styles.label}>{usefulInfoCopy.invitation.label}</p>
+            <p className={styles.note}>{usefulInfoCopy.invitation.note}</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <div className={styles.item}>
+            <span className={styles.number}>03</span>
             <p className={styles.label}>{usefulInfoCopy.parking.label}</p>
             <p className={styles.note} style={{ marginTop: "var(--space-4)" }}>
               {usefulInfoCopy.parking.note}
@@ -29,8 +39,9 @@ export default function UsefulInfo() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <div className={`card ${styles.item}`}>
+        <Reveal delay={0.2}>
+          <div className={styles.item}>
+            <span className={styles.number}>04</span>
             <p className={styles.label}>{usefulInfoCopy.contact.label}</p>
             <p className={styles.note} style={{ marginTop: "var(--space-4)" }}>
               Em caso de dúvidas, entre em contato pelo WhatsApp:{" "}

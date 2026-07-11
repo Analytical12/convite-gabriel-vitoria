@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { giftsCopy } from "@/lib/copy";
 import Reveal from "./Reveal";
 import styles from "./GiftsSection.module.css";
@@ -19,6 +20,7 @@ function formatCents(cents: number): string {
 
 export default function GiftsSection({ gifts }: { gifts: Gift[] }) {
   const [activeGiftId, setActiveGiftId] = useState<string | null>(null);
+  const [showGifts, setShowGifts] = useState(false);
 
   return (
     <section id="presentes" className="section section--tinted">
@@ -31,17 +33,16 @@ export default function GiftsSection({ gifts }: { gifts: Gift[] }) {
           </p>
         </Reveal>
 
-        <div className={styles.grid}>
-          {gifts.map((gift, index) => (
-            <Reveal key={gift.id} delay={0.04 * (index + 1)}>
-              <GiftCard
-                gift={gift}
-                isActive={activeGiftId === gift.id}
-                onToggle={() => setActiveGiftId((current) => (current === gift.id ? null : gift.id))}
-              />
-            </Reveal>
-          ))}
-        </div>
+        <button type="button" className={`btn btn--outline ${styles.revealButton}`} onClick={() => setShowGifts((open) => !open)} aria-expanded={showGifts}>
+          {showGifts ? giftsCopy.hideLabel : giftsCopy.revealLabel}
+        </button>
+        <AnimatePresence initial={false}>
+          {showGifts && <motion.div className={styles.grid} initial={{opacity:0,height:0}} animate={{opacity:1,height:"auto"}} exit={{opacity:0,height:0}}>
+            {gifts.map((gift) => (
+              <GiftCard key={gift.id} gift={gift} isActive={activeGiftId === gift.id} onToggle={() => setActiveGiftId((current) => (current === gift.id ? null : gift.id))} />
+            ))}
+          </motion.div>}
+        </AnimatePresence>
       </div>
     </section>
   );

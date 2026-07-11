@@ -4,17 +4,17 @@
  */
 :root {
   /* color: base */
-  --color-champagne: #f8f3ea;
-  --color-off-white: #fbf8f2;
-  --color-paper: #fcfaf5;
+  --color-champagne: #f3ede3;
+  --color-off-white: #faf6ef;
+  --color-paper: #fdfaf4;
 
   /* color: text */
-  --color-ink: #3a342e;
-  --color-ink-soft: #6b6459;
+  --color-ink: #38322d;
+  --color-ink-soft: #6d645b;
   --color-ink-faint: #9c948a;
 
   /* color: primary (lavender, sampled from the "G" stroke) */
-  --color-lavender-100: #e7ebec;
+  --color-lavender-100: #e4e7e8;
   --color-lavender-300: #c3cbcf;
   --color-lavender-500: #a8b3ba;
   --color-lavender-700: #7c8792;
@@ -77,5 +77,5 @@
   --duration-base: 0.4s;
   --duration-slow: 0.7s;
 
-  --content-max-width: 720px;
+  --content-max-width: 1120px;
 }
