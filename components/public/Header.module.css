@@ -70,6 +70,20 @@
   bottom: 0;
 }
 
+.menuIconClose span {
+  top: 50%;
+  bottom: auto;
+  transition: transform 0.15s ease;
+}
+
+.menuIconClose span:first-child {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.menuIconClose span:last-child {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
 .mobilePanel {
   position: fixed;
   inset: 0;
