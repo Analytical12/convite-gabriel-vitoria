@@ -45,7 +45,7 @@ Abra [http://localhost:3000](http://localhost:3000). Sem um projeto Supabase rea
 
 ## Configurar Supabase
 
-**Status**: conectado a um projeto real; a migração V2.1 (`004_gift_free_contribution.sql`) ainda precisa ser aplicada antes do próximo deploy. Veja [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Passo a passo completo para reproduzir em outro ambiente em [`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md). Resumo:
+**Status**: conectado a um projeto real; a migração V2.1 (`004_gift_free_contribution.sql`) já foi aplicada em produção em 12/07/2026. Veja [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Passo a passo completo para reproduzir em outro ambiente em [`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md). Resumo:
 
 ```bash
 supabase link --project-ref <seu-project-ref>

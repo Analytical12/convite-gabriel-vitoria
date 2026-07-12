@@ -1,6 +1,6 @@
 # Pagamentos — Mercado Pago Checkout Pro
 
-Revisão de produção realizada em **12/07/2026**. O código está pronto para homologação, mas o ambiente ainda não está pronto para pagamentos reais.
+Revisão de produção realizada em **12/07/2026**. O código está pronto para homologação; a migração 004 já foi aplicada no Supabase remoto, mas o ambiente ainda não está pronto para pagamentos reais (falta domínio, credenciais e webhook de produção).
 
 ## Diagnóstico atual
 
@@ -20,12 +20,15 @@ Revisão de produção realizada em **12/07/2026**. O código está pronto para 
 - Atualização idempotente de status, meio de pagamento, status detalhado, modo live e `paid_at`.
 - Admin mostra cota/presente, família, doador, valor, status interno, status do provedor e meio.
 
+### Pronto no ambiente (aplicado em 12/07/2026)
+
+- `supabase/migrations/004_gift_free_contribution.sql` aplicada no Supabase remoto via `supabase db push` (histórico das migrações 001-003 reparado para refletir o schema já existente antes de aplicar a 004).
+- `MERCADOPAGO_ENV=test` adicionado ao `.env.local` — sem essa variável `isMercadoPagoConfigured()` retorna `false` e o checkout ficava bloqueado.
+
 ### Pendente no ambiente
 
-- Aplicar `supabase/migrations/004_gift_free_contribution.sql` no Supabase **antes** do deploy da aplicação.
-- Adicionar `MERCADOPAGO_ENV=test` no ambiente de homologação.
 - Trocar `NEXT_PUBLIC_SITE_URL=http://localhost:3000` pelo domínio HTTPS oficial.
-- Ativar credenciais produtivas e substituir o Access Token de teste pelo de produção.
+- Ativar credenciais produtivas e substituir o Access Token de teste pelo de produção (também trocar `MERCADOPAGO_ENV` para `production`).
 - Configurar o webhook produtivo em `https://DOMINIO/api/mercadopago/webhook`, evento Pagamentos.
 - Copiar a assinatura secreta produtiva para `MERCADOPAGO_WEBHOOK_SECRET`.
 - Cadastrar/validar uma Chave Pix na conta Mercado Pago para que Pix seja exibido no Checkout Pro.
@@ -35,8 +38,8 @@ Revisão de produção realizada em **12/07/2026**. O código está pronto para 
 
 - Todas as variáveis necessárias existem no `.env.local`, sem exposição dos valores.
 - O Access Token foi validado no endpoint oficial `/users/me`: ativo, Brasil (`MLB`) e pertencente a **conta de teste**.
-- O Supabase remoto ainda não possui a migração 004 (`gift_type` e metadados retornaram erro `42703`).
-- O banco remoto contém 2 famílias e 8 presentes demonstrativos; a cota livre ainda não foi criada nele.
+- O Supabase remoto agora possui a migração 004: `gifts.gift_type` e as colunas de conciliação de `gift_contributions` existem e foram lidas com sucesso.
+- A cota livre (`gift_type = 'free'`) existe no banco remoto (id `00000000-0000-4000-8000-000000000021`); o catálogo tem 9 presentes no total (8 demonstrativos + a cota livre).
 - TypeScript e ESLint passam localmente.
 
 ## Fluxo
