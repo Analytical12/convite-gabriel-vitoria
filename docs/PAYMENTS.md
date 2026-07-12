@@ -1,6 +1,6 @@
 # Pagamentos — Mercado Pago Checkout Pro
 
-Revisão de produção realizada em **12/07/2026**. O código está pronto para homologação; a migração 004 já foi aplicada no Supabase remoto, mas o ambiente ainda não está pronto para pagamentos reais (falta domínio, credenciais e webhook de produção).
+Revisão de produção realizada em **12/07/2026**. O código está pronto; a migração 004 já foi aplicada no Supabase remoto e as credenciais produtivas do Mercado Pago já foram validadas **localmente**. O único bloqueador remanescente é configurar essas mesmas variáveis no projeto da Vercel — ver "Pendente no ambiente".
 
 ## Diagnóstico atual
 
@@ -20,26 +20,28 @@ Revisão de produção realizada em **12/07/2026**. O código está pronto para 
 - Atualização idempotente de status, meio de pagamento, status detalhado, modo live e `paid_at`.
 - Admin mostra cota/presente, família, doador, valor, status interno, status do provedor e meio.
 
-### Pronto no ambiente (aplicado em 12/07/2026)
+### Pronto no ambiente
 
-- `supabase/migrations/004_gift_free_contribution.sql` aplicada no Supabase remoto via `supabase db push` (histórico das migrações 001-003 reparado para refletir o schema já existente antes de aplicar a 004).
-- `MERCADOPAGO_ENV=test` adicionado ao `.env.local` — sem essa variável `isMercadoPagoConfigured()` retorna `false` e o checkout ficava bloqueado.
+- `supabase/migrations/004_gift_free_contribution.sql` aplicada no Supabase remoto via `supabase db push` (histórico das migrações 001-003 reparado para refletir o schema já existente antes de aplicar a 004). Aplicado em 12/07/2026.
+- `.env.local` (só afeta a máquina local, nunca vai pro Git) atualizado em 12/07/2026 com:
+  - `NEXT_PUBLIC_SITE_URL=https://weddinggv.com` (antes estava sem `https://`, o que quebraria `notification_url`/`back_urls` — o Mercado Pago exige URL absoluta).
+  - `MERCADOPAGO_ENV=production`.
+  - `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` e `MERCADOPAGO_ACCESS_TOKEN` trocados para as credenciais de produção geradas no painel do Mercado Pago.
+  - `MERCADOPAGO_WEBHOOK_SECRET` já estava correto — é o mesmo valor configurado no webhook de produção (`https://weddinggv.com/api/mercadopago/webhook`, evento "Pagamentos (legacy)").
 
 ### Pendente no ambiente
 
-- Trocar `NEXT_PUBLIC_SITE_URL=http://localhost:3000` pelo domínio HTTPS oficial.
-- Ativar credenciais produtivas e substituir o Access Token de teste pelo de produção (também trocar `MERCADOPAGO_ENV` para `production`).
-- Configurar o webhook produtivo em `https://DOMINIO/api/mercadopago/webhook`, evento Pagamentos.
-- Copiar a assinatura secreta produtiva para `MERCADOPAGO_WEBHOOK_SECRET`.
+- **Bloqueador principal**: replicar as mesmas variáveis (`NEXT_PUBLIC_SITE_URL`, `MERCADOPAGO_ENV=production`, `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `MERCADOPAGO_WEBHOOK_SECRET`) no projeto da Vercel (Settings → Environment Variables → Production) e fazer um redeploy. `.env.local` só existe nesta máquina; o site publicado em weddinggv.com lê as variáveis da Vercel, que são independentes.
 - Cadastrar/validar uma Chave Pix na conta Mercado Pago para que Pix seja exibido no Checkout Pro.
-- Executar todos os cenários de homologação e uma compra real de baixo valor.
+- Depois de configurar a Vercel: executar uma compra real de baixo valor (ex.: a cota livre com R$ 10,00) para confirmar o ciclo completo — preferência → checkout → webhook → `gift_contributions.payment_status = 'approved'` no admin.
 
 ### Evidências verificadas
 
 - Todas as variáveis necessárias existem no `.env.local`, sem exposição dos valores.
-- O Access Token foi validado no endpoint oficial `/users/me`: ativo, Brasil (`MLB`) e pertencente a **conta de teste**.
+- O novo Access Token de produção foi validado no endpoint oficial `/users/me`: ativo, Brasil (`MLB`), conta real (sem a tag `test_user`).
 - O Supabase remoto agora possui a migração 004: `gifts.gift_type` e as colunas de conciliação de `gift_contributions` existem e foram lidas com sucesso.
 - A cota livre (`gift_type = 'free'`) existe no banco remoto (id `00000000-0000-4000-8000-000000000021`); o catálogo tem 9 presentes no total (8 demonstrativos + a cota livre).
+- O site em `https://www.weddinggv.com` está no ar na Vercel (deploy automático a partir do `main` deste repositório) e já serve o código mais recente (`/api/gifts/create-payment` responde `401 unauthorized` sem cookie, como esperado).
 - TypeScript e ESLint passam localmente.
 
 ## Fluxo
