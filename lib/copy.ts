@@ -143,6 +143,7 @@ export const giftsCopy = {
   hideLabel: "Fechar sugestões",
   chooseAmountLabel: "Valor da contribuição",
   customAmountLabel: "Outro valor",
+  freeAmountLabel: "Digite o valor da contribuição",
   giverNameLabel: "Seu nome (opcional)",
   messageLabel: "Mensagem (opcional)",
   submitLabel: "Contribuir",

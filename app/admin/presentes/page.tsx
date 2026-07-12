@@ -6,13 +6,15 @@ export default async function AdminGiftsPage() {
 
   const { data } = await supabase
     .from("gift_contributions")
-    .select("id, amount_cents, payment_status, giver_name, created_at, gifts(title), households(display_name)")
+    .select("id, amount_cents, payment_status, provider_status, payment_method, giver_name, created_at, gifts(title), households(display_name)")
     .order("created_at", { ascending: false })
     .returns<
       Array<{
         id: string;
         amount_cents: number;
         payment_status: string;
+        provider_status: string | null;
+        payment_method: string | null;
         giver_name: string | null;
         created_at: string;
         gifts: { title: string } | null;
@@ -27,6 +29,8 @@ export default async function AdminGiftsPage() {
     giverName: row.giver_name,
     amountCents: row.amount_cents,
     paymentStatus: row.payment_status,
+    providerStatus: row.provider_status,
+    paymentMethod: row.payment_method,
     createdAt: row.created_at,
   }));
 

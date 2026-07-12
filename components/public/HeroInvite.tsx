@@ -4,9 +4,9 @@ import styles from "./HeroInvite.module.css";
 
 export default function HeroInvite() {
   return (
-    <section id="topo" className={styles.hero}>
+    <section id="topo" className={`${styles.hero} paper-texture`}>
       <Reveal>
-        <div className={styles.paper}>
+        <div className={`${styles.paper} paper-surface`}>
           <span className={styles.ornament} aria-hidden="true">✦</span>
           <p className={styles.prelude}>O nosso convite</p>
           <h1 className={styles.names}>{heroCopy.names}</h1>

@@ -9,16 +9,16 @@ export default function WeddingDetails() {
   const mapsQuery = encodeURIComponent(`${bigDayCopy.venueName}, ${bigDayCopy.address}`);
 
   return (
-    <section id="grande-dia" className={`section ${styles.section}`}>
+    <section id="grande-dia" className={`section paper-texture ${styles.section}`}>
       <div className="container section--centered">
         <Reveal>
           <p className="eyebrow">{bigDayCopy.eyebrow}</p>
           <h2>{bigDayCopy.title}</h2>
         </Reveal>
 
-        <div className={styles.invitePage}>
+        <div className={`${styles.invitePage} paper-surface`}>
           <Reveal delay={0.05}>
-            <div className={styles.venueImage}>
+            <div className={`${styles.venueImage} venue-photo-landscape`}>
               <Image src={PUBLIC_EXPERIENCE.images.venue} alt="Imagem demonstrativa do local" fill sizes="(max-width: 700px) 72vw, 360px" className={styles.photo} />
             </div>
           </Reveal>

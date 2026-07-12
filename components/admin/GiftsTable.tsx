@@ -7,6 +7,8 @@ export type GiftContributionRow = {
   giverName: string | null;
   amountCents: number;
   paymentStatus: string;
+  providerStatus: string | null;
+  paymentMethod: string | null;
   createdAt: string;
 };
 
@@ -41,6 +43,7 @@ export default function GiftsTable({ rows }: { rows: GiftContributionRow[] }) {
             <th>De</th>
             <th>Valor</th>
             <th>Status</th>
+            <th>Meio</th>
             <th>Data</th>
           </tr>
         </thead>
@@ -55,7 +58,13 @@ export default function GiftsTable({ rows }: { rows: GiftContributionRow[] }) {
                 <span className={`admin-badge ${STATUS_BADGE[row.paymentStatus] ?? ""}`}>
                   {PAYMENT_STATUS_LABELS[row.paymentStatus] ?? row.paymentStatus}
                 </span>
+                {row.providerStatus && row.providerStatus !== row.paymentStatus && (
+                  <small style={{ display: "block", marginTop: ".25rem", color: "var(--color-ink-faint)" }}>
+                    Mercado Pago: {row.providerStatus}
+                  </small>
+                )}
               </td>
+              <td>{row.paymentMethod ?? "—"}</td>
               <td>{new Date(row.createdAt).toLocaleDateString("pt-BR")}</td>
             </tr>
           ))}

@@ -30,7 +30,9 @@ Preencha cada variável — descrição completa em [`docs/SUPABASE_SETUP.md`](d
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Painel Supabase → Settings → API |
 | `ACCESS_COOKIE_SECRET` | Gerar com `openssl rand -base64 32` |
 | `ADMIN_EMAIL_ALLOWLIST` | E-mail(s) do casal, separados por vírgula |
-| `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` / `MERCADOPAGO_ACCESS_TOKEN` / `MERCADOPAGO_WEBHOOK_SECRET` | Painel de desenvolvedores do Mercado Pago |
+| `MERCADOPAGO_ENV` | `test` na homologação; `production` somente com token produtivo |
+| `MERCADOPAGO_ACCESS_TOKEN` / `MERCADOPAGO_WEBHOOK_SECRET` | Painel de desenvolvedores do Mercado Pago |
+| `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` | Opcional; não usada pelo Checkout Pro redirecionado |
 | `PIX_KEY_FALLBACK` | Placeholder, não conectado à UI ainda |
 
 ## Rodar localmente
@@ -43,7 +45,7 @@ Abra [http://localhost:3000](http://localhost:3000). Sem um projeto Supabase rea
 
 ## Configurar Supabase
 
-**Status**: já conectado a um projeto real (migrations + `admin_users` + catálogo de presentes aplicados — ver `HANDOFF.md` para detalhes, sem valores sensíveis). Passo a passo completo para reproduzir em outro ambiente em [`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md). Resumo:
+**Status**: conectado a um projeto real; a migração V2.1 (`004_gift_free_contribution.sql`) ainda precisa ser aplicada antes do próximo deploy. Veja [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Passo a passo completo para reproduzir em outro ambiente em [`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md). Resumo:
 
 ```bash
 supabase link --project-ref <seu-project-ref>
@@ -74,6 +76,7 @@ Passo a passo completo em [`docs/PAYMENTS.md`](docs/PAYMENTS.md). Sem `MERCADOPA
    | `SUPABASE_SERVICE_ROLE_KEY` | idem (nunca marcar como pública) |
    | `ACCESS_COOKIE_SECRET` | idem, ou gerar um novo específico de produção |
    | `ADMIN_EMAIL_ALLOWLIST` | `gabrielgerhard10@gmail.com` |
+   | `MERCADOPAGO_ENV` | `production` |
    | `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` / `MERCADOPAGO_ACCESS_TOKEN` / `MERCADOPAGO_WEBHOOK_SECRET` | credenciais de produção do Mercado Pago (ainda pendentes) |
    | `PIX_KEY_FALLBACK` | `49988148811` |
 
@@ -103,3 +106,5 @@ docs/           toda a documentação do projeto
 legacy/         reservado para HTML antigo (vazio — não havia legado)
 public/assets/  monograma otimizado (derivado de public/Logo nova.png)
 ```
+
+Mapa dos 10 slots de fotografia e dimensões ideais: [`docs/V2_VISUAL_ASSETS.md`](docs/V2_VISUAL_ASSETS.md).

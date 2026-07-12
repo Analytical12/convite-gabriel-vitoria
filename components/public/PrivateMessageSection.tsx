@@ -34,7 +34,7 @@ export default function PrivateMessageSection() {
   }
 
   return (
-    <section className={`section container section--centered ${styles.section}`}>
+    <section className={`section container section--centered paper-texture ${styles.section}`}>
       <Reveal>
         <p className="eyebrow">Recado</p>
         <h2>Deixe um recado</h2>
@@ -44,7 +44,7 @@ export default function PrivateMessageSection() {
       </Reveal>
 
       <Reveal delay={0.05}>
-        <div className={styles.card}>
+        <div className={`${styles.card} paper-surface`}>
           {status === "success" ? (
             <p className={styles.success}>Recado enviado. Obrigado por compartilhar este carinho com a gente.</p>
           ) : (

@@ -5,7 +5,7 @@ import styles from "./UsefulInfo.module.css";
 
 export default function UsefulInfo() {
   return (
-    <section id="informacoes" className="section container section--centered">
+    <section id="informacoes" className="section container section--centered section--paper-texture">
       <Reveal>
         <p className="eyebrow">{usefulInfoCopy.eyebrow}</p>
         <h2>{usefulInfoCopy.title}</h2>

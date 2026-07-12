@@ -1,57 +1,114 @@
-# Payments (Mercado Pago)
+# Pagamentos — Mercado Pago Checkout Pro
 
-**Status: implementado, não testado ponta a ponta.** Não havia `MERCADOPAGO_ACCESS_TOKEN` disponível durante o desenvolvimento. O código está isolado em [`lib/payments/mercadopago.ts`](../lib/payments/mercadopago.ts) e falha explicitamente (erro claro) quando a credencial não está configurada — não existe um "modo mock" que finge sucesso.
+Revisão de produção realizada em **12/07/2026**. O código está pronto para homologação, mas o ambiente ainda não está pronto para pagamentos reais.
+
+## Diagnóstico atual
+
+### Pronto no código
+
+- Checkout Pro hospedado: cartão e Pix ficam no ambiente do Mercado Pago.
+- Access Token usado somente no servidor; nenhuma chave privada chega ao navegador.
+- Acesso ao endpoint de criação protegido pelo cookie assinado do convite.
+- Validação de entrada, limite de R$ 10,00 a R$ 50.000,00 e verificação do presente ativo.
+- Cota livre como presente explícito, com título próprio no checkout e no admin.
+- Registro `pending` criado antes do redirecionamento e removido se a preferência falhar.
+- `external_reference`, metadata e idempotency key ligados ao UUID da contribuição.
+- URLs separadas de sucesso, pendência e falha, com mensagem clara ao convidado.
+- Webhook com validação de assinatura pelo SDK oficial.
+- Consulta do pagamento diretamente na API do Mercado Pago após a notificação.
+- Conciliação de referência, valor exato, moeda BRL e ambiente test/production antes da atualização.
+- Atualização idempotente de status, meio de pagamento, status detalhado, modo live e `paid_at`.
+- Admin mostra cota/presente, família, doador, valor, status interno, status do provedor e meio.
+
+### Pendente no ambiente
+
+- Aplicar `supabase/migrations/004_gift_free_contribution.sql` no Supabase **antes** do deploy da aplicação.
+- Adicionar `MERCADOPAGO_ENV=test` no ambiente de homologação.
+- Trocar `NEXT_PUBLIC_SITE_URL=http://localhost:3000` pelo domínio HTTPS oficial.
+- Ativar credenciais produtivas e substituir o Access Token de teste pelo de produção.
+- Configurar o webhook produtivo em `https://DOMINIO/api/mercadopago/webhook`, evento Pagamentos.
+- Copiar a assinatura secreta produtiva para `MERCADOPAGO_WEBHOOK_SECRET`.
+- Cadastrar/validar uma Chave Pix na conta Mercado Pago para que Pix seja exibido no Checkout Pro.
+- Executar todos os cenários de homologação e uma compra real de baixo valor.
+
+### Evidências verificadas
+
+- Todas as variáveis necessárias existem no `.env.local`, sem exposição dos valores.
+- O Access Token foi validado no endpoint oficial `/users/me`: ativo, Brasil (`MLB`) e pertencente a **conta de teste**.
+- O Supabase remoto ainda não possui a migração 004 (`gift_type` e metadados retornaram erro `42703`).
+- O banco remoto contém 2 famílias e 8 presentes demonstrativos; a cota livre ainda não foi criada nele.
+- TypeScript e ESLint passam localmente.
 
 ## Fluxo
 
-1. Convidado escolhe um presente e um valor em `GiftsSection` (`components/public/GiftsSection.tsx`).
-2. `POST /api/gifts/create-payment` (`app/api/gifts/create-payment/route.ts`):
-   - valida o cookie de acesso;
-   - cria uma linha em `gift_contributions` com `payment_status = 'pending'`;
-   - chama `createGiftPreference()` (Checkout Pro), com `external_reference` = id dessa linha, `notification_url` apontando para o webhook, `back_urls` de sucesso/pendente/falha voltando para `/convite`;
-   - salva `provider_preference_id` e retorna `initPoint` (URL do checkout hospedado).
-3. O navegador é redirecionado para `initPoint` (checkout do Mercado Pago — Pix ou cartão).
-4. Mercado Pago notifica `POST /api/mercadopago/webhook` (`app/api/mercadopago/webhook/route.ts`) quando o status do pagamento muda.
-5. O webhook:
-   - lê `data.id` da query string e os headers `x-signature`/`x-request-id`;
-   - valida a assinatura com `WebhookSignatureValidator.validate()` do SDK oficial, usando `MERCADOPAGO_WEBHOOK_SECRET`;
-   - se válido, busca o pagamento completo (`client.payment.get(id)`);
-   - localiza a `gift_contributions` pelo `external_reference` (o id que a própria aplicação gerou) e atualiza `payment_status`, `provider_payment_id`, `provider_status`, `paid_at`.
+1. O convidado escolhe um presente ou “Contribuir com valor livre”.
+2. `POST /api/gifts/create-payment` valida sessão, payload, presente e valor.
+3. A aplicação cria `gift_contributions` com status `pending`.
+4. O servidor cria uma preference com `external_reference` igual ao UUID da contribuição.
+5. O navegador abre o Checkout Pro.
+6. O retorno visual informa sucesso, pendência ou falha, mas **não aprova** o registro.
+7. O webhook assinado consulta o pagamento na API e só atualiza o banco após conciliar referência, ambiente, BRL e valor.
+8. O admin reflete o status persistido pelo webhook.
 
-## Variáveis de ambiente
+## Variáveis
 
-| Variável | Uso |
-|---|---|
-| `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` | Não usada no fluxo atual (Checkout Pro redireciona para checkout hospedado — não precisa de public key no client). Mantida no `.env.example` para o caso de evoluir para Checkout Bricks no futuro. |
-| `MERCADOPAGO_ACCESS_TOKEN` | Credencial da conta do Gabriel (pessoal/CPF). **Nunca** exposta ao cliente — só usada em `lib/payments/mercadopago.ts`, código server-only. |
-| `MERCADOPAGO_WEBHOOK_SECRET` | Chave de assinatura configurada em "Suas integrações → Webhooks" no painel do Mercado Pago. |
-| `PIX_KEY_FALLBACK` | Placeholder documentado no brief; **não está conectado a nenhuma UI** nesta V1 — é só um valor de referência caso o casal precise informar a chave Pix manualmente por fora do site. |
+| Variável | Produção | Observação |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | `https://dominio-oficial` | Sem barra final; nunca localhost em produção. |
+| `MERCADOPAGO_ENV` | `production` | Deve mudar junto com o Access Token. |
+| `MERCADOPAGO_ACCESS_TOKEN` | segredo produtivo | Somente servidor. |
+| `MERCADOPAGO_WEBHOOK_SECRET` | assinatura produtiva | Gerada na configuração de Webhooks. |
+| `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` | dispensável | Checkout Pro redirecionado não a usa; só seria necessária em Bricks. |
 
-## Status possíveis (`gift_contributions.payment_status`)
+As variáveis Supabase e `ACCESS_COOKIE_SECRET` continuam obrigatórias e não foram alteradas.
 
-Mapeamento em `mapMercadoPagoStatus()`:
+## Checklist de go-live
 
-| Status Mercado Pago | `payment_status` interno |
-|---|---|
-| `approved` | `approved` |
-| `pending` | `pending` |
-| `in_process`, `in_mediation`, `authorized` | `manual_review` |
-| `rejected` | `rejected` |
-| `cancelled` | `cancelled` |
-| `refunded`, `charged_back` | `refunded` |
+- [ ] Confirmar titularidade, identidade e situação da conta recebedora.
+- [ ] Criar/selecionar a aplicação correta de Checkout Pro.
+- [ ] Aplicar a migração 004 e confirmar 1 cota livre ativa no banco.
+- [ ] Publicar em domínio HTTPS e definir `NEXT_PUBLIC_SITE_URL`.
+- [ ] Manter `MERCADOPAGO_ENV=test` e token de teste durante a homologação.
+- [ ] Configurar URL de webhook de teste e simular notificação no painel.
+- [ ] Validar RSVP, presente comum, cota livre e admin.
+- [ ] Validar aprovado, pendente, recusado, cancelado/reembolsado e repetição de webhook.
+- [ ] Ativar credenciais produtivas no painel Mercado Pago.
+- [ ] Trocar token, secret e `MERCADOPAGO_ENV=production` no provedor de deploy.
+- [ ] Confirmar Chave Pix cadastrada e cartão habilitado na conta.
+- [ ] Configurar webhook no modo produtivo, evento Pagamentos, URL HTTPS final.
+- [ ] Fazer deploy e verificar logs do endpoint de webhook.
+- [ ] Fazer compra real de baixo valor em cartão e Pix.
+- [ ] Conferir valor, status, meio, `provider_payment_id` e `paid_at` no admin.
+- [ ] Reembolsar a compra de teste e confirmar atualização para `refunded`.
+- [ ] Só então liberar a área de presentes aos convidados.
 
-## Como testar (quando houver credenciais)
+## Mini plano de homologação
 
-1. Crie uma aplicação de teste no [painel de desenvolvedores do Mercado Pago](https://www.mercadopago.com.br/developers) e gere credenciais de **teste** (sandbox).
-2. Preencha `MERCADOPAGO_ACCESS_TOKEN` com o access token de teste.
-3. Configure a URL do webhook em "Suas integrações → Webhooks" apontando para `https://<seu-túnel-ou-deploy>/api/mercadopago/webhook` (em dev local, use `ngrok`/`cloudflared` para expor `localhost:3000`) e copie o "Webhook Secret" para `MERCADOPAGO_WEBHOOK_SECRET`.
-4. No site, escolha um presente, complete o checkout com um [usuário de teste comprador](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/additional-content/test-cards) e um cartão de teste.
-5. Confira em `admin/presentes` se o `payment_status` mudou para `approved` depois do redirect + webhook.
-6. Repita com um cartão de teste de recusa para validar o caminho `rejected`.
+| Cenário | Ação | Resultado esperado |
+|---|---|---|
+| RSVP | Confirmar família de teste | Uma submissão; nova tentativa bloqueada; admin correto. |
+| Presente normal | Selecionar valor sugerido | Preference com o título do presente e valor exato. |
+| Cota livre mínima | Informar R$ 10,00 | Checkout abre; admin mostra “Contribuir com valor livre”. |
+| Cota livre inválida | Informar R$ 9,99 | Bloqueio no navegador e novamente na API. |
+| Aprovado | Cartão de teste aprovado | Retorno visual; webhook muda para `approved`; `paid_at` preenchido. |
+| Pendente | Meio offline/Pix pendente | Retorno pendente; banco continua `pending` até nova notificação. |
+| Recusado | Cartão de teste recusado | Retorno de falha; webhook registra `rejected`. |
+| Webhook repetido | Reenviar mesma notificação | Nenhuma duplicidade; mesmo pagamento permanece ligado à contribuição. |
+| Divergência | Alterar valor/referência em teste controlado | Webhook responde erro e não aprova contribuição. |
+| Admin | Abrir Presentes após cada cenário | Título, valor, status e meio iguais ao Mercado Pago. |
 
-## Pendências para produção
+## Riscos antes do go-live
 
-- Testar o fluxo completo com credenciais reais de produção (não apenas sandbox).
-- Confirmar o CPF/conta do Gabriel está corretamente associado à conta Mercado Pago usada — **o CPF nunca deve ser hardcoded no código ou exposto no frontend**; ele só existe do lado do Mercado Pago, associado ao access token.
-- Definir se `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY` será necessária (só se migrar de Checkout Pro para Checkout Bricks/Payment Brick embutido).
-- Validar tempo de resposta do webhook (< 22s) em produção — a implementação atual faz uma chamada síncrona ao Mercado Pago (`payment.get`) dentro do handler, o que deve ser rápido o suficiente, mas vale monitorar.
+- **Bloqueador:** migração 004 ainda não aplicada.
+- **Bloqueador:** token atual é de teste e o site URL é localhost.
+- **Bloqueador:** nenhum pagamento real foi executado nesta rodada.
+- **Alto:** a documentação atual informa que pagamentos criados com credenciais de teste podem não disparar notificações; simule o webhook pelo painel e valide novamente com uma compra real baixa.
+- **Médio:** Pix só aparece se a conta recebedora tiver Chave Pix cadastrada e elegível.
+- **Médio:** monitore respostas 4xx/5xx do webhook e configure alerta antes de abrir aos convidados.
+
+## Referências oficiais
+
+- Credenciais e produção: https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/additional-content/credentials
+- Webhooks e assinatura: https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/payment-notifications
+- URLs de retorno: https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/configure-back-urls
+- Testes do Checkout Pro: https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/integration-test/test-purchases

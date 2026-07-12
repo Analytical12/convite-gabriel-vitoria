@@ -58,6 +58,10 @@
 - [ ] Sem `MERCADOPAGO_ACCESS_TOKEN`: UI mostra `giftsCopy.configMissing`, não falha silenciosamente
 - [ ] Com credenciais de teste: fluxo completo (ver `docs/PAYMENTS.md`)
 - [ ] Webhook rejeita assinatura inválida (401)
+- [ ] Cota livre aceita R$ 10,00 e rejeita R$ 9,99 no cliente e na API
+- [ ] Cota livre aparece com título próprio no checkout e no admin
+- [ ] Webhook rejeita divergência de valor, moeda, referência ou ambiente
+- [ ] Reenvio do mesmo webhook não duplica contribuições
 
 ## Acessibilidade
 

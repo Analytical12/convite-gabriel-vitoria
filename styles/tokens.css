@@ -25,6 +25,10 @@
   --color-blush-500: #d49daa;
   --color-blush-700: #b06e7e;
 
+  /* nearly-neutral washes used only for editorial micro-details */
+  --color-blue-wash: #edf2f4;
+  --color-blush-wash: #fbf0f1;
+
   /* color: botanical accent — detail only, never a background */
   --color-botanical: #7c8763;
   --color-botanical-soft: #a7b096;
@@ -78,4 +82,7 @@
   --duration-slow: 0.7s;
 
   --content-max-width: 1120px;
+
+  /* tiny inline SVG: one request-free, low-opacity cotton-paper grain */
+  --paper-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.027'/%3E%3C/svg%3E");
 }

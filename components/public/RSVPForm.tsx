@@ -67,7 +67,7 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
   }
 
   return (
-    <section id="rsvp" className={`section ${styles.section}`}>
+    <section id="rsvp" className={`section paper-texture ${styles.section}`}>
       <div className="container section--centered">
       <Reveal>
         <div className={styles.photoHeader}>
@@ -81,7 +81,7 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
       </Reveal>
 
       <Reveal delay={0.05}>
-        <div className={`card ${styles.panel}`}>
+        <div className={`card paper-surface ${styles.panel}`}>
           {alreadySubmitted ? (
             <div className={styles.confirmed}>
               <p className={styles.confirmedTitle}>

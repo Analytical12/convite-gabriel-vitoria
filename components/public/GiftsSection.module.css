@@ -1,1 +1,162 @@
-.revealButton{margin-top:2rem}.grid{display:grid;gap:1rem;margin-top:2.5rem;text-align:left;overflow:hidden}.card{position:relative;display:flex;flex-direction:column;gap:.65rem;background:rgba(253,250,244,.86);border-color:rgba(198,167,104,.45)}.card:before{content:"✦";color:var(--color-gold-line);font-size:.65rem}.giftTitle{font-family:var(--font-display);font-size:1.5rem;line-height:1.05}.giftDescription{color:var(--color-ink-soft);font-size:.84rem}.suggestedAmount{color:var(--color-lavender-700);font-family:var(--font-display);font-style:italic;font-size:1.1rem;margin-bottom:.4rem}.form{display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem}.amountOptions{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.8rem}.amountOption{display:flex;align-items:center;gap:.5rem;font-size:.84rem}.customAmountInput{width:100px;padding:.5rem;border:1px solid var(--color-lavender-300);background:var(--color-paper);font-family:var(--font-body)}.actions{display:flex;gap:.6rem;margin-top:.4rem}@media(min-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1040px){.grid{grid-template-columns:repeat(3,1fr)}}
+.revealButton {
+  margin-top: 2rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  text-align: left;
+  overflow: hidden;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  background-color: rgba(253, 250, 244, .9);
+  background-image: var(--paper-grain);
+  border-color: rgba(198, 167, 104, .45);
+}
+
+.card::before {
+  content: "✦";
+  color: var(--color-gold-line);
+  font-size: .65rem;
+}
+
+.freeCard {
+  border-color: rgba(176, 110, 126, .4);
+  background-color: rgba(251, 240, 241, .58);
+}
+
+.freeCard::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(168, 179, 186, .3);
+  pointer-events: none;
+}
+
+.freeBadge {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  color: var(--color-blush-700);
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.giftTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.05;
+}
+
+.giftDescription {
+  color: var(--color-ink-soft);
+  font-size: .84rem;
+}
+
+.suggestedAmount {
+  color: var(--color-lavender-700);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: .4rem;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-top: .6rem;
+}
+
+.amountOptions {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  margin-bottom: .8rem;
+}
+
+.amountOption {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .84rem;
+}
+
+.freeAmountOption {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.customAmountInput {
+  width: 132px;
+  padding: .65rem;
+  border: 1px solid var(--color-lavender-300);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: .6rem;
+  margin-top: .4rem;
+}
+
+.returnNotice {
+  display: grid;
+  gap: .25rem;
+  max-width: 690px;
+  margin: 0 auto 2.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-lavender-300);
+  background: rgba(253, 250, 244, .88);
+  text-align: left;
+}
+
+.returnNotice strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.returnNotice span {
+  color: var(--color-ink-soft);
+  font-size: .82rem;
+}
+
+.returnNotice_success {
+  border-color: rgba(111, 143, 106, .55);
+}
+
+.returnNotice_pending {
+  border-color: var(--color-gold-line-soft);
+}
+
+.returnNotice_failure {
+  border-color: rgba(179, 86, 79, .45);
+}
+
+@media (min-width: 680px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .freeCard {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1040px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

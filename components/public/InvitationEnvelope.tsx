@@ -45,7 +45,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
               <h1>{heroCopy.names}</h1>
             </div>
             <div className={styles.envelopeWrap}>
-              <div className={styles.body}>
+              <div className={`${styles.body} paper-surface`}>
                 <div className={styles.bodyShade} aria-hidden="true" />
                 <motion.div
                   className={styles.flap}
@@ -85,7 +85,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
         ) : (
           <motion.div
             key="card"
-            className={styles.card}
+            className={`${styles.card} paper-surface`}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: motionDurations.slow, ease: motionEasing.soft }}

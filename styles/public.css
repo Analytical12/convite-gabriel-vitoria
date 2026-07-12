@@ -15,7 +15,56 @@
 }
 
 .section--tinted {
-  background: var(--color-off-white);
+  background-color: var(--color-off-white);
+}
+
+.section--paper-texture {
+  background-image: var(--paper-grain),
+    linear-gradient(135deg, rgba(237, 242, 244, .26), transparent 42%, rgba(251, 240, 241, .22));
+}
+
+.paper-texture {
+  background-image: var(--paper-grain),
+    linear-gradient(135deg, rgba(237, 242, 244, .2), transparent 48%, rgba(251, 240, 241, .18)) !important;
+}
+
+.paper-surface {
+  background-image: var(--paper-grain),
+    linear-gradient(145deg, rgba(237, 242, 244, .16), transparent 50%, rgba(251, 240, 241, .14)) !important;
+}
+
+.venue-photo-landscape {
+  width: min(82vw, 410px) !important;
+  aspect-ratio: 4 / 3 !important;
+}
+
+.gallery-slot--2,
+.gallery-slot--4 {
+  aspect-ratio: 3 / 2 !important;
+}
+
+.gallery-slot--3 {
+  aspect-ratio: 1 !important;
+}
+
+.gallery-image-color {
+  filter: saturate(.62) contrast(.96) !important;
+}
+
+.closing-photo-frame {
+  position: relative;
+  width: min(100%, 960px);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 5rem;
+  overflow: hidden;
+  border-radius: 50% 50% 2px 2px;
+  outline: 1px solid var(--color-gold-line-soft);
+  outline-offset: 8px;
+  box-shadow: var(--shadow-lg);
+}
+
+.closing-photo {
+  object-fit: cover;
 }
 
 .eyebrow {
@@ -30,7 +79,8 @@
 
 .hairline {
   border: none;
-  border-top: 1px solid var(--color-gold-line-soft);
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-lavender-300), var(--color-gold-line), var(--color-blush-300));
   width: 64px;
   margin-block: var(--space-5);
 }
@@ -81,11 +131,12 @@
 }
 
 .btn--outline:hover:not(:disabled) {
-  background: var(--color-lavender-100);
+  background: linear-gradient(110deg, var(--color-blue-wash), var(--color-blush-wash));
 }
 
 .card {
-  background: var(--color-off-white);
+  background-color: var(--color-off-white);
+  background-image: var(--paper-grain);
   border: 1px solid var(--color-gold-line-soft);
   border-radius: 2px;
   box-shadow: 0 14px 50px rgba(58, 52, 46, 0.07);
@@ -121,6 +172,8 @@
 .field textarea:focus,
 .field select:focus {
   border-color: var(--color-lavender-700);
+  box-shadow: 0 0 0 3px rgba(245, 228, 231, .7);
+  outline: none;
 }
 
 .error-text {

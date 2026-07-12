@@ -20,7 +20,18 @@ import {
  */
 
 export function isMercadoPagoConfigured(): boolean {
-  return Boolean(process.env.MERCADOPAGO_ACCESS_TOKEN);
+  return Boolean(
+    process.env.MERCADOPAGO_ACCESS_TOKEN &&
+      process.env.NEXT_PUBLIC_SITE_URL &&
+      ["test", "production"].includes(process.env.MERCADOPAGO_ENV ?? "")
+  );
+}
+
+export function isExpectedMercadoPagoLiveMode(liveMode: boolean | undefined): boolean {
+  if (typeof liveMode !== "boolean") return false;
+  if (process.env.MERCADOPAGO_ENV === "production") return liveMode;
+  if (process.env.MERCADOPAGO_ENV === "test") return !liveMode;
+  return false;
 }
 
 function getConfig(): MercadoPagoConfig {
@@ -73,7 +84,12 @@ export async function createGiftPreference(
         failure: `${siteUrl}/convite?presente=falha`,
       },
       auto_return: "approved",
+      statement_descriptor: "GABRIEL VITORIA",
+      metadata: {
+        contribution_id: input.contributionId,
+      },
     },
+    requestOptions: { idempotencyKey: input.contributionId },
   });
 
   if (!response.id || !response.init_point) {

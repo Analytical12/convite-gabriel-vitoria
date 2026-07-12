@@ -45,7 +45,7 @@ export default async function ConvitePage() {
       .maybeSingle(),
     supabase
       .from("gifts")
-      .select("id, title, description, suggested_amount_cents, allow_custom_amount")
+      .select("id, title, description, suggested_amount_cents, allow_custom_amount, gift_type")
       .eq("is_active", true)
       .order("sort_order", { ascending: true }),
   ]);
@@ -74,6 +74,7 @@ export default async function ConvitePage() {
     description: gift.description,
     suggestedAmountCents: gift.suggested_amount_cents,
     allowCustomAmount: gift.allow_custom_amount,
+    giftType: gift.gift_type === "free" ? "free" : "suggested",
   }));
 
   // This route is already forced dynamic (cookies() above) and re-runs per

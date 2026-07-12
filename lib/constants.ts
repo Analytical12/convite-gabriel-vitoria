@@ -22,18 +22,23 @@ export const WEDDING = {
 export const PUBLIC_EXPERIENCE = {
   showLodging: false,
   images: {
-    hero: "/assets/placeholders/couple-hero-v2.webp",
-    portrait: "/assets/placeholders/couple-portrait-v2.webp",
-    venue: "/assets/placeholders/venue-v2.webp",
+    hero: "/assets/placeholders-v21/photo-01-hero-casal-horizontal.webp",
+    portrait: "/assets/placeholders-v21/photo-02-mensagem-casal-vertical.webp",
+    venue: "/assets/placeholders-v21/photo-03-local-ambiente-horizontal.webp",
+    story: "/assets/placeholders-v21/photo-04-historia-casal-vertical.webp",
     gallery: [
-      "/assets/placeholders/couple-portrait-v2.webp",
-      "/assets/placeholders/couple-hero-v2.webp",
-      "/assets/placeholders/venue-v2.webp",
-      "/assets/placeholders/couple-portrait-v2.webp",
+      "/assets/placeholders-v21/photo-05-galeria-detalhe-vertical.webp",
+      "/assets/placeholders-v21/photo-06-galeria-casal-horizontal.webp",
+      "/assets/placeholders-v21/photo-07-galeria-papelaria-quadrada.webp",
+      "/assets/placeholders-v21/photo-08-galeria-ambiente-horizontal.webp",
     ],
-    rsvp: "/assets/placeholders/couple-hero-v2.webp",
+    rsvp: "/assets/placeholders-v21/photo-09-rsvp-casal-horizontal.webp",
+    closing: "/assets/placeholders-v21/photo-10-encerramento-horizontal.webp",
   },
 } as const;
+
+/** Minimum accepted online gift contribution: R$ 10,00. */
+export const MIN_GIFT_AMOUNT_CENTS = 1_000;
 
 export const ACCESS_COOKIE_NAME = "gv_access";
 export const ADMIN_ROUTE_PREFIX = "/admin";

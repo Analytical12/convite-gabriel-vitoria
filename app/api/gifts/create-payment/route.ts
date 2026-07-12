@@ -29,12 +29,18 @@ export async function POST(request: Request) {
 
   const { data: gift } = await supabase
     .from("gifts")
-    .select("id, title, is_active")
+    .select("id, title, is_active, gift_type, suggested_amount_cents, allow_custom_amount")
     .eq("id", parsed.data.giftId)
     .maybeSingle();
 
   if (!gift || !gift.is_active) {
     return NextResponse.json({ error: "gift_not_found" }, { status: 404 });
+  }
+
+  const isFreeContribution = gift.gift_type === "free";
+  const amountCanVary = isFreeContribution || gift.allow_custom_amount;
+  if (!amountCanVary && parsed.data.amountCents !== gift.suggested_amount_cents) {
+    return NextResponse.json({ error: "invalid_amount" }, { status: 400 });
   }
 
   const { data: contribution, error: insertError } = await supabase

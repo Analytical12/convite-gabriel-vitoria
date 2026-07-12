@@ -6,7 +6,7 @@ import styles from "./WelcomeSection.module.css";
 
 export default function WelcomeSection() {
   return (
-    <section className={`section container ${styles.section}`}>
+    <section className={`section container paper-texture ${styles.section}`}>
       <Reveal>
         <div className={styles.medallion}>
           <Image
