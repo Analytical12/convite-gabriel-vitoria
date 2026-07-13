@@ -25,7 +25,7 @@ export const heroCopy = {
   location: "Bonjour Pâtisserie · Chapecó - SC",
   intro:
     "Preparamos este espaço para reunir, com carinho, as informações do nosso casamento.",
-  openLabel: "Toque no envelope para abrir",
+  openLabel: "Toque para abrir",
   openAriaLabel: "Abrir o convite de casamento",
 } as const;
 

@@ -45,9 +45,15 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
               <h1>{heroCopy.names}</h1>
             </div>
             <div className={styles.envelopeWrap}>
-              <div className={`${styles.body} paper-surface`}>
-                <div className={styles.bodyShade} aria-hidden="true" />
-                <motion.div
+              <button
+                type="button"
+                className={`${styles.body} ${flapOpen ? styles.bodyOpening : ""} paper-surface`}
+                onClick={handleOpenClick}
+                disabled={flapOpen}
+                aria-label={heroCopy.openAriaLabel}
+              >
+                <span className={styles.bodyShade} aria-hidden="true" />
+                <motion.span
                   className={styles.flap}
                   style={{ transformStyle: "preserve-3d" }}
                   animate={{ rotateX: flapOpen ? -178 : 0 }}
@@ -56,7 +62,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
                     if (flapOpen) onFlapOpened();
                   }}
                 />
-                <div className={styles.seal}>
+                <span className={styles.seal}>
                   <Image
                     src="/assets/monogram-gv-seal.webp"
                     alt=""
@@ -68,17 +74,11 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
                       event.currentTarget.style.display = "none";
                     }}
                   />
-                </div>
-              </div>
-              <button
-                type="button"
-                className={styles.openButton}
-                onClick={handleOpenClick}
-                disabled={flapOpen}
-                aria-label={heroCopy.openAriaLabel}
-              >
-                <span>{heroCopy.openLabel}</span>
-                <span className={styles.openLine} aria-hidden="true" />
+                </span>
+                <span className={styles.touchHint} aria-hidden="true">
+                  <span className={styles.touchIcon} />
+                  <span>{heroCopy.openLabel}</span>
+                </span>
               </button>
             </div>
           </motion.div>
