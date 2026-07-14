@@ -6,6 +6,30 @@ import { ACCESS_COOKIE_NAME } from "@/lib/constants";
 import { createGiftPaymentSchema } from "@/lib/validators/gift";
 import { createGiftPreference, isMercadoPagoConfigured } from "@/lib/payments/mercadopago";
 
+function getPaymentProviderErrorDetails(error: unknown) {
+  if (error instanceof Error) {
+    return { name: error.name, message: error.message };
+  }
+
+  if (!error || typeof error !== "object") {
+    return { message: String(error) };
+  }
+
+  const providerError = error as Record<string, unknown>;
+  return {
+    status: providerError.status,
+    code: providerError.error,
+    message: providerError.message,
+    cause: Array.isArray(providerError.cause)
+      ? providerError.cause.map((item) => {
+          if (!item || typeof item !== "object") return String(item);
+          const cause = item as Record<string, unknown>;
+          return { code: cause.code, description: cause.description };
+        })
+      : undefined,
+  };
+}
+
 export async function POST(request: Request) {
   const cookieStore = await cookies();
   const payload = await verifyAccessCookie(cookieStore.get(ACCESS_COOKIE_NAME)?.value);
@@ -74,7 +98,12 @@ export async function POST(request: Request) {
       .eq("id", contribution.id);
 
     return NextResponse.json({ initPoint });
-  } catch {
+  } catch (error) {
+    console.error(
+      "[gifts/create-payment] Mercado Pago preference creation failed",
+      getPaymentProviderErrorDetails(error)
+    );
+
     // preference creation failed — remove the orphaned pending row instead
     // of leaving a contribution nobody can ever pay for
     await supabase.from("gift_contributions").delete().eq("id", contribution.id);

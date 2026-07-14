@@ -84,7 +84,8 @@ export async function createGiftPreference(
         failure: `${siteUrl}/convite?presente=falha`,
       },
       auto_return: "approved",
-      statement_descriptor: "GABRIEL VITORIA",
+      // Mercado Pago limits this field to 13 characters.
+      statement_descriptor: "GV CASAMENTO",
       metadata: {
         contribution_id: input.contributionId,
       },
