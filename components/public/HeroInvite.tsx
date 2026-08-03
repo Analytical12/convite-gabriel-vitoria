@@ -6,7 +6,7 @@ export default function HeroInvite() {
   return (
     <section id="topo" className={`${styles.hero} paper-texture`}>
       <Reveal>
-        <div className={`${styles.paper} paper-surface`}>
+        <div className={styles.paper}>
           <span className={styles.ornament} aria-hidden="true">✦</span>
           <p className={styles.prelude}>O nosso convite</p>
           <h1 className={styles.names}>{heroCopy.names}</h1>

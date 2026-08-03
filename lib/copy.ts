@@ -35,13 +35,13 @@ export const verseCopy = {
 } as const;
 
 export const welcomeCopy = {
-  eyebrow: "Uma carta para você",
-  title: "Com alegria",
+  eyebrow: "Uma mensagem dos noivos",
+  title: "Para você, com carinho",
   paragraphs: [
-    "Com alegria, preparamos este espaço para reunir os detalhes do nosso casamento e compartilhar um pouco deste momento com pessoas especiais.",
-    "Será uma grande alegria ter você conosco nesta manhã de celebração, gratidão e amor.",
+    "Preparamos este espaço para reunir os detalhes do nosso casamento e compartilhar este momento com pessoas que fazem parte da nossa história.",
+    "Será uma alegria ter você conosco nesta manhã de celebração, gratidão e amor.",
   ],
-  signature: "Com carinho,\nGabriel & Vitória",
+  signature: "Gabriel & Vitória",
 } as const;
 
 export const bigDayCopy = {

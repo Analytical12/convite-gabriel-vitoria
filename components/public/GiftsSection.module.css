@@ -1,3 +1,9 @@
+.section {
+  background-image: var(--paper-grain),
+    linear-gradient(135deg, var(--color-pink-soft), transparent 46%),
+    linear-gradient(320deg, var(--color-apricot-soft), transparent 46%);
+}
+
 .revealButton {
   margin-top: 2rem;
 }
@@ -27,7 +33,7 @@
 }
 
 .freeCard {
-  border-color: rgba(176, 110, 126, .4);
+  border-color: var(--color-apricot);
   background-color: rgba(251, 240, 241, .58);
 }
 

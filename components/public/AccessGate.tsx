@@ -43,9 +43,9 @@ export default function AccessGate({ initialNotice }: { initialNotice?: string }
   }
 
   return (
-    <main className={`${styles.wrap} paper-texture`}>
+    <main className={styles.wrap}>
       <motion.div
-        className={`${styles.panel} paper-surface`}
+        className={styles.panel}
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: motionDurations.slow, ease: motionEasing.standard }}

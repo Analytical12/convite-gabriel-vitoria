@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { bigDayCopy, countdownCopy } from "@/lib/copy";
 import Reveal from "./Reveal";
 import Countdown from "./Countdown";
@@ -6,6 +9,7 @@ import Image from "next/image";
 import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 
 export default function WeddingDetails() {
+  const [venuePhotoFailed, setVenuePhotoFailed] = useState(false);
   const mapsQuery = encodeURIComponent(`${bigDayCopy.venueName}, ${bigDayCopy.address}`);
 
   return (
@@ -18,9 +22,29 @@ export default function WeddingDetails() {
 
         <div className={`${styles.invitePage} paper-surface`}>
           <Reveal delay={0.05}>
-            <div className={`${styles.venueImage} venue-photo-landscape`}>
-              <Image src={PUBLIC_EXPERIENCE.images.venue} alt="Imagem demonstrativa do local" fill sizes="(max-width: 700px) 72vw, 360px" className={styles.photo} />
-            </div>
+            {venuePhotoFailed ? (
+              <div className={`${styles.venueFallback} venue-photo-landscape`}>
+                <Image
+                  src="/assets/monogram-gv.webp"
+                  alt=""
+                  width={34}
+                  height={34}
+                  className={styles.venueFallbackMonogram}
+                />
+                <span className={styles.venueFallbackText}>{bigDayCopy.venueName}</span>
+              </div>
+            ) : (
+              <div className={`${styles.venueImage} venue-photo-landscape`}>
+                <Image
+                  src={PUBLIC_EXPERIENCE.images.venue}
+                  alt={`Fotografia do local: ${bigDayCopy.venueName}`}
+                  fill
+                  sizes="(max-width: 700px) 72vw, 360px"
+                  className={styles.photo}
+                  onError={() => setVenuePhotoFailed(true)}
+                />
+              </div>
+            )}
           </Reveal>
           <Reveal delay={0.08}>
             <div className={styles.details}>
