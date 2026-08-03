@@ -22,6 +22,14 @@ export const colors = {
   botanical: "#7C8763",
   goldLine: "#C6A768",
   danger: "#B3564F",
+  // identity accents — see styles/tokens.css for the canonical values/comments
+  blue: "#A8B3BA",
+  blueSoft: "#E8EDF3",
+  blueDeep: "#7C8792",
+  pink: "#D49DAA",
+  pinkSoft: "#F5DCDA",
+  apricot: "#EEC474",
+  apricotSoft: "#F8E7BD",
 } as const;
 
 export const motionDurations = {

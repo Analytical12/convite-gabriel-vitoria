@@ -36,14 +36,17 @@ export default function GiftsSection({ gifts }: { gifts: Gift[] }) {
   const [paymentReturn, setPaymentReturn] = useState<PaymentReturn>(null);
 
   useEffect(() => {
+    // intentionally client-only: reads the Mercado Pago return query param
+    // once on mount, same pattern as Countdown's initial setTimeLeft()
     const value = new URLSearchParams(window.location.search).get("presente");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (value === "sucesso") setPaymentReturn("success");
     if (value === "pendente") setPaymentReturn("pending");
     if (value === "falha") setPaymentReturn("failure");
   }, []);
 
   return (
-    <section id="presentes" className="section section--tinted section--paper-texture">
+    <section id="presentes" className={`section section--tinted ${styles.section}`}>
       <div className="container section--centered">
         {paymentReturn && <PaymentReturnNotice status={paymentReturn} />}
         <Reveal>

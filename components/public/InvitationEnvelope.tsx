@@ -85,7 +85,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
         ) : (
           <motion.div
             key="card"
-            className={`${styles.card} paper-surface`}
+            className={styles.card}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: motionDurations.slow, ease: motionEasing.soft }}

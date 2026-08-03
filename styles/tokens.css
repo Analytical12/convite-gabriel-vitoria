@@ -29,6 +29,21 @@
   --color-blue-wash: #edf2f4;
   --color-blush-wash: #fbf0f1;
 
+  /* color: identity accents — the same lavender/blush/gold ramps above,
+     named for what they read as (blue / pink / apricot) so it's obvious
+     at a glance that the palette isn't monochrome. Use these for section
+     washes and ornaments; keep the lavender/blush/gold names above for
+     spots that already reference them. */
+  --color-blue: var(--color-lavender-500);
+  --color-blue-soft: #e8edf3;
+  --color-blue-deep: var(--color-lavender-700);
+
+  --color-pink: var(--color-blush-500);
+  --color-pink-soft: #f5dcda;
+
+  --color-apricot: #eec474;
+  --color-apricot-soft: #f8e7bd;
+
   /* color: botanical accent — detail only, never a background */
   --color-botanical: #7c8763;
   --color-botanical-soft: #a7b096;

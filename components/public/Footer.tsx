@@ -6,7 +6,7 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className={`container paper-texture ${styles.footer}`}>
+    <footer className={`container ${styles.footer}`}>
       <div className="closing-photo-frame">
         <Image
           src={PUBLIC_EXPERIENCE.images.closing}

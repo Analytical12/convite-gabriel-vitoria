@@ -20,6 +20,12 @@ Sampleada diretamente do monograma real do casal (`public/Logo nova.png`) — n�
 | `--color-botanical` | `#7C8763` | Verde — só detalhe, nunca fundo |
 | `--color-gold-line` | `#C6A768` | Linhas finas, selo, microdetalhes |
 | `--color-danger` | `#B3564F` | Erros — terracota, não vermelho puro |
+| `--color-blue` / `--color-blue-deep` | alias de `lavender-500`/`-700` | Mesmo tom, nome pelo que ele lê visualmente (azul-acinzentado) |
+| `--color-blue-soft` | `#E8EDF3` | Wash de fundo — seções que pedem azul mais presente |
+| `--color-pink` | alias de `blush-500` | Idem, nome "rosa" |
+| `--color-pink-soft` | `#F5DCDA` | Wash de fundo rosa |
+| `--color-apricot` | `#EEC474` | Pêssego/laranja — cor nova, não existia antes; usar em bordas, molduras, ícones |
+| `--color-apricot-soft` | `#F8E7BD` | Wash de fundo pêssego |
 
 Regra: sem gradiente azul→roxo genérico, sem neon, sem preto puro, sem texto cinza sobre fundo colorido (sempre `--color-ink`/`--color-ink-soft` sobre fundo claro).
 

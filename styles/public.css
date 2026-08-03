@@ -80,7 +80,7 @@
 .hairline {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, var(--color-lavender-300), var(--color-gold-line), var(--color-blush-300));
+  background: linear-gradient(90deg, var(--color-blue), var(--color-apricot), var(--color-pink));
   width: 64px;
   margin-block: var(--space-5);
 }
@@ -115,8 +115,8 @@
 }
 
 .btn--primary {
-  background: var(--color-ink);
-  color: var(--color-off-white);
+  background: var(--color-blue-deep);
+  color: var(--color-ink);
 }
 
 .btn--primary:hover:not(:disabled) {

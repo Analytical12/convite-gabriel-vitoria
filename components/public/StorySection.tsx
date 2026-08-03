@@ -6,7 +6,7 @@ import styles from "./StorySection.module.css";
 
 export default function StorySection() {
   return (
-    <section id="historia" className={`section container paper-texture ${styles.section}`}>
+    <section id="historia" className={`section container ${styles.section}`}>
       <Reveal>
         <p className="eyebrow">{storyCopy.eyebrow}</p>
         <h2>{storyCopy.title}</h2>

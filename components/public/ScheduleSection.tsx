@@ -4,7 +4,7 @@ import styles from "./ScheduleSection.module.css";
 
 export default function ScheduleSection() {
   return (
-    <section id="programacao" className="section section--tinted section--paper-texture">
+    <section id="programacao" className={`section section--tinted ${styles.section}`}>
       <div className="container section--centered">
         <Reveal>
           <p className="eyebrow">{scheduleCopy.eyebrow}</p>

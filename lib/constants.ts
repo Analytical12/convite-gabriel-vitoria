@@ -24,6 +24,10 @@ export const PUBLIC_EXPERIENCE = {
   images: {
     hero: "/assets/placeholders-v21/photo-01-hero-casal-horizontal.webp",
     portrait: "/assets/placeholders-v21/photo-02-mensagem-casal-vertical.webp",
+    // Real Bonjour Pâtisserie photo not yet in the repo — drop the file at
+    // public/assets/real/bonjour-patisserie.webp and update only this path
+    // (WeddingDetails.tsx falls back to an editorial placeholder on 404,
+    // it never shows a broken-image icon either way).
     venue: "/assets/placeholders-v21/photo-03-local-ambiente-horizontal.webp",
     story: "/assets/placeholders-v21/photo-04-historia-casal-vertical.webp",
     gallery: [
