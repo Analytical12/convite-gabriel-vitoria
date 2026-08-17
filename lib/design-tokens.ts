@@ -3,33 +3,35 @@
  * (Motion transition configs, canvas/SVG generation, etc).
  * The canonical color/spacing scale lives in styles/tokens.css — keep both in sync.
  *
- * Color values are sampled directly from the couple's monogram (public/Logo nova.png):
- * the "G" stroke is #A8B3BA (slate lavender), the "V" stroke is #D49DAA (old blush).
+ * Color values follow the wedding palette supplied by the couple.
  */
 
 export const colors = {
-  champagne: "#F8F3EA",
-  offWhite: "#FBF8F2",
-  paper: "#FCFAF5",
-  ink: "#3A342E",
-  inkSoft: "#6B6459",
-  lavender500: "#A8B3BA",
-  lavender700: "#7C8792",
-  lavender100: "#E7EBEC",
-  blush500: "#D49DAA",
-  blush700: "#B06E7E",
-  blush100: "#F5E4E7",
-  botanical: "#7C8763",
-  goldLine: "#C6A768",
+  champagne: "#F2EBDF",
+  offWhite: "#FBF7EF",
+  paper: "#FFFDF8",
+  ink: "#38322D",
+  inkSoft: "#6D645B",
+  lavender500: "#89AEAE",
+  lavender700: "#557778",
+  lavender100: "#E7EFEF",
+  blush500: "#DF9FB0",
+  blush700: "#995468",
+  blush100: "#F7E6EB",
+  botanical: "#607A62",
+  botanicalLight: "#718477",
+  monogram: "#A8B5A3",
+  goldLine: "#C7A45A",
   danger: "#B3564F",
   // identity accents — see styles/tokens.css for the canonical values/comments
-  blue: "#A8B3BA",
-  blueSoft: "#E8EDF3",
-  blueDeep: "#7C8792",
-  pink: "#D49DAA",
-  pinkSoft: "#F5DCDA",
-  apricot: "#EEC474",
-  apricotSoft: "#F8E7BD",
+  blue: "#89AEAE",
+  blueSoft: "#E4EEEE",
+  blueDeep: "#557778",
+  pink: "#DF9FB0",
+  pinkSoft: "#F5E1E7",
+  apricot: "#C7A45A",
+  apricotSoft: "#F2E7CD",
+  greenIvory: "#EDF1EB",
 } as const;
 
 export const motionDurations = {

@@ -19,14 +19,14 @@ export default function Footer() {
       <MonogramImage
         src="/assets/monogram-gv.webp"
         alt=""
-        width={54}
-        height={54}
+        width={96}
+        height={88}
         className={styles.monogram}
       />
-      <p className={styles.prelude}>{footerCopy.prelude}</p>
-      <p className={styles.names}>{footerCopy.names}</p>
       <p className={styles.date}>{footerCopy.date}</p>
       <p className={styles.closing}>{footerCopy.closing}</p>
+      <p className={styles.prelude}>{footerCopy.prelude}</p>
+      <p className={styles.names}>{footerCopy.names}</p>
     </footer>
   );
 }

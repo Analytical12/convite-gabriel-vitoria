@@ -10,7 +10,7 @@ São necessárias **10 fotos reais**: 5 horizontais, 3 verticais, 1 quadrada e 1
 |---|---|---|---|---|
 | 01 | `photo-01-hero-casal-horizontal.webp` | Gate e fundo do envelope | Casal em ambiente, com respiro | Horizontal 16:9 · 1800 × 1013 px |
 | 02 | `photo-02-mensagem-casal-vertical.webp` | Medalhão “Com alegria” | Retrato editorial do casal | Vertical 3:4 · 1200 × 1600 px |
-| 03 | `photo-03-local-ambiente-horizontal.webp` | Data e local | Fachada, salão, mesa ou jardim do local | Horizontal 4:3 · 1600 × 1200 px |
+| 03 | `public/assets/real/bonjour-patisserie.png` | Data e local | Ilustração real do local — exibida horizontalmente no site | Horizontal 4:3 após rotação · 2015 × 2841 px na origem |
 | 04 | `photo-04-historia-casal-vertical.webp` | Nossa história | Casal em cena narrativa | Vertical 4:5 · 1280 × 1600 px |
 | 05 | `photo-05-galeria-detalhe-vertical.webp` | Galeria 1 | Mãos, tecido, flor ou detalhe do casal | Vertical 3:4 · 1200 × 1600 px |
 | 06 | `photo-06-galeria-casal-horizontal.webp` | Galeria 2 | Casal em arquitetura/ambiente | Horizontal 3:2 · 1800 × 1200 px |

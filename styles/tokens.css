@@ -1,33 +1,33 @@
 /**
  * Design tokens — keep in sync with lib/design-tokens.ts.
- * Palette sampled from the couple's own monogram (public/Logo nova.png).
+ * Official palette supplied by the couple, supported by warm paper neutrals.
  */
 :root {
   /* color: base */
-  --color-champagne: #f3ede3;
-  --color-off-white: #faf6ef;
-  --color-paper: #fdfaf4;
+  --color-champagne: #f2ebdf;
+  --color-off-white: #fbf7ef;
+  --color-paper: #fffdf8;
 
   /* color: text */
   --color-ink: #38322d;
   --color-ink-soft: #6d645b;
   --color-ink-faint: #9c948a;
 
-  /* color: primary (lavender, sampled from the "G" stroke) */
-  --color-lavender-100: #e4e7e8;
-  --color-lavender-300: #c3cbcf;
-  --color-lavender-500: #a8b3ba;
-  --color-lavender-700: #7c8792;
+  /* blue — #89AEAE */
+  --color-lavender-100: #e7efef;
+  --color-lavender-300: #bdd1d1;
+  --color-lavender-500: #89aeae;
+  --color-lavender-700: #557778;
 
-  /* color: secondary (old blush, sampled from the "V" stroke) */
-  --color-blush-100: #f5e4e7;
-  --color-blush-300: #e3bcc4;
-  --color-blush-500: #d49daa;
-  --color-blush-700: #b06e7e;
+  /* pink — #DF9FB0 */
+  --color-blush-100: #f7e6eb;
+  --color-blush-300: #edc4cf;
+  --color-blush-500: #df9fb0;
+  --color-blush-700: #995468;
 
   /* nearly-neutral washes used only for editorial micro-details */
-  --color-blue-wash: #edf2f4;
-  --color-blush-wash: #fbf0f1;
+  --color-blue-wash: #e7efef;
+  --color-blush-wash: #f7e6eb;
 
   /* color: identity accents — the same lavender/blush/gold ramps above,
      named for what they read as (blue / pink / apricot) so it's obvious
@@ -35,29 +35,34 @@
      washes and ornaments; keep the lavender/blush/gold names above for
      spots that already reference them. */
   --color-blue: var(--color-lavender-500);
-  --color-blue-soft: #e8edf3;
+  --color-blue-soft: #e4eeee;
   --color-blue-deep: var(--color-lavender-700);
 
   --color-pink: var(--color-blush-500);
-  --color-pink-soft: #f5dcda;
+  --color-pink-soft: #f5e1e7;
 
-  --color-apricot: #eec474;
-  --color-apricot-soft: #f8e7bd;
+  /* legacy aliases kept because the layout already uses these names */
+  --color-apricot: #c7a45a;
+  --color-apricot-soft: #f2e7cd;
 
-  /* color: botanical accent — detail only, never a background */
-  --color-botanical: #7c8763;
-  --color-botanical-soft: #a7b096;
+  /* greens + monogram */
+  --color-botanical: #607a62;
+  --color-botanical-deep: #435a45;
+  --color-green-light: #718477;
+  --color-monogram: #a8b5a3;
+  --color-botanical-soft: #dfe6dd;
+  --color-green-ivory: #edf1eb;
 
   /* color: gold/champagne hairline */
-  --color-gold-line: #c6a768;
-  --color-gold-line-soft: #ddc491;
+  --color-gold-line: #c7a45a;
+  --color-gold-line-soft: #dfca9e;
 
   --color-danger: #b3564f;
   --color-success: #6f8f6a;
 
   /* typography */
-  --font-display: var(--font-cormorant), "Iowan Old Style", "Palatino Linotype", serif;
-  --font-body: var(--font-jost), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-bodoni), "Didot", "Bodoni 72", serif;
+  --font-body: var(--font-montserrat), "Avenir Next", "Helvetica Neue", sans-serif;
 
   --fs-xs: 0.8125rem;
   --fs-sm: 0.9375rem;

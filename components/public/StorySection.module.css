@@ -1,1 +1,65 @@
-.section{text-align:center;background-image:var(--paper-grain),linear-gradient(180deg,var(--color-pink-soft),transparent 40%)}.editorial{margin-top:3.5rem;display:grid;gap:3.5rem;align-items:center}.photoFrame{position:relative;aspect-ratio:4/5;overflow:hidden;padding:10px;background:var(--color-paper);border:1px solid var(--color-apricot);box-shadow:0 24px 70px rgba(58,52,46,.12)}.photo{object-fit:cover;filter:grayscale(1)}.wrap{text-align:left;max-width:580px;margin:auto}.paragraph{color:var(--color-ink-soft);font-family:var(--font-display);font-size:clamp(1.15rem,4vw,1.4rem);line-height:1.65}.paragraph+.paragraph{margin-top:1.2rem}.signature{margin-top:2rem;font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--color-blue-deep)}@media(min-width:840px){.editorial{grid-template-columns:.82fr 1.18fr;text-align:left}.photoFrame{transform:rotate(-1.5deg)}}
+.section {
+  text-align: center;
+  background-color: var(--color-pink-soft);
+  background-image: var(--paper-grain),
+    linear-gradient(145deg, rgba(237, 241, 235, .82), transparent 45%),
+    radial-gradient(circle at 92% 82%, rgba(199, 164, 90, .38), transparent 26%);
+}
+
+.editorial {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.photoFrame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  padding: 10px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-apricot);
+  box-shadow: 10px 10px 0 var(--color-blue), 0 24px 70px rgba(58, 52, 46, .12);
+}
+
+.photo {
+  object-fit: cover;
+  filter: saturate(.76) contrast(.96);
+}
+
+.wrap {
+  text-align: left;
+  max-width: 580px;
+  margin: auto;
+}
+
+.paragraph {
+  color: var(--color-ink-soft);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4vw, 1.4rem);
+  line-height: 1.65;
+}
+
+.paragraph + .paragraph {
+  margin-top: 1.2rem;
+}
+
+.signature {
+  margin-top: 2rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--color-blue-deep);
+}
+
+@media (min-width: 840px) {
+  .editorial {
+    grid-template-columns: .82fr 1.18fr;
+    text-align: left;
+  }
+
+  .photoFrame {
+    transform: rotate(-1.5deg);
+  }
+}

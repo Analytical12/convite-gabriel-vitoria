@@ -91,6 +91,16 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
                 {status === "success" ? rsvpCopy.successBody : rsvpCopy.alreadySubmittedBody}
               </p>
               {existingSubmission && (
+                <a
+                  className={styles.confirmedContact}
+                  href={WEDDING.whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Falar pelo WhatsApp
+                </a>
+              )}
+              {existingSubmission && (
                 <p className={styles.confirmedStatus}>
                   Status: {RSVP_STATUS_LABELS[existingSubmission.status] ?? existingSubmission.status}
                 </p>

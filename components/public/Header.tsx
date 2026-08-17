@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { headerCopy, heroCopy } from "@/lib/copy";
 import { motionDurations, motionEasing } from "@/lib/design-tokens";
+import MonogramImage from "./MonogramImage";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -18,7 +19,16 @@ export default function Header() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: motionDurations.base, ease: motionEasing.standard }}
       >
-        <span className={styles.brand}>{heroCopy.names}</span>
+        <a href="#topo" className={styles.brand} aria-label="Voltar ao início">
+          <MonogramImage
+            src="/assets/monogram-gv.webp"
+            alt=""
+            width={40}
+            height={36}
+            className={styles.brandMark}
+          />
+          <span>{heroCopy.names}</span>
+        </a>
 
         <nav aria-label="Navegação principal" className={styles.nav}>
           <ul className={styles.nav}>

@@ -1,1 +1,82 @@
-.section{display:grid;align-items:center;gap:4rem;background-color:var(--color-blue-soft)}.medallion{position:relative;width:min(78vw,370px);aspect-ratio:3/4;margin:auto;border-radius:50% 50% 46% 46%;overflow:hidden;box-shadow:0 22px 60px rgba(58,52,46,.16),0 0 0 6px var(--color-apricot-soft);outline:1px solid var(--color-pink);outline-offset:10px}.photo{object-fit:cover;filter:grayscale(1) sepia(.06)}.letter{text-align:center;max-width:540px;margin:auto}.letter p:not(.signature):not(:first-child){margin-top:1.2rem;color:var(--color-ink-soft)}.letter h2{font-style:italic}.signature{margin-top:2rem!important;font-family:var(--font-display);font-size:1.65rem;font-style:italic;line-height:1.2;color:var(--color-blue-deep)}@media(min-width:800px){.section{grid-template-columns:.8fr 1.2fr}.letter{text-align:left}.letter p{margin-inline:0}}
+.section {
+  display: grid;
+  align-items: center;
+  gap: 4rem;
+  background-color: var(--color-blue-soft);
+  background-image: var(--paper-grain),
+    linear-gradient(135deg, rgba(237, 241, 235, .9), transparent 42%),
+    radial-gradient(circle at 96% 92%, rgba(223, 159, 176, .4), transparent 28%);
+}
+
+.medallion {
+  position: relative;
+  width: min(78vw, 370px);
+  aspect-ratio: 3 / 4;
+  margin: auto;
+  border-radius: 50% 50% 46% 46%;
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(58, 52, 46, .16), 0 0 0 6px var(--color-apricot-soft);
+  outline: 2px solid var(--color-pink);
+  outline-offset: 10px;
+}
+
+.photo {
+  object-fit: cover;
+  filter: saturate(.78) contrast(.96);
+}
+
+.letter {
+  position: relative;
+  text-align: center;
+  max-width: 620px;
+  margin: auto;
+}
+
+.letter::before {
+  content: "";
+  display: block;
+  width: 118px;
+  height: 6px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-pink), var(--color-gold-line), var(--color-monogram), var(--color-green-light), var(--color-botanical));
+}
+
+.letter p:not(.signature):not(:first-child) {
+  margin-top: 1.2rem;
+  color: var(--color-ink-soft);
+}
+
+.letter h2 {
+  max-width: 13ch;
+  margin-inline: auto;
+  font-size: clamp(2.35rem, 8vw, 4.2rem);
+  font-style: italic;
+}
+
+.signature {
+  margin-top: 2rem !important;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--color-blue-deep);
+}
+
+@media (min-width: 800px) {
+  .section {
+    grid-template-columns: .8fr 1.2fr;
+  }
+
+  .letter {
+    text-align: left;
+  }
+
+  .letter::before,
+  .letter h2 {
+    margin-left: 0;
+  }
+
+  .letter p {
+    margin-inline: 0;
+  }
+}

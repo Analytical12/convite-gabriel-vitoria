@@ -11,7 +11,7 @@ Notas resumidas das referências consultadas antes da implementação, extraindo
 - O "elemento assinatura" deste projeto é a **animação de abertura da carta** — todo o resto do motion fica quieto ao redor dela.
 - Estrutura deve carregar significado real (não numerar seções "01/02/03" só por estética se não há sequência real).
 - Copy é material de design: escrever do ponto de vista de quem usa, verbos ativos, sem vender, sem clichê.
-- Aplicado aqui: paleta ancorada nas cores reais do monograma do casal (não um dos 3 defaults), tipografia serif+sans deliberada (Cormorant Garamond + Jost, não Playfair/Inter padrão), um único momento coreografado (a carta) em vez de animação espalhada.
+- Aplicado aqui: paleta final fornecida pelo casal, tipografia serif+sans deliberada (Bodoni Moda + Montserrat) e um único momento coreografado (a carta) em vez de animação espalhada.
 
 ## 2. Impeccable
 

@@ -1,1 +1,49 @@
-.footer{max-width:none;padding:6rem 1.25rem;text-align:center;background-image:var(--paper-grain),linear-gradient(135deg,var(--color-blue-soft),var(--color-pink-soft) 50%,var(--color-apricot-soft));border-top:1px solid rgba(198,167,104,.5)}.monogram{width:60px;height:60px;margin:0 auto 1.5rem;object-fit:contain;filter:drop-shadow(0 1px 0 rgba(255,255,255,.8))}.prelude{font-family:var(--font-display);font-size:1.2rem;font-style:italic}.names{font-family:var(--font-display);font-size:clamp(3rem,14vw,5rem);font-style:italic;line-height:.9;letter-spacing:-.05em}.date{margin-top:1.5rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.18em}.closing{margin-top:.65rem;color:var(--color-ink-soft);font-family:var(--font-display);font-size:1.1rem;font-style:italic}
+.footer {
+  max-width: none;
+  padding: 6rem 1.25rem;
+  text-align: center;
+  background-color: var(--color-champagne);
+  background-image: var(--paper-grain),
+    linear-gradient(125deg, var(--color-blue-soft), var(--color-green-ivory) 27%, var(--color-pink-soft) 61%, var(--color-apricot-soft));
+  border-top: 5px solid transparent;
+  border-image: linear-gradient(90deg, var(--color-blue), var(--color-pink), var(--color-gold-line), var(--color-monogram), var(--color-green-light), var(--color-botanical)) 1;
+}
+
+.monogram {
+  width: 96px;
+  height: 88px;
+  margin: 0 auto 1.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .8));
+}
+
+.date {
+  font-size: .7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+}
+
+.closing {
+  max-width: 54ch;
+  margin: 1.25rem auto 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4vw, 1.4rem);
+  line-height: 1.65;
+}
+
+.prelude {
+  margin-top: 2rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.names {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 14vw, 5rem);
+  font-style: italic;
+  line-height: .95;
+  letter-spacing: -.05em;
+}

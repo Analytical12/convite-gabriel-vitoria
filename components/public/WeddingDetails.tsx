@@ -27,22 +27,24 @@ export default function WeddingDetails() {
                 <Image
                   src="/assets/monogram-gv.webp"
                   alt=""
-                  width={34}
-                  height={34}
+                  width={92}
+                  height={84}
                   className={styles.venueFallbackMonogram}
                 />
                 <span className={styles.venueFallbackText}>{bigDayCopy.venueName}</span>
               </div>
             ) : (
               <div className={`${styles.venueImage} venue-photo-landscape`}>
-                <Image
-                  src={PUBLIC_EXPERIENCE.images.venue}
-                  alt={`Fotografia do local: ${bigDayCopy.venueName}`}
-                  fill
-                  sizes="(max-width: 700px) 72vw, 360px"
-                  className={styles.photo}
-                  onError={() => setVenuePhotoFailed(true)}
-                />
+                <div className={styles.venueArtwork}>
+                  <Image
+                    src={PUBLIC_EXPERIENCE.images.venue}
+                    alt={`Ilustração do local do casamento: ${bigDayCopy.venueName}`}
+                    fill
+                    sizes="(max-width: 700px) 72vw, 410px"
+                    className={styles.photo}
+                    onError={() => setVenuePhotoFailed(true)}
+                  />
+                </div>
               </div>
             )}
           </Reveal>

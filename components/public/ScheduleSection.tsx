@@ -19,10 +19,15 @@ export default function ScheduleSection() {
                 <span className={styles.icon}><ScheduleIcon type={item.icon} /></span>
                 <span className={styles.time}>{item.time}</span>
                 <span className={styles.label}>{item.label}</span>
+                <span className={styles.note}>{item.note}</span>
               </div>
             </Reveal>
           ))}
         </ul>
+
+        <Reveal delay={0.28}>
+          <p className={styles.closing}>{scheduleCopy.closing}</p>
+        </Reveal>
       </div>
     </section>
   );

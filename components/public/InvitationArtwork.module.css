@@ -1,0 +1,32 @@
+.card {
+  min-height: 0;
+  max-height: 96dvh;
+  justify-content: flex-start;
+  gap: .55rem;
+  padding: .45rem;
+  overflow-y: auto;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 84dvh;
+  object-fit: contain;
+}
+
+.continueHint {
+  flex-shrink: 0;
+  margin: .15rem 0 .35rem;
+}
+
+@media (max-height: 720px) {
+  .card {
+    min-height: 0;
+    padding: .35rem;
+  }
+
+  .image {
+    max-height: 79dvh;
+  }
+}

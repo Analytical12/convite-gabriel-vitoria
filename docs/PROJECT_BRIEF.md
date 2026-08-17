@@ -12,7 +12,7 @@
 | Endereço | R. Nicácio Portela Diniz, 43 — Jardim Itália, Chapecó - SC, 89814-010 |
 | Formato | Cerimônia pela manhã (área aberta) seguida de brunch francês (ambiente fechado/misto) |
 | Encerramento previsto | ~12h00 |
-| RSVP até | 10/09/2026 |
+| RSVP até | 25/09/2026 |
 | Contato WhatsApp | 49 98814-8811 |
 | Domínio previsto | weddinggv.com |
 | Versículo | 1 João 4:19 |

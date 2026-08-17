@@ -15,7 +15,7 @@
 }
 
 .section--tinted {
-  background-color: var(--color-off-white);
+  background-color: var(--color-green-ivory);
 }
 
 .section--paper-texture {
@@ -58,13 +58,14 @@
   margin: 0 auto 5rem;
   overflow: hidden;
   border-radius: 50% 50% 2px 2px;
-  outline: 1px solid var(--color-gold-line-soft);
+  outline: 2px solid var(--color-pink);
   outline-offset: 8px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 0 0 13px var(--color-apricot-soft), var(--shadow-lg);
 }
 
 .closing-photo {
   object-fit: cover;
+  filter: saturate(.8) contrast(.96);
 }
 
 .eyebrow {
@@ -116,7 +117,7 @@
 
 .btn--primary {
   background: var(--color-blue-deep);
-  color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .btn--primary:hover:not(:disabled) {

@@ -1,1 +1,92 @@
-.hero{padding:clamp(4rem,11vw,8rem) 1.25rem;background:radial-gradient(circle at 50% 45%,rgba(245,228,231,.8),transparent 48%)}.paper{position:relative;isolation:isolate;width:min(100%,620px);margin:auto;padding:clamp(4rem,12vw,7rem) 1.6rem;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0)),var(--color-paper);border:1px solid var(--color-gold-line-soft);box-shadow:0 24px 64px rgba(58,52,46,.16),0 4px 14px rgba(58,52,46,.08)}.paper:before{content:"";position:absolute;inset:12px;border:1px solid rgba(198,167,104,.3)}.paper:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.035;background-image:var(--paper-grain);mix-blend-mode:multiply}.ornament{display:block;color:var(--color-gold-line);font-size:.8rem;margin-bottom:1.1rem}.prelude{text-transform:uppercase;letter-spacing:.22em;font-size:.65rem;color:var(--color-lavender-700)}.names{margin-top:.7rem;font-size:clamp(3.3rem,15vw,6rem);font-style:italic;font-weight:400;line-height:.92;letter-spacing:-.06em}.date{margin-top:1.8rem;font-family:var(--font-display);font-size:1.3rem}.location{margin-top:.3rem;color:var(--color-ink-soft);font-size:.82rem}.verse{margin:0 auto;max-width:28ch;font-family:var(--font-display);font-size:1.25rem;font-style:italic}.paper cite{display:block;margin-top:.35rem;font-style:normal;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--color-lavender-700)}
+.hero {
+  padding: clamp(4rem, 11vw, 8rem) 1.25rem;
+  background-color: var(--color-champagne);
+  background-image: var(--paper-grain),
+    radial-gradient(circle at 8% 14%, rgba(137, 174, 174, .7) 0 6%, transparent 22%),
+    radial-gradient(circle at 91% 22%, rgba(223, 159, 176, .62) 0 7%, transparent 24%),
+    radial-gradient(circle at 12% 88%, rgba(113, 132, 119, .35) 0 5%, transparent 22%),
+    radial-gradient(circle at 88% 86%, rgba(199, 164, 90, .58) 0 7%, transparent 24%);
+}
+
+.paper {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 620px);
+  margin: auto;
+  padding: clamp(4rem, 12vw, 7rem) 1.6rem;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(237, 241, 235, .7), rgba(255, 255, 255, 0)), var(--color-paper);
+  border: 1px solid var(--color-apricot);
+  box-shadow: 0 24px 64px rgba(58, 52, 46, .16), 0 4px 14px rgba(58, 52, 46, .08);
+}
+
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(137, 174, 174, .58);
+}
+
+.paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-top: 6px solid var(--color-pink);
+  border-bottom: 6px solid var(--color-botanical);
+  opacity: .8;
+}
+
+.monogram {
+  width: 78px;
+  height: 70px;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+}
+
+.prelude {
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-size: .65rem;
+  color: var(--color-blue-deep);
+}
+
+.names {
+  margin-top: .7rem;
+  font-size: clamp(3.1rem, 14vw, 6rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+
+.date {
+  margin-top: 1.8rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.location {
+  margin-top: .3rem;
+  color: var(--color-ink-soft);
+  font-size: .82rem;
+}
+
+.verse {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-style: italic;
+  overflow-wrap: anywhere;
+}
+
+.paper cite {
+  display: block;
+  margin-top: .35rem;
+  font-style: normal;
+  font-size: .65rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-blue-deep);
+}

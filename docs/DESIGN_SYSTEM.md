@@ -4,7 +4,7 @@ Fonte da verdade em código: [`lib/design-tokens.ts`](../lib/design-tokens.ts) (
 
 ## Paleta
 
-Sampleada diretamente do monograma real do casal (`public/Logo nova.png`) — não são valores arbitrários.
+Baseada na paleta final fornecida pelo casal, com o monograma real mantido como assinatura visual.
 
 | Token | Hex | Uso |
 |---|---|---|
@@ -13,26 +13,29 @@ Sampleada diretamente do monograma real do casal (`public/Logo nova.png`) — n�
 | `--color-paper` | `#FCFAF5` | Textura de envelope/carta |
 | `--color-ink` | `#3A342E` | Texto principal (nunca preto puro) |
 | `--color-ink-soft` | `#6B6459` | Texto secundário |
-| `--color-lavender-500` | `#A8B3BA` | Primária — do traço "G" do monograma |
-| `--color-lavender-700` | `#7C8792` | Primária, contraste para texto/links |
-| `--color-blush-500` | `#D49DAA` | Secundária — do traço "V" do monograma |
-| `--color-blush-700` | `#B06E7E` | Secundária, contraste |
-| `--color-botanical` | `#7C8763` | Verde — só detalhe, nunca fundo |
-| `--color-gold-line` | `#C6A768` | Linhas finas, selo, microdetalhes |
+| `--color-lavender-500` | `#89AEAE` | Azul oficial |
+| `--color-lavender-700` | `#557778` | Azul profundo derivado para contraste |
+| `--color-blush-500` | `#DF9FB0` | Rosa oficial |
+| `--color-blush-700` | `#995468` | Rosa profundo derivado para contraste |
+| `--color-botanical` | `#607A62` | Verde-escuro oficial |
+| `--color-green-light` | `#718477` | Verde-claro oficial |
+| `--color-monogram` | `#A8B5A3` | Verde do monograma oficial |
+| `--color-green-ivory` | `#EDF1EB` | Fundo esverdeado derivado |
+| `--color-gold-line` | `#C7A45A` | Dourado oficial para linhas e detalhes |
 | `--color-danger` | `#B3564F` | Erros — terracota, não vermelho puro |
 | `--color-blue` / `--color-blue-deep` | alias de `lavender-500`/`-700` | Mesmo tom, nome pelo que ele lê visualmente (azul-acinzentado) |
-| `--color-blue-soft` | `#E8EDF3` | Wash de fundo — seções que pedem azul mais presente |
+| `--color-blue-soft` | `#E4EEEE` | Wash derivado do azul para fundos |
 | `--color-pink` | alias de `blush-500` | Idem, nome "rosa" |
-| `--color-pink-soft` | `#F5DCDA` | Wash de fundo rosa |
-| `--color-apricot` | `#EEC474` | Pêssego/laranja — cor nova, não existia antes; usar em bordas, molduras, ícones |
-| `--color-apricot-soft` | `#F8E7BD` | Wash de fundo pêssego |
+| `--color-pink-soft` | `#F5E1E7` | Wash derivado do rosa para fundos |
+| `--color-apricot` | `#C7A45A` | Alias legado do dourado oficial |
+| `--color-apricot-soft` | `#F2E7CD` | Wash derivado do dourado para fundos |
 
 Regra: sem gradiente azul→roxo genérico, sem neon, sem preto puro, sem texto cinza sobre fundo colorido (sempre `--color-ink`/`--color-ink-soft` sobre fundo claro).
 
 ## Tipografia
 
-- **Display** (títulos, nomes, versículo): Cormorant Garamond — `next/font/google`, pesos 400/500/600 + itálico, self-hosted no build.
-- **Corpo**: Jost — pesos 400/500/600.
+- **Display** (títulos, nomes, versículo): Bodoni Moda — `next/font/google`, pesos 400/500/600 + itálico, self-hosted no build.
+- **Corpo**: Montserrat — pesos 400/500/600.
 - Escala em `--fs-xs` (13px) até `--fs-4xl` (60px), definida em `styles/tokens.css`.
 - Tamanho mínimo de corpo: 16px (`--fs-base`) para legibilidade mobile.
 

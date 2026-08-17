@@ -1,7 +1,9 @@
 .section {
+  background-color: var(--color-pink-soft);
   background-image: var(--paper-grain),
-    linear-gradient(135deg, var(--color-pink-soft), transparent 46%),
-    linear-gradient(320deg, var(--color-apricot-soft), transparent 46%);
+    linear-gradient(135deg, rgba(237, 241, 235, .9), transparent 42%),
+    linear-gradient(320deg, var(--color-apricot-soft), transparent 46%),
+    radial-gradient(circle at 92% 12%, rgba(137, 174, 174, .46), transparent 22%);
 }
 
 .revealButton {
@@ -23,7 +25,7 @@
   gap: .65rem;
   background-color: rgba(253, 250, 244, .9);
   background-image: var(--paper-grain);
-  border-color: rgba(198, 167, 104, .45);
+  border-color: rgba(199, 164, 90, .45);
 }
 
 .card::before {
@@ -34,7 +36,7 @@
 
 .freeCard {
   border-color: var(--color-apricot);
-  background-color: rgba(251, 240, 241, .58);
+  background-color: rgba(237, 241, 235, .65);
 }
 
 .freeCard::after {

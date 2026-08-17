@@ -4,9 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { motionDurations, motionEasing } from "@/lib/design-tokens";
-import { heroCopy, verseCopy } from "@/lib/copy";
+import { heroCopy } from "@/lib/copy";
 import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import styles from "./InvitationEnvelope.module.css";
+import artworkStyles from "./InvitationArtwork.module.css";
 
 type Props = {
   revealed: boolean;
@@ -85,30 +86,24 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
         ) : (
           <motion.div
             key="card"
-            className={styles.card}
+            className={`${styles.card} ${artworkStyles.card}`}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: motionDurations.slow, ease: motionEasing.soft }}
           >
             <Image
-              src="/assets/monogram-gv.webp"
-              alt=""
-              width={46}
-              height={46}
-              className={styles.cardMonogram}
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-              }}
+              src={PUBLIC_EXPERIENCE.images.invitationCard}
+              alt="Convite de casamento de Gabriel e Vitória, em 06 de dezembro de 2026, na Bonjour Pâtisserie"
+              width={2015}
+              height={2841}
+              className={artworkStyles.image}
+              priority
             />
-            <p className={styles.cardPrelude}>Convidamos você para celebrar conosco</p>
-            <p className={styles.cardNames}>{heroCopy.names}</p>
-            <p className={styles.cardDate}>{heroCopy.date}</p>
-            <p className={styles.cardLocation}>{heroCopy.location}</p>
-            <hr className="hairline hairline--center" />
-            <p className={styles.cardVerse}>&ldquo;{verseCopy.text}&rdquo;</p>
-            <span className={styles.cardVerseRef}>{verseCopy.reference}</span>
-
-            <button type="button" className={styles.continueHint} onClick={onContinue}>
+            <button
+              type="button"
+              className={`${styles.continueHint} ${artworkStyles.continueHint}`}
+              onClick={onContinue}
+            >
               <span>Continuar</span>
               <span className={styles.chevron} aria-hidden="true" />
             </button>

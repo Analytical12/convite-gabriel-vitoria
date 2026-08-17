@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { heroCopy, verseCopy } from "@/lib/copy";
 import Reveal from "./Reveal";
 import styles from "./HeroInvite.module.css";
@@ -7,7 +8,13 @@ export default function HeroInvite() {
     <section id="topo" className={`${styles.hero} paper-texture`}>
       <Reveal>
         <div className={styles.paper}>
-          <span className={styles.ornament} aria-hidden="true">✦</span>
+          <Image
+            src="/assets/monogram-gv.webp"
+            alt=""
+            width={78}
+            height={70}
+            className={styles.monogram}
+          />
           <p className={styles.prelude}>O nosso convite</p>
           <h1 className={styles.names}>{heroCopy.names}</h1>
           <p className={styles.date}>{heroCopy.date}</p>
