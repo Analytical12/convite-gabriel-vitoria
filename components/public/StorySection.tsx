@@ -15,7 +15,7 @@ export default function StorySection() {
       <div className={styles.editorial}>
         <Reveal delay={0.04}>
           <div className={styles.photoFrame}>
-            <Image src={PUBLIC_EXPERIENCE.images.story} alt="Fotografia demonstrativa da história do casal" fill sizes="(max-width: 700px) 86vw, 430px" className={styles.photo} />
+            <Image src={PUBLIC_EXPERIENCE.images.story} alt="Gabriel e Vitória juntos diante do pôr do sol" fill sizes="(max-width: 700px) 86vw, 430px" className={styles.photo} />
           </div>
         </Reveal>
         <div className={styles.wrap}>

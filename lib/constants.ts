@@ -24,13 +24,13 @@ export const PUBLIC_EXPERIENCE = {
   images: {
     invitationCard: "/assets/real/convite-inicial.png",
     hero: "/assets/placeholders-v21/photo-01-hero-casal-horizontal.webp",
-    portrait: "/assets/placeholders-v21/photo-02-mensagem-casal-vertical.webp",
+    portrait: "/assets/real/casal/mensagem-abraco.png",
     // Keep this slot tied to the real venue artwork. If the asset is missing,
     // the component uses the branded fallback instead of a false venue image.
     venue: "/assets/real/bonjour-patisserie.png",
-    story: "/assets/placeholders-v21/photo-04-historia-casal-vertical.webp",
+    story: "/assets/real/casal/nossa-historia-por-do-sol.png",
     gallery: [
-      "/assets/placeholders-v21/photo-05-galeria-detalhe-vertical.webp",
+      "/assets/real/casal/detalhe-alianca.png",
       "/assets/placeholders-v21/photo-06-galeria-casal-horizontal.webp",
       "/assets/placeholders-v21/photo-07-galeria-papelaria-quadrada.webp",
       "/assets/placeholders-v21/photo-08-galeria-ambiente-horizontal.webp",

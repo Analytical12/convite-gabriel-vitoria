@@ -3,7 +3,13 @@ import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./GallerySection.module.css";
 
-const captions = ["Entre encontros", "Nos detalhes", "O nosso lugar", "Um novo capítulo"];
+const captions = ["O nosso sim", "Entre encontros", "O nosso lugar", "Um novo capítulo"];
+const alternativeTexts = [
+  "Detalhe da aliança de noivado de Vitória",
+  "Fotografia demonstrativa da galeria do casamento",
+  "Fotografia demonstrativa da galeria do casamento",
+  "Fotografia demonstrativa da galeria do casamento",
+];
 
 export default function GallerySection() {
   return (
@@ -12,7 +18,7 @@ export default function GallerySection() {
         <Reveal>
           <p className="eyebrow">Memórias</p>
           <h2>Alguns capítulos da nossa história</h2>
-          <p className={styles.placeholderNote}>Imagens demonstrativas — em breve, nossos momentos.</p>
+          <p className={styles.placeholderNote}>Momentos que guardamos com carinho.</p>
         </Reveal>
 
         <div className={styles.gallery}>
@@ -22,7 +28,7 @@ export default function GallerySection() {
                 <div className={`${styles.imageWrap} gallery-slot--${index + 1}`}>
                   <Image
                     src={src}
-                    alt="Fotografia demonstrativa da galeria do casamento"
+                    alt={alternativeTexts[index] ?? "Fotografia da galeria do casamento"}
                     fill
                     sizes="(max-width: 700px) 46vw, 280px"
                     className={`${styles.image} gallery-image-color`}

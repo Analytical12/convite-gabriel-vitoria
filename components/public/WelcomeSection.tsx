@@ -11,7 +11,7 @@ export default function WelcomeSection() {
         <div className={styles.medallion}>
           <Image
             src={PUBLIC_EXPERIENCE.images.portrait}
-            alt="Fotografia demonstrativa do casal"
+            alt="Gabriel e Vitória abraçados ao pôr do sol"
             fill
             sizes="(max-width: 700px) 72vw, 360px"
             className={styles.photo}
