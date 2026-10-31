@@ -28,7 +28,11 @@
   filter: saturate(.76) contrast(.96);
 }
 
+/* Each paragraph sits in its own Reveal wrapper, so spacing comes from the
+   grid gap (a `.paragraph + .paragraph` rule never matched). */
 .wrap {
+  display: grid;
+  gap: 1.2rem;
   text-align: left;
   max-width: 580px;
   margin: auto;
@@ -41,12 +45,8 @@
   line-height: 1.65;
 }
 
-.paragraph + .paragraph {
-  margin-top: 1.2rem;
-}
-
 .signature {
-  margin-top: 2rem;
+  margin-top: .8rem;
   font-family: var(--font-display);
   font-size: 2rem;
   font-style: italic;

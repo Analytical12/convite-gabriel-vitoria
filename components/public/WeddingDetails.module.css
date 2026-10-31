@@ -17,6 +17,12 @@
   box-shadow: 0 28px 80px rgba(58, 52, 46, .1);
 }
 
+/* grid items default to min-width: auto and would stretch the track past
+   the card instead of shrinking to it */
+.invitePage > * {
+  min-width: 0;
+}
+
 .invitePage::before {
   content: "";
   position: absolute;
@@ -108,7 +114,7 @@
 
 .date {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 7vw, 2.7rem);
+  font-size: clamp(1.35rem, 6vw, 2.7rem);
 }
 
 .timeGrid {
@@ -117,6 +123,14 @@
   margin: 2rem auto;
   padding-block: 1.2rem;
   border-block: 1px solid var(--color-apricot);
+}
+
+/* times sit on the bottom edge so they line up even when one label wraps */
+.timeGrid div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-inline: .5rem;
 }
 
 .timeGrid div + div {

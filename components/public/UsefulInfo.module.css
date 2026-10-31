@@ -91,6 +91,7 @@
 }
 
 .note a {
+  white-space: nowrap;
   color: var(--color-blue-deep);
   font-weight: 500;
   text-decoration: underline;
