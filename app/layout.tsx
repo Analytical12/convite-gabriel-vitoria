@@ -1,21 +1,34 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 
-const bodoni = Bodoni_Moda({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+// Self-hosted copies of the Google Fonts latin subsets (variable files, one
+// per style). next/font/google downloads them at build time, and that fetch
+// intermittently broke the Vercel production build under Turbopack.
+const bodoni = localFont({
+  src: [
+    { path: "./fonts/bodoni-moda-latin.woff2", weight: "400 600", style: "normal" },
+    { path: "./fonts/bodoni-moda-italic-latin.woff2", weight: "400 600", style: "italic" },
+  ],
   variable: "--font-bodoni",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const montserrat = localFont({
+  src: [{ path: "./fonts/montserrat-latin.woff2", weight: "400 600", style: "normal" }],
   variable: "--font-montserrat",
   display: "swap",
 });
+
+/** Falls back instead of failing the build when the env value isn't a full URL. */
+function siteUrl(): URL {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "");
+  } catch {
+    return new URL("https://www.weddinggv.com");
+  }
+}
 
 const title = "Gabriel & Vitória | 06 de dezembro de 2026";
 const description =
@@ -24,7 +37,7 @@ const description =
 export const metadata: Metadata = {
   // absolute base for the link preview image (app/opengraph-image.jpg) that
   // WhatsApp shows when the invitation link is shared
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.weddinggv.com"),
+  metadataBase: siteUrl(),
   title,
   description,
   openGraph: {
