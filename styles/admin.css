@@ -156,6 +156,27 @@
   background: var(--color-lavender-100);
 }
 
+a.admin-table-action {
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-invite-link {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.admin-invite-link code {
+  font-size: var(--fs-xs);
+  color: var(--color-ink-soft);
+  word-break: break-all;
+}
+
+.admin-invite-link__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
 .admin-modal-overlay {
   position: fixed;
   inset: 0;

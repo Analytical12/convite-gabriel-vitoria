@@ -1,14 +1,20 @@
-import { AGE_GROUP_LABELS } from "@/lib/constants";
+import { RSVP_STATUS_LABELS, WEDDING } from "@/lib/constants";
+import InviteLinkActions from "./InviteLinkActions";
 
 export type HouseholdWithGuests = {
   id: string;
   code: string;
   displayName: string;
-  type: string;
-  maxInvited: number;
+  group: string | null;
   isActive: boolean;
-  guests: Array<{ id: string; fullName: string; ageGroup: string }>;
+  rsvpStatus: string | null;
+  guests: Array<{ id: string; fullName: string }>;
 };
+
+/** Personal link that identifies the family and opens its RSVP form. */
+function inviteLink(code: string): string {
+  return `https://www.${WEDDING.domain}/c/${code}`;
+}
 
 export default function GuestsTable({ households }: { households: HouseholdWithGuests[] }) {
   return (
@@ -16,35 +22,42 @@ export default function GuestsTable({ households }: { households: HouseholdWithG
       <table className="admin-table">
         <thead>
           <tr>
-            <th>Código</th>
-            <th>Família / Convidado</th>
-            <th>Tipo</th>
+            <th>Família</th>
+            <th>Grupo</th>
             <th>Convidados</th>
-            <th>Status</th>
+            <th>Confirmação</th>
+            <th>Link pessoal</th>
           </tr>
         </thead>
         <tbody>
           {households.map((household) => (
             <tr key={household.id}>
-              <td>{household.code}</td>
               <td>{household.displayName}</td>
-              <td>{household.type === "family" ? "Família" : "Individual"}</td>
+              <td>{household.group ?? "—"}</td>
               <td>
                 {household.guests.map((guest) => (
-                  <div key={guest.id}>
-                    {guest.fullName}{" "}
-                    <span style={{ color: "var(--color-ink-faint)", fontSize: "var(--fs-xs)" }}>
-                      ({AGE_GROUP_LABELS[guest.ageGroup] ?? guest.ageGroup})
-                    </span>
-                  </div>
+                  <div key={guest.id}>{guest.fullName}</div>
                 ))}
               </td>
               <td>
-                <span
-                  className={`admin-badge ${household.isActive ? "admin-badge--confirmed" : "admin-badge--declined"}`}
-                >
-                  {household.isActive ? "Ativo" : "Inativo"}
-                </span>
+                {household.rsvpStatus ? (
+                  <span
+                    className={`admin-badge ${
+                      household.rsvpStatus === "declined" ? "admin-badge--declined" : "admin-badge--confirmed"
+                    }`}
+                  >
+                    {RSVP_STATUS_LABELS[household.rsvpStatus] ?? household.rsvpStatus}
+                  </span>
+                ) : (
+                  <span className="admin-badge admin-badge--pending">Pendente</span>
+                )}
+              </td>
+              <td>
+                {household.isActive ? (
+                  <InviteLinkActions link={inviteLink(household.code)} familyName={household.displayName} />
+                ) : (
+                  <span className="admin-badge admin-badge--declined">Inativo</span>
+                )}
               </td>
             </tr>
           ))}
