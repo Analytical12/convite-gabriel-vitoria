@@ -51,8 +51,19 @@ export const PUBLIC_EXPERIENCE = {
   },
 } as const;
 
-/** Minimum accepted online gift contribution: R$ 10,00. */
-export const MIN_GIFT_AMOUNT_CENTS = 1_000;
+/** Minimum accepted online gift contribution: R$ 50,00. */
+export const MIN_GIFT_AMOUNT_CENTS = 5_000;
+
+/**
+ * Gift themes on the invitation page. A gift joins the theme whose band its
+ * sort_order falls in, so themes are managed from the gifts table alone;
+ * gifts outside every band (like the free contribution, 999) come after.
+ */
+export const GIFT_GROUPS = [
+  { from: 100, to: 199, label: "Momentos a dois" },
+  { from: 200, to: 299, label: "Para o nosso lar" },
+  { from: 300, to: 399, label: "Para a lua de mel" },
+] as const;
 
 export const ACCESS_COOKIE_NAME = "gv_access";
 export const ADMIN_ROUTE_PREFIX = "/admin";

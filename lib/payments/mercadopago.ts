@@ -84,6 +84,9 @@ export async function createGiftPreference(
         failure: `${siteUrl}/convite?presente=falha`,
       },
       auto_return: "approved",
+      // Pix, boleto and card stay enabled; card up to 12x (interest per the
+      // seller's Mercado Pago account settings).
+      payment_methods: { installments: 12 },
       // Mercado Pago limits this field to 13 characters.
       statement_descriptor: "GV CASAMENTO",
       metadata: {

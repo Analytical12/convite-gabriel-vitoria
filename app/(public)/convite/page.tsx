@@ -80,7 +80,7 @@ export default async function ConvitePage() {
   const [giftsResult, rsvp] = await Promise.all([
     supabase
       .from("gifts")
-      .select("id, title, description, suggested_amount_cents, allow_custom_amount, gift_type")
+      .select("id, title, description, suggested_amount_cents, allow_custom_amount, gift_type, sort_order")
       .eq("is_active", true)
       .order("sort_order", { ascending: true }),
     PUBLIC_EXPERIENCE.showRsvp && payload ? loadRsvp(supabase, payload.householdId) : null,
@@ -97,6 +97,7 @@ export default async function ConvitePage() {
     suggestedAmountCents: gift.suggested_amount_cents,
     allowCustomAmount: gift.allow_custom_amount,
     giftType: gift.gift_type === "free" ? "free" : "suggested",
+    sortOrder: gift.sort_order,
   }));
 
   return (
