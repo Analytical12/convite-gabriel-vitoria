@@ -12,3 +12,11 @@ export const verifyAccessSchema = z.object({
 });
 
 export type VerifyAccessInput = z.infer<typeof verifyAccessSchema>;
+
+/**
+ * Codes are matched case-insensitively with ILIKE, where % and _ are
+ * wildcards — unescaped, "/c/gab%" would log in as whichever family matches.
+ */
+export function escapeLikePattern(value: string): string {
+  return value.replace(/[\\%_]/g, (char) => `\\${char}`);
+}

@@ -6,8 +6,8 @@ export const WEDDING = {
   venueName: "Bonjour Pâtisserie",
   venueAddress: "R. Nicácio Portela Diniz, 43 - Jardim Itália, Chapecó - SC, 89814-010",
   city: "Chapecó - SC",
-  rsvpDeadlineISO: "2026-09-25T23:59:59-03:00",
-  rsvpDeadlineDisplay: "25 de setembro de 2026",
+  rsvpDeadlineISO: "2026-11-20T23:59:59-03:00",
+  rsvpDeadlineDisplay: "20 de novembro de 2026",
   whatsapp: "49 98814-8811",
   whatsappHref: "https://wa.me/5549988148811",
   domain: "weddinggv.com",
@@ -21,11 +21,12 @@ export const WEDDING = {
  */
 export const PUBLIC_EXPERIENCE = {
   showLodging: false,
-  // Close to the wedding every guest is already confirmed, so the invitation
-  // is open to anyone with the link and the RSVP form is hidden. Flip both
-  // back to true to restore per-family codes and confirmation.
+  // The invitation is open to anyone with the link. RSVP is per family: each
+  // family gets a personal link (/c/<code>) that sets the access cookie, and
+  // only then does the RSVP section show that family's guests. Visitors on
+  // the general link see a note pointing them to their personal link.
   requireAccessCode: false,
-  showRsvp: false,
+  showRsvp: true,
   images: {
     invitationCard: "/assets/real/convite-inicial.png",
     hero: "/assets/fotos/ensaio-14.webp",

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { signAccessCookie, accessCookieOptions } from "@/lib/auth/access-cookie";
-import { verifyAccessSchema } from "@/lib/validators/access";
+import { escapeLikePattern, verifyAccessSchema } from "@/lib/validators/access";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const { data: household } = await supabase
     .from("households")
     .select("id, code, is_active")
-    .ilike("code", parsed.data.code)
+    .ilike("code", escapeLikePattern(parsed.data.code))
     .maybeSingle();
 
   if (!household || !household.is_active) {

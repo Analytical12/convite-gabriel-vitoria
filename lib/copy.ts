@@ -153,7 +153,7 @@ export const rsvpCopy = {
   eyebrow: "Confirmação de presença",
   title: "RSVP",
   intro:
-    "Para que possamos organizar tudo com cuidado, pedimos que sua confirmação de presença seja realizada até 25 de setembro de 2026.",
+    "Para que possamos organizar tudo com cuidado, pedimos que sua confirmação de presença seja realizada até 20 de novembro de 2026.",
   guestListLabel: "Convidados deste convite",
   dietaryLabel: "Restrição alimentar (opcional)",
   dietaryPlaceholder: "Ex.: vegetariano, alergia a frutos do mar...",
@@ -166,7 +166,11 @@ export const rsvpCopy = {
   alreadySubmittedTitle: "Sua confirmação já foi registrada",
   alreadySubmittedBody:
     "Caso precise corrigir ou atualizar alguma informação, entre em contato conosco pelo WhatsApp.",
-  deadlinePassedNote: "O prazo de confirmação (25 de setembro de 2026) já passou.",
+  deadlinePassedNote: "O prazo de confirmação (20 de novembro de 2026) já passou.",
+  personalLinkTitle: "Confirme pelo link da sua família",
+  personalLinkBody:
+    "Cada família recebeu pelo WhatsApp um link pessoal do convite. Abra o convite por esse link para ver os nomes da sua família e confirmar presença.",
+  personalLinkContact: "Não encontrou o link? Fale com a gente",
   errorGeneric: "Não conseguimos enviar sua confirmação agora. Tente novamente em instantes.",
 } as const;
 

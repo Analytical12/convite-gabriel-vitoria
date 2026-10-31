@@ -20,7 +20,8 @@ export type ExistingRsvp = {
 };
 
 type Props = {
-  householdName: string;
+  /** null when the visitor didn't come in through a family's personal link */
+  householdName: string | null;
   guests: RSVPGuest[];
   existingSubmission: ExistingRsvp | null;
   deadlinePassed: boolean;
@@ -82,7 +83,20 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
 
       <Reveal delay={0.05}>
         <div className={`card paper-surface ${styles.panel}`}>
-          {alreadySubmitted ? (
+          {householdName === null ? (
+            <div className={styles.confirmed}>
+              <p className={styles.confirmedTitle}>{rsvpCopy.personalLinkTitle}</p>
+              <p className={styles.confirmedBody}>{rsvpCopy.personalLinkBody}</p>
+              <a
+                className={styles.confirmedContact}
+                href={WEDDING.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {rsvpCopy.personalLinkContact}
+              </a>
+            </div>
+          ) : alreadySubmitted ? (
             <div className={styles.confirmed}>
               <p className={styles.confirmedTitle}>
                 {status === "success" ? rsvpCopy.successTitle : rsvpCopy.alreadySubmittedTitle}
