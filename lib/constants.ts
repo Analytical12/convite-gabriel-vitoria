@@ -51,8 +51,8 @@ export const PUBLIC_EXPERIENCE = {
   },
 } as const;
 
-/** Minimum accepted online gift contribution: R$ 10,00. */
-export const MIN_GIFT_AMOUNT_CENTS = 1_000;
+/** Minimum accepted online gift contribution: R$ 50,00. */
+export const MIN_GIFT_AMOUNT_CENTS = 5_000;
 
 /**
  * Gift themes on the invitation page. A gift joins the theme whose band its
