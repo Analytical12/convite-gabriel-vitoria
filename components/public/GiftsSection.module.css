@@ -22,19 +22,49 @@
   text-underline-offset: 3px;
 }
 
-.grid {
+.groups {
   display: grid;
-  gap: 1rem;
+  gap: 2.25rem;
   margin-top: 2.5rem;
   text-align: left;
   overflow: hidden;
+}
+
+/* Theme heading between hairlines, e.g. "— Para a lua de mel —". */
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  margin-bottom: 1rem;
+  color: var(--color-lavender-700);
+  font-family: var(--font-body);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.groupTitle::before,
+.groupTitle::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-gold-line-soft);
+}
+
+/* auto-fit: a 3-gift theme and a 4-gift theme both fill the row on desktop */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: .85rem;
 }
 
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: .65rem;
+  gap: .45rem;
+  padding: 1.3rem 1.25rem 1.15rem;
   background-color: rgba(253, 250, 244, .9);
   background-image: var(--paper-grain);
   border-color: rgba(199, 164, 90, .45);
@@ -42,8 +72,33 @@
 
 .card::before {
   content: "✦";
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
   color: var(--color-gold-line);
   font-size: .65rem;
+}
+
+.freeCard::before {
+  content: none;
+}
+
+/* Pinned to the card bottom so buttons line up across a row; wraps the
+   button under the price when the card is too narrow for both. */
+.cardFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem .75rem;
+  margin-top: auto;
+  padding-top: .35rem;
+}
+
+.cardFooter :global(.btn) {
+  min-height: 42px;
+  padding: .6rem 1.15rem;
+  font-size: .7rem;
 }
 
 .freeCard {
@@ -60,9 +115,6 @@
 }
 
 .freeBadge {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
   color: var(--color-blush-700);
   font-size: .58rem;
   letter-spacing: .12em;
@@ -70,9 +122,10 @@
 }
 
 .giftTitle {
+  padding-right: 1.25rem;
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  line-height: 1.05;
+  font-size: 1.35rem;
+  line-height: 1.08;
 }
 
 .giftDescription {
@@ -84,8 +137,7 @@
   color: var(--color-lavender-700);
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
-  margin-bottom: .4rem;
+  font-size: 1.15rem;
 }
 
 .form {
@@ -166,17 +218,7 @@
 }
 
 @media (min-width: 680px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .freeCard {
     grid-column: 1 / -1;
-  }
-}
-
-@media (min-width: 1040px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }

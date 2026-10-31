@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { giftsCopy } from "@/lib/copy";
-import { MIN_GIFT_AMOUNT_CENTS, PUBLIC_EXPERIENCE, WEDDING } from "@/lib/constants";
+import { GIFT_GROUPS, MIN_GIFT_AMOUNT_CENTS, PUBLIC_EXPERIENCE, WEDDING } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./GiftsSection.module.css";
 
@@ -14,7 +14,22 @@ export type Gift = {
   suggestedAmountCents: number;
   allowCustomAmount: boolean;
   giftType: "suggested" | "free";
+  sortOrder: number;
 };
+
+/** Themed groups in GIFT_GROUPS order, then whatever falls outside every band. */
+function groupGifts(gifts: Gift[]): Array<{ label: string | null; gifts: Gift[] }> {
+  const inBand = (gift: Gift, band: (typeof GIFT_GROUPS)[number]) =>
+    gift.sortOrder >= band.from && gift.sortOrder <= band.to;
+
+  const themed = GIFT_GROUPS.map((band) => ({
+    label: band.label as string | null,
+    gifts: gifts.filter((gift) => inBand(gift, band)),
+  }));
+  const rest = gifts.filter((gift) => !GIFT_GROUPS.some((band) => inBand(gift, band)));
+
+  return [...themed, { label: null, gifts: rest }].filter((group) => group.gifts.length > 0);
+}
 
 // Without per-family codes the typed name is the only way the couple knows
 // who sent a gift, so it stops being optional.
@@ -72,20 +87,27 @@ export default function GiftsSection({ gifts }: { gifts: Gift[] }) {
         <AnimatePresence initial={false}>
           {showGifts && (
             <motion.div
-              className={styles.grid}
+              className={styles.groups}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              {gifts.map((gift) => (
-                <GiftCard
-                  key={gift.id}
-                  gift={gift}
-                  isActive={activeGiftId === gift.id}
-                  onToggle={() =>
-                    setActiveGiftId((current) => (current === gift.id ? null : gift.id))
-                  }
-                />
+              {groupGifts(gifts).map((group) => (
+                <div key={group.label ?? "outros"} className={styles.group}>
+                  {group.label && <h3 className={styles.groupTitle}>{group.label}</h3>}
+                  <div className={styles.grid}>
+                    {group.gifts.map((gift) => (
+                      <GiftCard
+                        key={gift.id}
+                        gift={gift}
+                        isActive={activeGiftId === gift.id}
+                        onToggle={() =>
+                          setActiveGiftId((current) => (current === gift.id ? null : gift.id))
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
             </motion.div>
           )}
@@ -195,17 +217,20 @@ function GiftCard({
       {isFreeContribution && <span className={styles.freeBadge}>Você escolhe o valor</span>}
       <p className={styles.giftTitle}>{gift.title}</p>
       {gift.description && <p className={styles.giftDescription}>{gift.description}</p>}
-      <p className={styles.suggestedAmount}>
-        {isFreeContribution
-          ? `A partir de ${formatCents(MIN_GIFT_AMOUNT_CENTS)}`
-          : formatCents(gift.suggestedAmountCents)}
-      </p>
+      <div className={styles.cardFooter}>
+        <p className={styles.suggestedAmount}>
+          {isFreeContribution
+            ? `A partir de ${formatCents(MIN_GIFT_AMOUNT_CENTS)}`
+            : formatCents(gift.suggestedAmountCents)}
+        </p>
+        {!isActive && (
+          <button type="button" className="btn btn--outline" onClick={onToggle}>
+            {giftsCopy.submitLabel}
+          </button>
+        )}
+      </div>
 
-      {!isActive ? (
-        <button type="button" className="btn btn--outline" onClick={onToggle}>
-          {giftsCopy.submitLabel}
-        </button>
-      ) : (
+      {isActive && (
         <div className={styles.form}>
           <div className={styles.amountOptions}>
             {!isFreeContribution && (
