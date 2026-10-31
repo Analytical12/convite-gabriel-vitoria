@@ -25,7 +25,7 @@ export default function WeddingDetails() {
             {venuePhotoFailed ? (
               <div className={`${styles.venueFallback} venue-photo-landscape`}>
                 <Image
-                  src="/assets/monogram-gv.webp"
+                  src="/assets/monogram-vg.webp"
                   alt=""
                   width={92}
                   height={84}

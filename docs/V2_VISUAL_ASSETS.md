@@ -12,12 +12,16 @@ Desde 30/10/2026 o site usa as fotos reais do ensaio do casal (14 fotos, todas v
 | `gallery` (10 fotos) | `05, 06, 04, 09, 08, 02, 03, 12, 10, 07` | Galeria "Memórias" | 3:4, molduras alternadas |
 | `closing` | `ensaio-11` (caminhando de mãos dadas) | Encerramento | 4:5 em arco |
 | `rsvp` | `ensaio-07` | Cabeçalho do RSVP (seção oculta enquanto `showRsvp` for `false`) | 2:1 |
-| `invitationCard` | `real/convite-inicial.png` | Arte do convite revelada no envelope | Arte original |
+| `invitationCard` | `real/convite-inicial-2026-11.png` | Arte do convite revelada no envelope | Arte original, com a linha do prazo trocada para "20 de novembro" |
 | `venue` | `real/bonjour-patisserie.png` | Ilustração do local em "Data & local" | Arte original |
 
 A imagem de pré-visualização do link (WhatsApp/redes) é `app/opengraph-image.jpg` (1200×630, recorte dos rostos da `ensaio-01`), com texto alternativo em `app/opengraph-image.alt.txt`.
 
 A galeria é uma grade de 2 colunas no celular e 5 no desktop. Cor da moldura, arco/oval e deslocamento vertical são definidos por `nth-child` em `GallerySection.module.css`, então adicionar ou remover fotos em `gallery` não exige mexer no componente.
+
+O monograma (VG marrom, enviado pelo casal em 31/10/2026) está em `public/assets/monogram-vg.{png,webp}`, com uma versão pequena para o selo do envelope em `monogram-vg-seal.{png,webp}`. Ele aparece no topo, no convite, no rodapé, no selo, no gate de código e no fallback da ilustração do local.
+
+Ao trocar uma imagem que já está no ar, use um **nome de arquivo novo**: o otimizador de imagens da Vercel guarda as versões pelo nome por algumas horas.
 
 ## Como substituir ou adicionar fotos
 

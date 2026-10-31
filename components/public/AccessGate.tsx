@@ -51,7 +51,7 @@ export default function AccessGate({ initialNotice }: { initialNotice?: string }
         transition={{ duration: motionDurations.slow, ease: motionEasing.standard }}
       >
         <Image
-          src="/assets/monogram-gv.webp"
+          src="/assets/monogram-vg.webp"
           alt=""
           width={56}
           height={56}

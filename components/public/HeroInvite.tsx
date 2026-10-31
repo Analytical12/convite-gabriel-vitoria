@@ -9,7 +9,7 @@ export default function HeroInvite() {
       <Reveal>
         <div className={styles.paper}>
           <Image
-            src="/assets/monogram-gv.webp"
+            src="/assets/monogram-vg.webp"
             alt=""
             width={78}
             height={70}
