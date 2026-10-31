@@ -3,14 +3,6 @@ import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./GallerySection.module.css";
 
-const captions = ["O nosso sim", "Entre encontros", "O nosso lugar", "Um novo capítulo"];
-const alternativeTexts = [
-  "Detalhe da aliança de noivado de Vitória",
-  "Fotografia demonstrativa da galeria do casamento",
-  "Fotografia demonstrativa da galeria do casamento",
-  "Fotografia demonstrativa da galeria do casamento",
-];
-
 export default function GallerySection() {
   return (
     <section id="momentos" className={`section paper-texture ${styles.section}`}>
@@ -21,22 +13,23 @@ export default function GallerySection() {
           <p className={styles.placeholderNote}>Momentos que guardamos com carinho.</p>
         </Reveal>
 
+        {/* Figures are the grid items (Reveal sits inside) so the frame
+            rhythm — colors, arches, offsets — can be set with nth-child. */}
         <div className={styles.gallery}>
-          {PUBLIC_EXPERIENCE.images.gallery.map((src, index) => (
-            <Reveal key={`${src}-${index}`} delay={0.04 * index}>
-              <figure className={`${styles.figure} ${styles[`figure${index + 1}`]}`}>
-                <div className={`${styles.imageWrap} gallery-slot--${index + 1}`}>
+          {PUBLIC_EXPERIENCE.images.gallery.map((photo, index) => (
+            <figure key={photo.src} className={styles.figure}>
+              <Reveal delay={0.04 * (index % 5)}>
+                <div className={styles.imageWrap}>
                   <Image
-                    src={src}
-                    alt={alternativeTexts[index] ?? "Fotografia da galeria do casamento"}
+                    src={photo.src}
+                    alt={photo.alt}
                     fill
-                    sizes="(max-width: 700px) 46vw, 280px"
-                    className={`${styles.image} gallery-image-color`}
+                    sizes="(max-width: 760px) 46vw, 210px"
+                    className={styles.image}
                   />
                 </div>
-                <figcaption>{captions[index]}</figcaption>
-              </figure>
-            </Reveal>
+              </Reveal>
+            </figure>
           ))}
         </div>
       </div>

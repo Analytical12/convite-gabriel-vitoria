@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { signAccessCookie, accessCookieOptions } from "@/lib/auth/access-cookie";
+import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 
 /**
  * Link-embedded access, e.g. https://weddinggv.com/c/GV-FAMILIA sent
@@ -10,6 +11,13 @@ import { signAccessCookie, accessCookieOptions } from "@/lib/auth/access-cookie"
 export async function GET(request: NextRequest, { params }: { params: Promise<{ code: string }> }) {
   const { code } = await params;
   const url = request.nextUrl.clone();
+
+  if (!PUBLIC_EXPERIENCE.requireAccessCode) {
+    // links already sent with a code keep working while the invite is open
+    url.pathname = "/convite";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
 
   const supabase = createSupabaseAdminClient();
   const { data: household } = await supabase

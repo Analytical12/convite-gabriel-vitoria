@@ -10,6 +10,18 @@
   margin-top: 2rem;
 }
 
+.moreIdeas {
+  margin-top: 1.75rem;
+  font-size: .9rem;
+  color: var(--color-ink-soft);
+}
+
+.moreIdeas a {
+  color: var(--color-blue-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .grid {
   display: grid;
   gap: 1rem;

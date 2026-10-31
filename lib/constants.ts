@@ -21,22 +21,33 @@ export const WEDDING = {
  */
 export const PUBLIC_EXPERIENCE = {
   showLodging: false,
+  // Close to the wedding every guest is already confirmed, so the invitation
+  // is open to anyone with the link and the RSVP form is hidden. Flip both
+  // back to true to restore per-family codes and confirmation.
+  requireAccessCode: false,
+  showRsvp: false,
   images: {
     invitationCard: "/assets/real/convite-inicial.png",
-    hero: "/assets/placeholders-v21/photo-01-hero-casal-horizontal.webp",
-    portrait: "/assets/real/casal/mensagem-abraco.png",
+    hero: "/assets/fotos/ensaio-14.webp",
+    portrait: "/assets/fotos/ensaio-01.webp",
     // Keep this slot tied to the real venue artwork. If the asset is missing,
     // the component uses the branded fallback instead of a false venue image.
     venue: "/assets/real/bonjour-patisserie.png",
-    story: "/assets/real/casal/nossa-historia-por-do-sol.png",
+    story: "/assets/fotos/ensaio-13.webp",
     gallery: [
-      "/assets/real/casal/detalhe-alianca.png",
-      "/assets/placeholders-v21/photo-06-galeria-casal-horizontal.webp",
-      "/assets/placeholders-v21/photo-07-galeria-papelaria-quadrada.webp",
-      "/assets/placeholders-v21/photo-08-galeria-ambiente-horizontal.webp",
+      { src: "/assets/fotos/ensaio-05.webp", alt: "Gabriel e Vitória de mãos dadas diante de uma fachada coberta de hera" },
+      { src: "/assets/fotos/ensaio-06.webp", alt: "Mãos do casal entrelaçadas, com o anel de noivado em destaque" },
+      { src: "/assets/fotos/ensaio-04.webp", alt: "Gabriel e Vitória frente a frente, de mãos dadas, em uma sala com um quadro colorido" },
+      { src: "/assets/fotos/ensaio-09.webp", alt: "Mão de Vitória, com o anel de noivado, pousada na mão de Gabriel" },
+      { src: "/assets/fotos/ensaio-08.webp", alt: "Gabriel erguendo Vitória nos braços em uma calçada de pedra" },
+      { src: "/assets/fotos/ensaio-02.webp", alt: "Mãos do casal unidas sobre o vestido branco de Vitória" },
+      { src: "/assets/fotos/ensaio-03.webp", alt: "Gabriel e Vitória abraçados diante de uma parede de folhagens" },
+      { src: "/assets/fotos/ensaio-12.webp", alt: "Mãos do casal entrelaçadas junto a uma janela" },
+      { src: "/assets/fotos/ensaio-10.webp", alt: "Vitória sorrindo, com o rosto junto ao de Gabriel" },
+      { src: "/assets/fotos/ensaio-07.webp", alt: "Gabriel e Vitória de mãos dadas em um campo verde" },
     ],
-    rsvp: "/assets/placeholders-v21/photo-09-rsvp-casal-horizontal.webp",
-    closing: "/assets/placeholders-v21/photo-10-encerramento-horizontal.webp",
+    rsvp: "/assets/fotos/ensaio-07.webp",
+    closing: "/assets/fotos/ensaio-11.webp",
   },
 } as const;
 

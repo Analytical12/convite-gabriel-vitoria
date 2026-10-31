@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verifyAccessCookie } from "@/lib/auth/access-cookie";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import { ACCESS_COOKIE_NAME, WEDDING } from "@/lib/constants";
+import { ACCESS_COOKIE_NAME, PUBLIC_EXPERIENCE, WEDDING } from "@/lib/constants";
 import InvitationExperience from "@/components/public/InvitationExperience";
 import CloudReveal from "@/components/public/CloudReveal";
 import HeroInvite from "@/components/public/HeroInvite";
@@ -20,38 +20,27 @@ import LodgingSection from "@/components/public/LodgingSection";
 
 export const dynamic = "force-dynamic";
 
-export default async function ConvitePage() {
-  const cookieStore = await cookies();
-  const payload = await verifyAccessCookie(cookieStore.get(ACCESS_COOKIE_NAME)?.value);
+type SupabaseAdminClient = ReturnType<typeof createSupabaseAdminClient>;
 
-  if (!payload) {
-    redirect("/?erro=acesso");
-  }
-
-  const supabase = createSupabaseAdminClient();
-
-  const [householdResult, guestsResult, rsvpResult, giftsResult] = await Promise.all([
-    supabase.from("households").select("id, display_name").eq("id", payload.householdId).single(),
+/** Household data for the RSVP form, or null when the household is gone. */
+async function loadRsvp(supabase: SupabaseAdminClient, householdId: string) {
+  const [householdResult, guestsResult, rsvpResult] = await Promise.all([
+    supabase.from("households").select("id, display_name").eq("id", householdId).single(),
     supabase
       .from("guests")
       .select("id, full_name, age_group")
-      .eq("household_id", payload.householdId)
+      .eq("household_id", householdId)
       .eq("is_invited", true)
       .order("sort_order", { ascending: true }),
     supabase
       .from("rsvp_submissions")
       .select("status, dietary_restrictions, message")
-      .eq("household_id", payload.householdId)
+      .eq("household_id", householdId)
       .maybeSingle(),
-    supabase
-      .from("gifts")
-      .select("id, title, description, suggested_amount_cents, allow_custom_amount, gift_type")
-      .eq("is_active", true)
-      .order("sort_order", { ascending: true }),
   ]);
 
   if (!householdResult.data) {
-    redirect("/?erro=acesso");
+    return null;
   }
 
   const guests: RSVPGuest[] = (guestsResult.data ?? []).map((guest) => ({
@@ -68,6 +57,39 @@ export default async function ConvitePage() {
       }
     : null;
 
+  return {
+    householdName: householdResult.data.display_name,
+    guests,
+    existingSubmission,
+    // Runs per request (the page is forced dynamic), so a fresh Date.now()
+    // here is exactly what we want.
+    deadlinePassed: Date.now() > new Date(WEDDING.rsvpDeadlineISO).getTime(),
+  };
+}
+
+export default async function ConvitePage() {
+  const cookieStore = await cookies();
+  const payload = await verifyAccessCookie(cookieStore.get(ACCESS_COOKIE_NAME)?.value);
+
+  if (PUBLIC_EXPERIENCE.requireAccessCode && !payload) {
+    redirect("/?erro=acesso");
+  }
+
+  const supabase = createSupabaseAdminClient();
+
+  const [giftsResult, rsvp] = await Promise.all([
+    supabase
+      .from("gifts")
+      .select("id, title, description, suggested_amount_cents, allow_custom_amount, gift_type")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true }),
+    PUBLIC_EXPERIENCE.showRsvp && payload ? loadRsvp(supabase, payload.householdId) : null,
+  ]);
+
+  if (PUBLIC_EXPERIENCE.requireAccessCode && PUBLIC_EXPERIENCE.showRsvp && !rsvp) {
+    redirect("/?erro=acesso");
+  }
+
   const gifts: Gift[] = (giftsResult.data ?? []).map((gift) => ({
     id: gift.id,
     title: gift.title,
@@ -76,12 +98,6 @@ export default async function ConvitePage() {
     allowCustomAmount: gift.allow_custom_amount,
     giftType: gift.gift_type === "free" ? "free" : "suggested",
   }));
-
-  // This route is already forced dynamic (cookies() above) and re-runs per
-  // request, so a fresh Date.now() here is exactly what we want, not a
-  // memoization hazard.
-  // eslint-disable-next-line react-hooks/purity
-  const deadlinePassed = Date.now() > new Date(WEDDING.rsvpDeadlineISO).getTime();
 
   return (
     <InvitationExperience>
@@ -95,12 +111,7 @@ export default async function ConvitePage() {
       <LodgingSection />
       <GiftsSection gifts={gifts} />
       <GallerySection />
-      <RSVPForm
-        householdName={householdResult.data.display_name}
-        guests={guests}
-        existingSubmission={existingSubmission}
-        deadlinePassed={deadlinePassed}
-      />
+      {rsvp && <RSVPForm {...rsvp} />}
       <PrivateMessageSection />
       <Footer />
     </InvitationExperience>

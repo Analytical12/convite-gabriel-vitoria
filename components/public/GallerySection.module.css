@@ -36,59 +36,54 @@
   box-shadow: 0 16px 40px rgba(58, 52, 46, .13);
 }
 
-.figure2 .imageWrap {
+.image {
+  object-fit: cover;
+  filter: saturate(.8) contrast(.96);
+}
+
+/* Frame colors cycle every 4 photos; shapes every 5 (one desktop row). */
+.figure:nth-child(4n + 2) .imageWrap {
   border-color: var(--color-pink);
 }
 
-.figure3 .imageWrap {
+.figure:nth-child(4n + 3) .imageWrap {
   border-color: var(--color-apricot);
 }
 
-.figure4 .imageWrap {
+.figure:nth-child(4n + 4) .imageWrap {
   border-color: var(--color-green-light);
 }
 
-.image {
-  object-fit: cover;
-  filter: saturate(.72) contrast(.96);
-}
-
-.figure figcaption {
-  margin-top: .55rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--color-ink-soft);
-}
-
-.figure2,
-.figure4 {
-  margin-top: 3rem;
-}
-
-.figure1 .imageWrap {
+.figure:nth-child(5n + 1) .imageWrap {
   border-radius: 50% 50% 0 0;
 }
 
-.figure3 .imageWrap {
+.figure:nth-child(5n + 3) .imageWrap {
   border-radius: 48%;
 }
 
-.figure4 .image {
-  object-position: 65% center;
+/* Mobile: two columns, right column dropped for a staggered rhythm. */
+.figure:nth-child(even) {
+  margin-top: 3rem;
 }
 
 @media (min-width: 760px) {
   .gallery {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+    max-width: 1040px;
   }
 
-  .figure2,
-  .figure4 {
-    margin-top: 5rem;
+  .figure:nth-child(even) {
+    margin-top: 0;
   }
 
-  .figure3 {
+  .figure:nth-child(5n + 2),
+  .figure:nth-child(5n + 4) {
+    margin-top: 4rem;
+  }
+
+  .figure:nth-child(5n + 3) {
     margin-top: 1.5rem;
   }
 }

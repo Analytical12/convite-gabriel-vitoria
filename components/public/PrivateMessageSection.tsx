@@ -34,7 +34,7 @@ export default function PrivateMessageSection() {
   }
 
   return (
-    <section className={`section container section--centered paper-texture ${styles.section}`}>
+    <section id="recado" className={`section container section--centered paper-texture ${styles.section}`}>
       <Reveal>
         <p className="eyebrow">Recado</p>
         <h2>Deixe um recado</h2>

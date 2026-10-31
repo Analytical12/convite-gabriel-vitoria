@@ -2,12 +2,20 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { verifyAccessCookie } from "@/lib/auth/access-cookie";
 import { isAllowedAdminEmail } from "@/lib/auth/admin-auth";
-import { ACCESS_COOKIE_NAME, ADMIN_ROUTE_PREFIX, PUBLIC_GATED_PREFIXES } from "@/lib/constants";
+import {
+  ACCESS_COOKIE_NAME,
+  ADMIN_ROUTE_PREFIX,
+  PUBLIC_EXPERIENCE,
+  PUBLIC_GATED_PREFIXES,
+} from "@/lib/constants";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (PUBLIC_GATED_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+  if (
+    PUBLIC_EXPERIENCE.requireAccessCode &&
+    PUBLIC_GATED_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+  ) {
     return handleGatedRoute(request);
   }
 

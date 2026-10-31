@@ -10,9 +10,9 @@ export default function Footer() {
       <div className="closing-photo-frame">
         <Image
           src={PUBLIC_EXPERIENCE.images.closing}
-          alt="Fotografia demonstrativa de encerramento"
+          alt="Gabriel e Vitória caminhando de mãos dadas por um campo verde"
           fill
-          sizes="(max-width: 760px) 100vw, 960px"
+          sizes="(max-width: 760px) 100vw, 460px"
           className="closing-photo"
         />
       </div>

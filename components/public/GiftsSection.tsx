@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { giftsCopy } from "@/lib/copy";
-import { MIN_GIFT_AMOUNT_CENTS } from "@/lib/constants";
+import { MIN_GIFT_AMOUNT_CENTS, WEDDING } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./GiftsSection.module.css";
 
@@ -86,6 +86,13 @@ export default function GiftsSection({ gifts }: { gifts: Gift[] }) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <p className={styles.moreIdeas}>
+          {giftsCopy.moreIdeasLead}{" "}
+          <a href={WEDDING.whatsappHref} target="_blank" rel="noreferrer">
+            {giftsCopy.moreIdeasLink}
+          </a>
+        </p>
       </div>
     </section>
   );

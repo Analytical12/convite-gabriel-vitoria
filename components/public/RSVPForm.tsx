@@ -71,7 +71,7 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
       <div className="container section--centered">
       <Reveal>
         <div className={styles.photoHeader}>
-          <Image src={PUBLIC_EXPERIENCE.images.rsvp} alt="Fotografia demonstrativa do casal" fill sizes="(max-width: 700px) 88vw, 620px" className={styles.photo} />
+          <Image src={PUBLIC_EXPERIENCE.images.rsvp} alt="Gabriel e Vitória de mãos dadas em um campo verde" fill sizes="(max-width: 700px) 88vw, 620px" className={styles.photo} />
         </div>
         <p className="eyebrow">{rsvpCopy.eyebrow}</p>
         <h2>{rsvpCopy.title}</h2>
