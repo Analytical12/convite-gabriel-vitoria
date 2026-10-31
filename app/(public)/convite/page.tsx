@@ -61,9 +61,6 @@ async function loadRsvp(supabase: SupabaseAdminClient, householdId: string) {
     householdName: householdResult.data.display_name,
     guests,
     existingSubmission,
-    // Runs per request (the page is forced dynamic), so a fresh Date.now()
-    // here is exactly what we want.
-    deadlinePassed: Date.now() > new Date(WEDDING.rsvpDeadlineISO).getTime(),
   };
 }
 
@@ -90,6 +87,11 @@ export default async function ConvitePage() {
     redirect("/?erro=acesso");
   }
 
+  // Runs per request (the page is forced dynamic), so a fresh Date.now()
+  // here is exactly what we want.
+  // eslint-disable-next-line react-hooks/purity
+  const deadlinePassed = Date.now() > new Date(WEDDING.rsvpDeadlineISO).getTime();
+
   const gifts: Gift[] = (giftsResult.data ?? []).map((gift) => ({
     id: gift.id,
     title: gift.title,
@@ -112,7 +114,12 @@ export default async function ConvitePage() {
       <LodgingSection />
       <GiftsSection gifts={gifts} />
       <GallerySection />
-      {rsvp && <RSVPForm {...rsvp} />}
+      {PUBLIC_EXPERIENCE.showRsvp && (
+        <RSVPForm
+          {...(rsvp ?? { householdName: null, guests: [], existingSubmission: null })}
+          deadlinePassed={deadlinePassed}
+        />
+      )}
       <PrivateMessageSection />
       <Footer />
     </InvitationExperience>
