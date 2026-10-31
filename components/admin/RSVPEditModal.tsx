@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AGE_GROUP_LABELS, RSVP_STATUS_LABELS } from "@/lib/constants";
+import { RSVP_STATUS_LABELS } from "@/lib/constants";
 import { deriveRsvpStatus, rsvpStatusValues, type RsvpStatus } from "@/lib/validators/rsvp";
 import type { RsvpRow } from "./RSVPTable";
 
@@ -129,7 +129,6 @@ export default function RSVPEditModal({ row, onClose, onSaved }: Props) {
                   onChange={(event) => toggleGuest(guest.id, event.target.checked)}
                 />
                 <span>{guest.fullName}</span>
-                <span className="admin-guest-age">{AGE_GROUP_LABELS[guest.ageGroup] ?? guest.ageGroup}</span>
               </label>
             </li>
           ))}

@@ -28,7 +28,7 @@ async function loadRsvp(supabase: SupabaseAdminClient, householdId: string) {
     supabase.from("households").select("id, display_name").eq("id", householdId).single(),
     supabase
       .from("guests")
-      .select("id, full_name, age_group")
+      .select("id, full_name")
       .eq("household_id", householdId)
       .eq("is_invited", true)
       .order("sort_order", { ascending: true }),
@@ -46,7 +46,6 @@ async function loadRsvp(supabase: SupabaseAdminClient, householdId: string) {
   const guests: RSVPGuest[] = (guestsResult.data ?? []).map((guest) => ({
     id: guest.id,
     fullName: guest.full_name,
-    ageGroup: guest.age_group,
   }));
 
   const existingSubmission: ExistingRsvp | null = rsvpResult.data

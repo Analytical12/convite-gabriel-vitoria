@@ -3,14 +3,13 @@
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import { rsvpCopy } from "@/lib/copy";
-import { AGE_GROUP_LABELS, PUBLIC_EXPERIENCE, RSVP_STATUS_LABELS, WEDDING } from "@/lib/constants";
+import { PUBLIC_EXPERIENCE, RSVP_STATUS_LABELS, WEDDING } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./RSVPForm.module.css";
 
 export type RSVPGuest = {
   id: string;
   fullName: string;
-  ageGroup: string;
 };
 
 export type ExistingRsvp = {
@@ -139,7 +138,6 @@ export default function RSVPForm({ householdName, guests, existingSubmission, de
                         }
                       />
                       <span>{guest.fullName}</span>
-                      <span className={styles.ageGroup}>{AGE_GROUP_LABELS[guest.ageGroup] ?? ""}</span>
                     </label>
                   </li>
                 ))}

@@ -78,12 +78,6 @@
   accent-color: var(--color-botanical-deep);
 }
 
-.ageGroup {
-  margin-left: auto;
-  font-size: .65rem;
-  color: var(--color-ink-faint);
-}
-
 .confirmed {
   text-align: center;
   padding: 2rem .5rem;
