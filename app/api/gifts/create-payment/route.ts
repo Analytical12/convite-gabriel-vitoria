@@ -45,6 +45,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
+  // no household to attribute the gift to, so the giver must name themselves
+  if (!payload && !parsed.data.giverName) {
+    return NextResponse.json({ error: "giver_name_required" }, { status: 400 });
+  }
+
   if (!isMercadoPagoConfigured()) {
     return NextResponse.json({ error: "config_missing" }, { status: 503 });
   }

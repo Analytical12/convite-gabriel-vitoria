@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { giftsCopy } from "@/lib/copy";
-import { MIN_GIFT_AMOUNT_CENTS, WEDDING } from "@/lib/constants";
+import { MIN_GIFT_AMOUNT_CENTS, PUBLIC_EXPERIENCE, WEDDING } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./GiftsSection.module.css";
 
@@ -15,6 +15,10 @@ export type Gift = {
   allowCustomAmount: boolean;
   giftType: "suggested" | "free";
 };
+
+// Without per-family codes the typed name is the only way the couple knows
+// who sent a gift, so it stops being optional.
+const giverNameRequired = !PUBLIC_EXPERIENCE.requireAccessCode;
 
 function formatCents(cents: number): string {
   return (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -154,6 +158,12 @@ function GiftCard({
       return;
     }
 
+    if (giverNameRequired && !giverName.trim()) {
+      setStatus("error");
+      setErrorMessage(giftsCopy.errorNameMissing);
+      return;
+    }
+
     try {
       const response = await fetch("/api/gifts/create-payment", {
         method: "POST",
@@ -237,10 +247,14 @@ function GiftCard({
           </div>
 
           <div className="field">
-            <label htmlFor={`giver-${gift.id}`}>{giftsCopy.giverNameLabel}</label>
+            <label htmlFor={`giver-${gift.id}`}>
+              {giverNameRequired ? giftsCopy.giverNameRequiredLabel : giftsCopy.giverNameLabel}
+            </label>
             <input
               id={`giver-${gift.id}`}
               type="text"
+              required={giverNameRequired}
+              autoComplete="name"
               value={giverName}
               onChange={(event) => setGiverName(event.target.value)}
             />

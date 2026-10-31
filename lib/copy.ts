@@ -181,6 +181,8 @@ export const giftsCopy = {
   customAmountLabel: "Outro valor",
   freeAmountLabel: "Digite o valor da contribuição",
   giverNameLabel: "Seu nome (opcional)",
+  giverNameRequiredLabel: "Seu nome",
+  errorNameMissing: "Escreva seu nome para sabermos de quem é o presente.",
   messageLabel: "Mensagem (opcional)",
   submitLabel: "Contribuir",
   submitLoadingLabel: "Preparando pagamento...",

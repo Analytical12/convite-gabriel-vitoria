@@ -20,6 +20,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
+  // no household to attribute the message to, so the author must name themselves
+  if (!payload && !parsed.data.authorName) {
+    return NextResponse.json({ error: "author_name_required" }, { status: 400 });
+  }
+
   const supabase = createSupabaseAdminClient();
   const { error } = await supabase.from("private_messages").insert({
     household_id: payload?.householdId ?? null,
