@@ -17,10 +17,22 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const title = "Gabriel & Vitória | 06 de dezembro de 2026";
+const description =
+  "Convite digital do casamento de Gabriel e Vitória — 06 de dezembro de 2026, Bonjour Pâtisserie, Chapecó - SC.";
+
 export const metadata: Metadata = {
-  title: "Gabriel & Vitória | 06 de dezembro de 2026",
-  description:
-    "Convite digital do casamento de Gabriel e Vitória — 06 de dezembro de 2026, Bonjour Pâtisserie, Chapecó - SC.",
+  // absolute base for the link preview image (app/opengraph-image.jpg) that
+  // WhatsApp shows when the invitation link is shared
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.weddinggv.com"),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    locale: "pt_BR",
+  },
   robots: {
     index: false,
     follow: false,

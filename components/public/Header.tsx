@@ -5,8 +5,16 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { headerCopy, heroCopy } from "@/lib/copy";
 import { motionDurations, motionEasing } from "@/lib/design-tokens";
+import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import MonogramImage from "./MonogramImage";
 import styles from "./Header.module.css";
+
+const links = headerCopy.links.filter(
+  (link) => PUBLIC_EXPERIENCE.showRsvp || link.href !== "#rsvp"
+);
+const cta = PUBLIC_EXPERIENCE.showRsvp
+  ? { href: "#rsvp", label: headerCopy.cta }
+  : { href: "#recado", label: headerCopy.messageCta };
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -32,7 +40,7 @@ export default function Header() {
 
         <nav aria-label="Navegação principal" className={styles.nav}>
           <ul className={styles.nav}>
-            {headerCopy.links.map((link) => (
+            {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href}>{link.label}</a>
               </li>
@@ -40,8 +48,8 @@ export default function Header() {
           </ul>
         </nav>
 
-        <a href="#rsvp" className={`btn btn--outline ${styles.cta}`}>
-          {headerCopy.cta}
+        <a href={cta.href} className={`btn btn--outline ${styles.cta}`}>
+          {cta.label}
         </a>
 
         <button
@@ -89,7 +97,7 @@ export default function Header() {
                   </button>
                 </div>
                 <ul className={styles.mobileNav}>
-                  {headerCopy.links.map((link) => (
+                  {links.map((link) => (
                     <li key={link.href}>
                       <a href={link.href} onClick={() => setMenuOpen(false)}>
                         {link.label}
@@ -98,11 +106,11 @@ export default function Header() {
                   ))}
                 </ul>
                 <a
-                  href="#rsvp"
+                  href={cta.href}
                   className={`btn btn--primary ${styles.mobileCta}`}
                   onClick={() => setMenuOpen(false)}
                 >
-                  {headerCopy.cta}
+                  {cta.label}
                 </a>
               </motion.div>
             )}

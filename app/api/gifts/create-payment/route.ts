@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyAccessCookie } from "@/lib/auth/access-cookie";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import { ACCESS_COOKIE_NAME } from "@/lib/constants";
+import { ACCESS_COOKIE_NAME, PUBLIC_EXPERIENCE } from "@/lib/constants";
 import { createGiftPaymentSchema } from "@/lib/validators/gift";
 import { createGiftPreference, isMercadoPagoConfigured } from "@/lib/payments/mercadopago";
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const cookieStore = await cookies();
   const payload = await verifyAccessCookie(cookieStore.get(ACCESS_COOKIE_NAME)?.value);
 
-  if (!payload) {
+  if (PUBLIC_EXPERIENCE.requireAccessCode && !payload) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
@@ -43,6 +43,11 @@ export async function POST(request: Request) {
 
   if (!parsed.success) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
+  }
+
+  // no household to attribute the gift to, so the giver must name themselves
+  if (!payload && !parsed.data.giverName) {
+    return NextResponse.json({ error: "giver_name_required" }, { status: 400 });
   }
 
   if (!isMercadoPagoConfigured()) {
@@ -71,7 +76,7 @@ export async function POST(request: Request) {
     .from("gift_contributions")
     .insert({
       gift_id: gift.id,
-      household_id: payload.householdId,
+      household_id: payload?.householdId ?? null,
       giver_name: parsed.data.giverName || null,
       message: parsed.data.message || null,
       amount_cents: parsed.data.amountCents,

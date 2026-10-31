@@ -1,17 +1,26 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { PUBLIC_EXPERIENCE } from "@/lib/constants";
 import Reveal from "./Reveal";
 import styles from "./PrivateMessageSection.module.css";
+
+// Without per-family codes the typed name is the only way the couple knows
+// who wrote, so it stops being optional.
+const authorNameRequired = !PUBLIC_EXPERIENCE.requireAccessCode;
 
 export default function PrivateMessageSection() {
   const [authorName, setAuthorName] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "name_missing">("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!message.trim()) return;
+    if (authorNameRequired && !authorName.trim()) {
+      setStatus("name_missing");
+      return;
+    }
 
     setStatus("loading");
     try {
@@ -34,7 +43,7 @@ export default function PrivateMessageSection() {
   }
 
   return (
-    <section className={`section container section--centered paper-texture ${styles.section}`}>
+    <section id="recado" className={`section container section--centered paper-texture ${styles.section}`}>
       <Reveal>
         <p className="eyebrow">Recado</p>
         <h2>Deixe um recado</h2>
@@ -50,10 +59,12 @@ export default function PrivateMessageSection() {
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <div className="field">
-                <label htmlFor="message-author">Seu nome (opcional)</label>
+                <label htmlFor="message-author">{authorNameRequired ? "Seu nome" : "Seu nome (opcional)"}</label>
                 <input
                   id="message-author"
                   type="text"
+                  required={authorNameRequired}
+                  autoComplete="name"
                   value={authorName}
                   onChange={(event) => setAuthorName(event.target.value)}
                 />
@@ -68,6 +79,11 @@ export default function PrivateMessageSection() {
                   onChange={(event) => setMessage(event.target.value)}
                 />
               </div>
+              {status === "name_missing" && (
+                <p className="error-text" role="alert">
+                  Escreva seu nome para sabermos de quem é o recado.
+                </p>
+              )}
               {status === "error" && (
                 <p className="error-text" role="alert">
                   Não foi possível enviar agora. Tente novamente em instantes.

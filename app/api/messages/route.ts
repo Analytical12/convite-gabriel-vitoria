@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyAccessCookie } from "@/lib/auth/access-cookie";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import { ACCESS_COOKIE_NAME } from "@/lib/constants";
+import { ACCESS_COOKIE_NAME, PUBLIC_EXPERIENCE } from "@/lib/constants";
 import { createMessageSchema } from "@/lib/validators/message";
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
   const payload = await verifyAccessCookie(cookieStore.get(ACCESS_COOKIE_NAME)?.value);
 
-  if (!payload) {
+  if (PUBLIC_EXPERIENCE.requireAccessCode && !payload) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
@@ -20,9 +20,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
+  // no household to attribute the message to, so the author must name themselves
+  if (!payload && !parsed.data.authorName) {
+    return NextResponse.json({ error: "author_name_required" }, { status: 400 });
+  }
+
   const supabase = createSupabaseAdminClient();
   const { error } = await supabase.from("private_messages").insert({
-    household_id: payload.householdId,
+    household_id: payload?.householdId ?? null,
     author_name: parsed.data.authorName || null,
     message: parsed.data.message,
   });

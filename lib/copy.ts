@@ -181,12 +181,16 @@ export const giftsCopy = {
   customAmountLabel: "Outro valor",
   freeAmountLabel: "Digite o valor da contribuição",
   giverNameLabel: "Seu nome (opcional)",
+  giverNameRequiredLabel: "Seu nome",
+  errorNameMissing: "Escreva seu nome para sabermos de quem é o presente.",
   messageLabel: "Mensagem (opcional)",
   submitLabel: "Contribuir",
   submitLoadingLabel: "Preparando pagamento...",
   errorGeneric: "Não foi possível iniciar o pagamento agora. Tente novamente em instantes.",
   configMissing:
     "O pagamento online ainda não está configurado. Entre em contato pelo WhatsApp para combinar outra forma.",
+  moreIdeasLead: "Pensou em outro presente ou quer mais ideias?",
+  moreIdeasLink: "Fale com a gente pelo WhatsApp",
 } as const;
 
 export const footerCopy = {
@@ -204,8 +208,10 @@ export const headerCopy = {
     { href: "#programacao", label: "Programação" },
     { href: "#rsvp", label: "RSVP" },
     { href: "#presentes", label: "Presentes" },
+    { href: "#momentos", label: "Fotos" },
   ],
   cta: "Confirmar presença",
+  messageCta: "Deixar um recado",
 } as const;
 
 export const adminCopy = {
