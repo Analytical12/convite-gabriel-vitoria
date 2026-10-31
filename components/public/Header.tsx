@@ -29,7 +29,7 @@ export default function Header() {
       >
         <a href="#topo" className={styles.brand} aria-label="Voltar ao início">
           <MonogramImage
-            src="/assets/monogram-gv.webp"
+            src="/assets/monogram-vg.webp"
             alt=""
             width={40}
             height={36}

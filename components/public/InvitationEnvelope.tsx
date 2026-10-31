@@ -65,7 +65,7 @@ export default function InvitationEnvelope({ revealed, onFlapOpened, onContinue 
                 />
                 <span className={styles.seal}>
                   <Image
-                    src="/assets/monogram-gv-seal.webp"
+                    src="/assets/monogram-vg-seal.webp"
                     alt=""
                     width={38}
                     height={38}

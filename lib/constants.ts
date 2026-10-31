@@ -28,7 +28,7 @@ export const PUBLIC_EXPERIENCE = {
   requireAccessCode: false,
   showRsvp: true,
   images: {
-    invitationCard: "/assets/real/convite-inicial.png",
+    invitationCard: "/assets/real/convite-inicial-2026-11.png",
     hero: "/assets/fotos/ensaio-14.webp",
     portrait: "/assets/fotos/ensaio-01.webp",
     // Keep this slot tied to the real venue artwork. If the asset is missing,

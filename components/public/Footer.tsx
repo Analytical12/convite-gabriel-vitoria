@@ -17,7 +17,7 @@ export default function Footer() {
         />
       </div>
       <MonogramImage
-        src="/assets/monogram-gv.webp"
+        src="/assets/monogram-vg.webp"
         alt=""
         width={96}
         height={88}
